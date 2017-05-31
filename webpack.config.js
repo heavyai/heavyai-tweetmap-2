@@ -8,7 +8,12 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    app: [
+      "babel-polyfill",
+      "./src/index"
+    ]
+  },
   output: {
     path: path.resolve('dist'),
     filename: 'index_bundle.js'
@@ -20,7 +25,8 @@ module.exports = {
         loader: "babel-loader",
         include: [
           path.resolve(__dirname, "src"),
-          path.resolve(__dirname, "node_modules/@mapd/mapdc")
+          path.resolve(__dirname, "node_modules/@mapd/mapdc"),
+          path.resolve(__dirname, "node_modules/@mapd/connector")
         ]
       },
       {
@@ -32,5 +38,6 @@ module.exports = {
      }
     ]
   },
+  devtool: '#eval-source-map',
   plugins: [HtmlWebpackPluginConfig]
 }
