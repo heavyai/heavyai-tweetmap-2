@@ -37,7 +37,11 @@ module.exports = {
          { loader: "css-loader" },
          { loader: "sass-loader" }
        ]
-     }
+     },
+     {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      }
     ]
   },
   devtool: '#eval-source-map',
