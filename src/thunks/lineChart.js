@@ -1,6 +1,5 @@
 import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
-import { getConnection } from '../services/connector';
 const _ = require('lodash');
 
 /*
@@ -10,7 +9,6 @@ export function createLineChart() {
   return () => {
 
     const crossfilter = getCf();
-    const connection = getConnection();
 
     const parent = document.getElementById("mapChart");
     function getChartSize() {
@@ -19,8 +17,6 @@ export function createLineChart() {
       const h = 120;
       return [w, h];
     }
-
-    const [w, h] = getChartSize();
 
     const timeChartMeasures = [
       {
@@ -44,6 +40,7 @@ export function createLineChart() {
           .group()
           .reduceCount('*')
 
+        const [w, h] = getChartSize();
         const lineChart = dc.lineChart('.lineChart')
           .width(w)
           .height(h)
@@ -68,6 +65,16 @@ export function createLineChart() {
           .orient('top');
 
         dc.renderAllAsync()
+
+        window.addEventListener("resize", _.debounce(resizeAll, 500));
+
+        function resizeAll(){
+          const [w, h] = getChartSize();
+          lineChart
+            .width(w)
+            .height(h)
+          dc.redrawAllAsync();
+        }
       });
   }
 }

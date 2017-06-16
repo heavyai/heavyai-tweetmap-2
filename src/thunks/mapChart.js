@@ -27,7 +27,7 @@ export function createMapChart() {
     let langDomain = ['en', 'pt', 'es', 'in', 'und', 'ja', 'tr', 'fr', 'tl', 'ru', 'ar'];
     const langColors = ["#27aeef", "#ea5545", "#87bc45", "#b33dc6", "#f46a9b", "#ede15b", "#bdcf32", "#ef9b20", "#4db6ac", "#edbf33", "#7c4dff"]
 
-    const pointMapDim = crossfilter.dimension(null).projectOn(["conv_4326_900913_x(lon) as x", "conv_4326_900913_y(lat) as y", "lang as color", "0 as size"]);
+    const pointMapDim = crossfilter.dimension(null).projectOn(["conv_4326_900913_x(lon) as x", "conv_4326_900913_y(lat) as y", "lang as color", "3 as size"]);
     const xDim = crossfilter.dimension("lon");
     const yDim = crossfilter.dimension("lat");
 
