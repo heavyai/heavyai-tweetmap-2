@@ -12,17 +12,19 @@
     "@mapd/crossfilter": "ssh://git@github.com/mapd/mapd-crossfilter.git#master",
     "@mapd/mapdc": "ssh://git@github.com/mapd/mapd-charting.git#master",
     "babel-polyfill": "^6.23.0",
-    "flexbox": "0.0.3",
+    "bootstrap": "^4.0.0-alpha.6",
     "html-webpack-plugin": "^2.28.0",
     "lodash": "^4.17.4",
     "mapbox-gl": "https://github.com/mapd/mapbox-gl-js/tarball/9c04de6949fe498c8c79f5c0627dfd6d6321f307",
     "path": "^0.12.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-octicon": "^2.0.0",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",
     "redux-devtools": "^3.4.0",
     "redux-thunk": "^2.2.0",
+    "tether": "^1.4.0",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
@@ -34,8 +36,10 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.4",
     "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
     "sass-loader": "^6.0.5",
     "script-loader": "^0.7.0",
-    "style-loader": "^0.18.1"
+    "style-loader": "^0.18.1",
+    "url-loader": "^0.5.9"
   }
 }

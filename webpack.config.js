@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -6,6 +7,8 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   filename: 'index.html',
   inject: 'body'
 })
+
+const autoprefixerBrowsers = require('bootstrap/grunt/postcss').autoprefixer.browsers;
 
 module.exports = {
   entry: {
@@ -31,19 +34,31 @@ module.exports = {
         ]
       },
       {
-       test: /\.scss$/,
-       use: [
-         { loader: "style-loader" },
-         { loader: "css-loader" },
-         { loader: "sass-loader" }
-       ]
-     },
-     {
+        test: /\.(scss|sass)$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "sass-loader" }
+        ]
+      },
+      {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(otf|eot|svg|ttf|woff|woff2).*$/,
+        loader: 'url-loader?limit=8192'
       }
     ]
   },
   devtool: '#eval-source-map',
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [
+    new webpack.ProvidePlugin({
+      'jQuery': 'jquery',
+      'window.jQuery': 'jquery',
+      'Tether': 'tether',
+      'window.Tether': 'tether'
+    }),
+    HtmlWebpackPluginConfig
+  ]
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { filterSearch } from '../thunks/searchBar'
+import Octicon from 'react-octicon'
 
 class SearchBar extends React.Component {
   static propTypes = {
@@ -31,8 +32,20 @@ class SearchBar extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="Search Tweets" value={this.state.value} onChange={this.handleChange} />
-          <input type="submit" value="Submit" />
+
+          <div className="input-group">
+            <span className="input-group-addon" id="basic-addon1">
+              <Octicon name="search"/>
+            </span>
+
+            <input type="text"
+              className="form-control"
+              placeholder="Search Tweets"
+              aria-describedby="basic-addon1"
+              value={this.state.value}
+              onChange={this.handleChange}/>
+          </div>
+
       </form>
     );
   }
