@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { createMapChart } from '../thunks/mapChart'
+import { createLineChart } from '../thunks/lineChart'
 
-class MapChart extends React.Component {
+class LineChart extends React.Component {
   static propTypes = {
     isConnected: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
@@ -12,12 +12,12 @@ class MapChart extends React.Component {
   componentDidUpdate() {
     /* must wait until connection and crossfilter are set */
     if (this.props.isConnected) {
-      this.props.dispatch(createMapChart())
+      this.props.dispatch(createLineChart())
     }
   }
 
   render() {
-    return <div id="mapChart"></div>;
+    return <div id="lineChart" className="lineChart"></div>;
   }
 }
 
@@ -26,4 +26,4 @@ const mapStateToProps = state => {
   return {isConnected}
 }
 
-export default connect(mapStateToProps)(MapChart)
+export default connect(mapStateToProps)(LineChart)

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { mapdConnect } from '../thunks'
+import { mapdConnect } from '../thunks/mapdConnect'
 import MapChart from './MapChart.js';
+import LineChart from './LineChart.js';
 
 class App extends React.Component {
   static propTypes = {
@@ -21,6 +22,7 @@ class App extends React.Component {
         <main>
           <map>
             <MapChart/>
+            <LineChart></LineChart>
             <legend>legend</legend>
           </map>
         </main>

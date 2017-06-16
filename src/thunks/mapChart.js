@@ -1,26 +1,7 @@
 import * as dc from '@mapd/mapdc';
-import { createCf, getCf } from '../services/crossfilter';
-import { connect, getConnection } from '../services/connector';
-
-import {
-  mapdConnectRequest,
-  mapdConnectSuccess,
-  mapdConnectFailure
-} from '../actions';
-
-export function mapdConnect() {
-  return (dispatch) => {
-    dispatch(mapdConnectRequest());
-
-    connect().then(con => {
-      return createCf(con);
-    }).then((cf, con) => {
-      dispatch(mapdConnectSuccess())
-    }, err => {
-      dispatch(mapdConnectFailure(err))
-    })
-  }
-}
+import { getCf } from '../services/crossfilter';
+import { getConnection } from '../services/connector';
+const _ = require('lodash');
 
 /*
   BACKEND RENDERED POINT MAP
@@ -34,7 +15,6 @@ export function createMapChart() {
     const connection = getConnection();
 
     const parent = document.getElementById("mapChart");
-
     function getChartSize() {
       /* set width, height to match parent */
       const w = parent.parentElement.clientWidth;
