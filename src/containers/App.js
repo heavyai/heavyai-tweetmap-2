@@ -5,6 +5,7 @@ import { mapdConnect } from '../thunks/mapdConnect'
 import SearchBar from './SearchBar.js';
 import MapChart from './MapChart.js'
 import LineChart from './LineChart.js'
+import Legend from './Legend.js'
 
 class App extends React.Component {
   static propTypes = {
@@ -25,7 +26,7 @@ class App extends React.Component {
             <SearchBar/>
             <MapChart/>
             <LineChart/>
-            <legend>legend</legend>
+            <Legend/>
           </map>
         </main>
 

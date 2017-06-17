@@ -1,8 +1,3 @@
-// // Tether (required for Bootstrap 4.x)
-// import 'tether';
-// // import 'tether/src/css/tether-theme-basic.sass'; // optional
-//
-// // Bootstrap 4.x
 import './bootstrap/bootstrap';
 import './bootstrap/bootstrap.scss';
 

@@ -45,7 +45,6 @@ export function createLineChart() {
           .width(w)
           .height(h)
           .elasticY(true)
-          .renderHorizontalGridLines(true)
           .brushOn(true)
           .dimension(timeChartDimension)
           .group(timeChartGroup)
@@ -60,8 +59,6 @@ export function createLineChart() {
 
         lineChart
           .xAxis()
-          .scale(lineChart.x())
-          .tickFormat(dc.utils.customTimeFormat)
           .orient('top');
 
         dc.renderAllAsync()

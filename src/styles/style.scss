@@ -30,7 +30,7 @@ dash {
 
   main {
     position: relative;
-    flex-grow: 8;
+    flex-grow: 9;
     height: 100%;
   }
 
@@ -80,9 +80,46 @@ map {
     width: 100%;
   }
 
-  legend {
+  ul {
+    list-style-type: none;
     width: 100%;
     min-height: $legend-height;
     background-color: white;
+    margin: 0px;
+    padding: 0px;
+
+    li {
+      min-height: $legend-height;
+      float: left;
+    }
+
+    li :hover {
+      background-color: #d3d3d3;
+    }
+  }
+}
+
+.legendItem {
+  min-width: 70px;
+  height: $legend-height;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+
+  .legendLabel {
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+
+  .legendBlock {
+    flex: 1;
+    height: 100%;
+  }
+
+  p {
+    font-size: 12px;
+    margin: 5px;
   }
 }

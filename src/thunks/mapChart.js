@@ -1,6 +1,7 @@
 import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
 import { getConnection } from '../services/connector';
+import { LANG_DOMAIN, LANG_COLORS } from '../constants';
 const _ = require('lodash');
 
 /*
@@ -23,9 +24,6 @@ export function createMapChart() {
     }
 
     const [w, h] = getChartSize();
-
-    let langDomain = ['en', 'pt', 'es', 'in', 'und', 'ja', 'tr', 'fr', 'tl', 'ru', 'ar'];
-    const langColors = ["#27aeef", "#ea5545", "#87bc45", "#b33dc6", "#f46a9b", "#ede15b", "#bdcf32", "#ef9b20", "#4db6ac", "#edbf33", "#7c4dff"]
 
     const pointMapDim = crossfilter.dimension(null).projectOn(["conv_4326_900913_x(lon) as x", "conv_4326_900913_y(lat) as y", "lang as color", "3 as size"]);
     const xDim = crossfilter.dimension("lon");
@@ -56,7 +54,7 @@ export function createMapChart() {
     .yDim(yDim)
     .fillColorAttr("color")
     .defaultFillColor("#80DEEA")
-    .fillColorScale(d3.scale.ordinal().domain(langDomain).range(langColors))
+    .fillColorScale(d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
     .popupColumns(['tweet_text', 'sender_name', 'tweet_time', 'lang', 'origin', 'followers'])
 
     pointMapChart.pushLayer("points", pointLayer).init().then((chart) => {
