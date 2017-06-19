@@ -1,10 +1,10 @@
 import * as CrossFilter from "@mapd/crossfilter";
+import { TABLE_NAME } from '../constants';
 
-const tableName = 'tweets_nov_feb';
 let crossfilter = null;
 
 export function createCf(con) {
-  return CrossFilter.crossfilter(con, tableName)
+  return CrossFilter.crossfilter(con, TABLE_NAME)
     .then(cf => {
       crossfilter = cf;
       return Promise.resolve(cf, con);

@@ -9,6 +9,14 @@ const connection = new Connector()
   .user("mapd")
   .password("HyperInteractive");
 
+export function query(stmt) {
+  return new Promise((resolve, reject) => {
+    return connection.query(stmt, null, (error, result) => {
+      return error ? reject(error) : resolve(result);
+    });
+  });
+}
+
 export function connect() {
   return new Promise((resolve, reject) => {
     return connection.connect((error, result) => {

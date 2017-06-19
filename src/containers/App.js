@@ -6,6 +6,7 @@ import SearchBar from './SearchBar.js';
 import MapChart from './MapChart.js'
 import LineChart from './LineChart.js'
 import Legend from './Legend.js'
+import TweetResults from './TweetResults.js'
 
 class App extends React.Component {
   static propTypes = {
@@ -30,7 +31,7 @@ class App extends React.Component {
           </map>
         </main>
 
-        <tweetResults>tweets</tweetResults>
+        <TweetResults/>
       </dash>
     );
   }

@@ -1,3 +1,4 @@
+import './reset.scss'
 import './bootstrap/bootstrap';
 import './bootstrap/bootstrap.scss';
 

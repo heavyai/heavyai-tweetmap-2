@@ -1,8 +1,8 @@
-$sidebar-min-width: 200px;
+$sidebar-min-width: 168px;
 $nav-width: 80px;
-$legend-height: 50px;
+$bottom-bar-height: 60px;
 
-$search-width: 300px;
+$search-width: 400px;
 $search-height: 40px;
 
 html, body {
@@ -33,11 +33,6 @@ dash {
     flex-grow: 9;
     height: 100%;
   }
-
-  tweetResults {
-    flex-grow: 1;
-    min-width: $sidebar-min-width;
-  }
 }
 
 
@@ -59,7 +54,7 @@ map {
     z-index: 1;
 
     .input-group {
-      margin-top: 40px;
+      margin-top: 4vh;
       width: $search-width;
       height: $search-height;
 
@@ -80,17 +75,21 @@ map {
     width: 100%;
   }
 
-  ul {
+  #legend {
     list-style-type: none;
     width: 100%;
-    min-height: $legend-height;
+    min-height: $bottom-bar-height;
     background-color: white;
     margin: 0px;
     padding: 0px;
 
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+
     li {
-      min-height: $legend-height;
-      float: left;
+      min-height: $bottom-bar-height;
     }
 
     li :hover {
@@ -101,7 +100,7 @@ map {
 
 .legendItem {
   min-width: 70px;
-  height: $legend-height;
+  height: $bottom-bar-height;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -121,5 +120,43 @@ map {
   p {
     font-size: 12px;
     margin: 5px;
+  }
+}
+
+.tweetResults {
+  flex-grow: 1;
+  min-width: $sidebar-min-width;
+
+  display: flex;
+  flex-direction: column;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+
+  .tweetTitle {
+    height: 56px;
+    text-align: center;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }
+
+  ul {
+    list-style-type: none;
+    flex: 1;
+    overflow: scroll;
+
+    li {
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      height: 100px;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+
+  .tweetFooter {
+    height: $bottom-bar-height;
   }
 }
