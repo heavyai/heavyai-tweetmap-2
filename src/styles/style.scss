@@ -1,4 +1,4 @@
-$sidebar-min-width: 300px;
+$sidebar-min-width: 288px;
 $nav-width: 80px;
 $bottom-bar-height: 64px;
 
@@ -207,4 +207,32 @@ map {
   .tweetBlock {
     flex: 1;
   }
+}
+
+.octicon-three-bars {
+  position: fixed;
+  left: 25px;
+  top: 30px;
+  z-index: 2;
+  color: white;
+}
+
+/* The side navigation menu */
+.nav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 80px; /* Place content 60px from the top */
+    transition: 0.1s; /* 0.5 second transition effect to slide in the nav */
+    text-align: center;
+
+    .mega-octicon {
+      color: white;
+      margin-top: 1em;
+    }
 }

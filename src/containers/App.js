@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { mapdConnect } from '../thunks/mapdConnect'
+import LeftNav from './LeftNav.js';
 import SearchBar from './SearchBar.js';
 import MapChart from './MapChart.js'
 import LineChart from './LineChart.js'
@@ -20,6 +21,8 @@ class App extends React.Component {
   render() {
     return (
       <dash>
+        <LeftNav/>
+
         <main>
           <map>
             <SearchBar/>
