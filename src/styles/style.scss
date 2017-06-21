@@ -89,7 +89,7 @@ map {
     overflow-y: hidden;
 
     li {
-      min-height: $bottom-bar-height;
+      min-height: $bottom-bar-height
     }
 
     li :hover {
@@ -104,6 +104,7 @@ map {
   padding: 10px;
   display: flex;
   flex-direction: row;
+  position: relative;
 
   .legendLabel {
     width: 10px;
@@ -115,6 +116,21 @@ map {
   .legendBlock {
     flex: 1;
     height: 100%;
+  }
+
+  .greyed {
+    background-color: white;
+    filter:alpha(opacity=70); /* IE */
+    opacity: 0.7; /* Safari, Opera */
+    -moz-opacity:0.70; /* FireFox */
+    z-index: 20;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
   }
 
   p {

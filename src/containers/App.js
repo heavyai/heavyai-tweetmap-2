@@ -20,8 +20,6 @@ class App extends React.Component {
   render() {
     return (
       <dash>
-        <nav></nav>
-
         <main>
           <map>
             <SearchBar/>
