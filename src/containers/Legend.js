@@ -82,7 +82,7 @@ class Legend extends React.Component {
   render() {
     const noneSelected = this.state.selected.length === 0
     const items = this.state.langItems.map(({lang, count}) => (
-      <li key={lang} onClick={ () => { this.handleClick(lang) } }>
+      <li key={lang} className="notTitle" onClick={ () => { this.handleClick(lang) } }>
         <LegendItem color={COLOR_MAP[lang]}
           title={langCodes[lang].name}
           sub={String(count)}
@@ -92,7 +92,7 @@ class Legend extends React.Component {
 
     return (
       <ul id="legend">
-        <li><LegendItem color="white" title="Languages" sub="" active={true}/></li>
+        <li><LegendItem justTitle={true} title="Languages" sub="" active={true}/></li>
         {items}
         <div id="dummy"></div>
       </ul>

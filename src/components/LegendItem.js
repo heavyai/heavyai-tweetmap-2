@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 
 const LegendItem = (props) => (
   <div className="legendItem">
-    <div className="legendLabel" style={{backgroundColor: props.color}}></div>
+    {!props.justTitle &&
+      <div className="legendLabel" style={{backgroundColor: props.color}}></div>
+    }
     <div className="legendBlock">
       <p>{props.title}</p>
       <p style={{color: 'grey'}}>{props.sub}</p>
@@ -14,7 +16,8 @@ const LegendItem = (props) => (
 )
 
 LegendItem.propTypes = {
-  color: PropTypes.string.isRequired,
+  justTitle: PropTypes.bool,
+  color: PropTypes.string,
   title: PropTypes.string.isRequired,
   sub: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
