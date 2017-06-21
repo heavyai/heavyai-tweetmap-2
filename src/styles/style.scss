@@ -1,6 +1,6 @@
 $sidebar-min-width: 300px;
 $nav-width: 80px;
-$bottom-bar-height: 60px;
+$bottom-bar-height: 64px;
 
 $search-width: 400px;
 $search-height: 40px;
@@ -8,6 +8,7 @@ $search-height: 40px;
 html, body {
   margin: 0;
   padding: 0;
+
 }
 
 #root {
@@ -90,7 +91,7 @@ map {
     overflow-y: hidden;
 
     li {
-      min-height: $bottom-bar-height
+      height: $bottom-bar-height
     }
 
     .notTitle :hover {
@@ -135,7 +136,7 @@ map {
   }
 
   p {
-    font-size: 12px;
+    font-size: 0.9em;
     margin: 5px;
   }
 }
@@ -148,33 +149,62 @@ map {
   display: flex;
   flex-direction: column;
   border-bottom-style: solid;
-  border-bottom-width: 1px;
 
   .tweetTitle {
-    height: 56px;
-    text-align: center;
     border-bottom-style: solid;
     border-bottom-width: 1px;
+    border-color: #d3d3d3;
+
+    h3 {
+      margin: 1rem;
+    }
   }
 
   ul {
     list-style-type: none;
     flex: 1;
-    overflow: scroll;
+    overflow-y: scroll;
 
     li {
       border-bottom-style: solid;
       border-bottom-width: 1px;
-      height: 100px;
+      border-color: #d3d3d3;
+    }
 
-      img {
-        width: 50px;
-        height: 50px;
-      }
+    li :hover {
+      background-color: #f5f8fa;
     }
   }
 
   .tweetFooter {
     height: $bottom-bar-height;
+    text-align: center;
+
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: #d3d3d3;
+
+    p {
+      line-height: $bottom-bar-height;
+    }
+  }
+}
+
+.tweetItem {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  font-size: 0.9em;
+  line-height: 1.4em;
+
+  .tweetImage {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 0.8rem;
+  }
+
+  .tweetBlock {
+    flex: 1;
   }
 }

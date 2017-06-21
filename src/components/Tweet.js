@@ -5,7 +5,7 @@ const Tweet = (props) => (
   <div className="tweetItem">
     <img className="tweetImage" src={props.imgLink} />
     <div className="tweetBlock">
-      <p>{props.handle} · {props.date}</p>
+      <p style={{color: 'grey'}}>{props.handle} · {props.date}</p>
       <p>{props.body}</p>
     </div>
   </div>
