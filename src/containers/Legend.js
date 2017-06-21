@@ -30,11 +30,14 @@ class Legend extends React.Component {
     const langDim = this.langDim = crossfilter.dimension('lang')
     const group = langDim.group();
 
+    //  _chart lives in the chart registry, triggering redraws through dataAsync()
     this._chart = dc.baseMixin({})
     this._chart.dimension(langDim)
     this._chart.group(group)
+    // dummy DOM elem should take no space
     this._chart.minWidth(0)
     this._chart.minHeight(0)
+    // rendering is instead done by React
     this._chart._doRender = this._chart._doRedraw = () => {}
     this._chart.setDataAsync((group, callback) => {
       const numColors = COLORS.length
@@ -57,14 +60,23 @@ class Legend extends React.Component {
   }
 
   handleClick(lang) {
+    let selected
     if (this.state.selected.includes(lang)) {
-      this.setState({selected: this.state.selected.filter(item => item !== lang)})
+      selected = this.state.selected.filter(item => item !== lang)
     }
     else {
-      this.setState({selected: [...this.state.selected, lang]})
+      selected = [...this.state.selected, lang]
+    }
+    this.setState({selected: selected})
+
+    if (selected.length == 0) {
+      this.langDim.filterAll()
+    }
+    else {
+      this.langDim.filterMulti(selected)
     }
 
-    // this.langDim.filter(this.state.selected)
+    dc.redrawAllAsync()
   }
 
   render() {

@@ -1,4 +1,4 @@
-$sidebar-min-width: 168px;
+$sidebar-min-width: 300px;
 $nav-width: 80px;
 $bottom-bar-height: 60px;
 
@@ -30,7 +30,8 @@ dash {
 
   main {
     position: relative;
-    flex-grow: 9;
+    flex-grow: 5;
+    flex-basis: 0;
     height: 100%;
   }
 }
@@ -141,6 +142,7 @@ map {
 
 .tweetResults {
   flex-grow: 1;
+  flex-basis: 0;
   min-width: $sidebar-min-width;
 
   display: flex;
