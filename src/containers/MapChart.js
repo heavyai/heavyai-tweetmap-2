@@ -9,13 +9,6 @@ class MapChart extends React.Component {
     dispatch: PropTypes.func.isRequired
   }
 
-  componentDidUpdate() {
-    /* must wait until connection and crossfilter are set */
-    if (this.props.isConnected) {
-      this.props.dispatch(createMapChart())
-    }
-  }
-
   render() {
     return <div id="mapChart"></div>;
   }

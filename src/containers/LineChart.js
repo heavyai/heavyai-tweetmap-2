@@ -9,13 +9,6 @@ class LineChart extends React.Component {
     dispatch: PropTypes.func.isRequired
   }
 
-  componentDidUpdate() {
-    /* must wait until connection and crossfilter are set */
-    if (this.props.isConnected) {
-      this.props.dispatch(createLineChart())
-    }
-  }
-
   render() {
     return <div id="lineChart" className="lineChart"></div>;
   }

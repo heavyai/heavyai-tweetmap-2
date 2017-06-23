@@ -5,6 +5,11 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
 import App from './containers/App'
+import $ from 'jquery'
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
 // needed for mapbox
 require("script-loader!mapbox-gl/dist/mapbox-gl.js");

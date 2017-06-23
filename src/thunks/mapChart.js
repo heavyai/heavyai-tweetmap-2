@@ -2,12 +2,11 @@ import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
 import { getConnection, query } from '../services/connector';
 import { LANG_DOMAIN, LANG_COLORS } from '../constants';
-const _ = require('lodash');
 
 /*
   BACKEND RENDERED POINT MAP
 */
-export function createMapChart() {
+export default function createMapChart() {
   return () => {
     const crossfilter = getCf();
     const connection = getConnection();
@@ -54,25 +53,9 @@ export function createMapChart() {
     .fillColorScale(d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
     .popupColumns(['tweet_text', 'sender_name', 'tweet_time', 'lang', 'origin', 'followers'])
 
-    pointMapChart.pushLayer("points", pointLayer).init().then((chart) => {
-      dc.renderAllAsync()
-    });
-
-    /*--------------------------RESIZE EVENT------------------------------*/
-    /* On resize we resize the corresponding widgets and call dc.renderAll() to refresh everything */
-    window.addEventListener("resize", _.debounce(resizeAll, 500));
-
-    function resizeAll() {
-      console.log('calling resize')
-      const [w, h] = getChartSize();
-
-      pointMapChart.map().resize();
-      pointMapChart.isNodeAnimate = false;
-      pointMapChart
-        .width(w)
-        .height(h)
-        .render();
-      dc.redrawAllAsync();
-    }
+    return pointMapChart.pushLayer("points", pointLayer).init()
+      .then(() => {
+        return [pointMapChart, getChartSize]
+      })
   }
 }

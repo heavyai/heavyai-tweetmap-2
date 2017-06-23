@@ -1,18 +1,16 @@
 import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
-const _ = require('lodash');
 
 /*
   LINE CHART
 */
-export function createLineChart() {
+export default function createLineChart() {
   return () => {
-
     const crossfilter = getCf();
-
     const parent = document.getElementById("mapChart");
+
     function getChartSize() {
-      /* set width, height to match parent */
+      /* set width to match parent */
       const w = parent.parentElement.clientWidth;
       const h = 120;
       return [w, h];
@@ -31,7 +29,7 @@ export function createLineChart() {
       }
     ]
 
-    crossfilter
+    return crossfilter
       .groupAll()
       .reduce(timeChartMeasures)
       .valuesAsync(true).then(function(timeChartBounds) {
@@ -61,17 +59,7 @@ export function createLineChart() {
           .xAxis()
           .orient('top');
 
-        dc.renderAllAsync()
-
-        window.addEventListener("resize", _.debounce(resizeAll, 500));
-
-        function resizeAll(){
-          const [w, h] = getChartSize();
-          lineChart
-            .width(w)
-            .height(h)
-          dc.redrawAllAsync();
-        }
+        return Promise.resolve([lineChart, getChartSize])
       });
   }
 }

@@ -7,9 +7,7 @@ function createMultiFilterArray(search) {
     return undefined;
   }
 
-  return search.split(',').map(function(searchValue) {
-    return searchValue.trim();
-  });
+  return search.split(' ').map(searchValue => searchValue.trim());
 }
 
 export function filterSearch(value) {

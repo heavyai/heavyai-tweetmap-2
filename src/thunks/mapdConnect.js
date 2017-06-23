@@ -11,12 +11,14 @@ export function mapdConnect() {
   return (dispatch) => {
     dispatch(mapdConnectRequest());
 
-    connect().then(con => {
+    return connect().then(con => {
       return createCf(con);
     }).then((cf, con) => {
       dispatch(mapdConnectSuccess())
+      return Promise.resolve()
     }, err => {
       dispatch(mapdConnectFailure(err))
+      return Promise.reject(err)
     })
   }
 }
