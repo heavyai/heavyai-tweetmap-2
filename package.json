@@ -2,7 +2,7 @@
   "name": "tweetmap",
   "version": "1.0.0",
   "description": "MapD Tweetmap Demo",
-  "main": "index.js",
+  "repository": "https://github.com/mapd/new-tweetmap",
   "license": "ISC",
   "scripts": {
     "start": "webpack-dev-server"
