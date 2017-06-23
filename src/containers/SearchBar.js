@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { filterSearch } from '../thunks/searchBar'
+import { filterSearch } from '../thunks/search'
 import Octicon from 'react-octicon'
 
 class SearchBar extends React.Component {

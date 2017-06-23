@@ -7,14 +7,15 @@ const _ = require('lodash');
 
 import LeftNav from './LeftNav.js';
 import SearchBar from './SearchBar.js';
-import MapChart from './MapChart.js'
-import LineChart from './LineChart.js'
 import Legend from './Legend.js'
 import TweetResults from './TweetResults.js'
 
+import MapChart from '../components/MapChart.js'
+import LineChart from '../components/LineChart.js'
+
 import { mapdConnect } from '../thunks/mapdConnect'
-import createMapChart from '../thunks/mapChart';
-import createLineChart from '../thunks/lineChart';
+import createMapChart from '../thunks/map';
+import createLineChart from '../thunks/timeFilter';
 
 let charts = []
 let resizeListener = null
