@@ -26,6 +26,14 @@ class App extends React.Component {
     dispatch: PropTypes.func.isRequired
   }
 
+  constructor() {
+    super()
+    this.state = {
+      navShowing: false
+    }
+  }
+
+  // initialize charts
   componentDidMount() {
     const dispatch = this.props.dispatch
 
@@ -68,12 +76,23 @@ class App extends React.Component {
     window.removeEventListener("resize", resizeListener);
   }
 
+  toggleNav() {
+    const w = this.state.navShowing ? '0px' : '72px'
+    document.getElementById("sideNav").style.width = w
+    this.setState({navShowing: !this.state.navShowing})
+  }
+
+  closeNav() {
+    document.getElementById("sideNav").style.width = 0
+    this.setState({navShowing: false})
+  }
+
   render() {
     return (
       <dash>
-        <LeftNav/>
+        <LeftNav toggle={() => this.toggleNav()}/>
 
-        <main>
+        <main onClick={() => this.closeNav()}>
           <map>
             <SearchBar/>
             <MapChart/>
@@ -82,7 +101,7 @@ class App extends React.Component {
           </map>
         </main>
 
-        <TweetResults/>
+        <TweetResults closeNav={() => this.closeNav()}/>
       </dash>
     );
   }

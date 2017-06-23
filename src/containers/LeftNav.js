@@ -6,20 +6,8 @@ import Octicon from 'react-octicon'
 
 class LeftNav extends React.Component {
   static propTypes = {
+    toggle: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
-  }
-
-  constructor() {
-    super()
-    this.state = {
-      showing: false
-    }
-  }
-
-  toggleNav() {
-    const w = this.state.showing ? '0px' : '72px'
-    document.getElementById("sideNav").style.width = w
-    this.setState({showing: !this.state.showing})
   }
 
   render() {
@@ -27,7 +15,7 @@ class LeftNav extends React.Component {
       <div>
         <a><Octicon name="three-bars"
           mega
-          onClick={() => { this.toggleNav() }}/></a>
+          onClick={() => { this.props.toggle() }}/></a>
 
         <div id="sideNav" className="nav flex-column" onHover={() => {alert('zomg')}}>
           <a>

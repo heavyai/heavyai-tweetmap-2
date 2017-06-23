@@ -10,6 +10,7 @@ const blankImg = 'https://abs.twimg.com/sticky/default_profile_images/default_pr
 
 class TweetResults extends React.Component {
   static propTypes = {
+    closeNav: PropTypes.func,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -23,7 +24,7 @@ class TweetResults extends React.Component {
 
   render() {
     return (
-      <div className="tweetResults">
+      <div className="tweetResults" onClick={() => this.props.closeNav()}>
         <div className="tweetTitle">
           <h3>Tweets</h3>
         </div>
