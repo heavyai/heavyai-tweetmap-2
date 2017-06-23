@@ -14,8 +14,9 @@ import MapChart from '../components/MapChart.js'
 import LineChart from '../components/LineChart.js'
 
 import { mapdConnect } from '../thunks/mapdConnect'
-import createMapChart from '../thunks/map';
-import createLineChart from '../thunks/timeFilter';
+import { createMapChart } from '../thunks/map';
+import { createLineChart } from '../thunks/timeFilter';
+import { createLegendChart } from '../thunks/legendFilter';
 
 let charts = []
 let resizeListener = null
@@ -33,7 +34,8 @@ class App extends React.Component {
         // run chart init thunks
         return Promise.all([
           dispatch(createMapChart()),
-          dispatch(createLineChart())
+          dispatch(createLineChart()),
+          dispatch(createLegendChart())
         ])
       }).then((result) => {
         // render charts
@@ -47,18 +49,18 @@ class App extends React.Component {
           const [mapW, mapH] = mapSizeFunc();
           const [lineW, lineH] = lineSizeFunc();
 
+          lineChart.width(lineW).height(lineH)
+
           mapChart.map().resize();
           mapChart.isNodeAnimate = false;
           mapChart.width(mapW).height(mapH).render();
-
-          lineChart.width(lineW).height(lineH)
 
           dc.redrawAllAsync();
         }, 500)
 
         window.addEventListener("resize", resizeListener);
       }, err =>  {
-        console.log(err)
+        console.error(err)
       })
   }
 

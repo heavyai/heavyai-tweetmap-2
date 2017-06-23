@@ -6,7 +6,7 @@ import { LANG_DOMAIN, LANG_COLORS } from '../constants';
 /*
   BACKEND RENDERED POINT MAP
 */
-export default function createMapChart() {
+export function createMapChart() {
   return () => {
     const crossfilter = getCf();
     const connection = getConnection();

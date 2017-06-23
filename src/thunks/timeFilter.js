@@ -4,7 +4,7 @@ import { getCf } from '../services/crossfilter';
 /*
   LINE CHART
 */
-export default function createLineChart() {
+export function createLineChart() {
   return () => {
     const crossfilter = getCf();
     const parent = document.getElementById("mapChart");

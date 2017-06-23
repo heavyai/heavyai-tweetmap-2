@@ -1,14 +1,22 @@
-import { MAPD_CONNECT_SUCCESS } from '../actions'
+import {
+  LANG_COUNTS_UPDATE,
+  SELECTED_LANG_UPDATE
+} from '../actions'
 
 const initialState = {
-  isConnected: false
+  langCounts: [],
+  selectedLangs: []
 }
 
 export default function reducer(state = initialState, action) {
   switch(action.type) {
-    case MAPD_CONNECT_SUCCESS:
+    case LANG_COUNTS_UPDATE:
       return Object.assign({}, state, {
-        isConnected: true
+        langCounts: action.langCounts
+      })
+    case SELECTED_LANG_UPDATE:
+      return Object.assign({}, state, {
+        selectedLangs: action.selected
       })
     default:
       return state

@@ -6,7 +6,6 @@ import Octicon from 'react-octicon'
 
 class SearchBar extends React.Component {
   static propTypes = {
-    isConnected: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -23,9 +22,7 @@ class SearchBar extends React.Component {
   }
 
   handleSubmit(event) {
-    if (this.props.isConnected) {
-      this.props.dispatch(filterSearch(this.state.value))
-    }
+    this.props.dispatch(filterSearch(this.state.value))
     event.preventDefault();
   }
 
@@ -51,9 +48,4 @@ class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { isConnected, ...rest } = state
-  return {isConnected}
-}
-
-export default connect(mapStateToProps)(SearchBar)
+export default connect()(SearchBar)
