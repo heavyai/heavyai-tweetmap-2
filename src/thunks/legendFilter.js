@@ -47,7 +47,7 @@ export function createLegendChart() {
       })
     })
 
-    _chart.anchor('#dummy')
+    _chart.anchor('#legendDummy')
   }
 }
 

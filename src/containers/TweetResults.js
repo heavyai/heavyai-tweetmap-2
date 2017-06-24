@@ -7,44 +7,46 @@ import { query } from '../services/connector'
 import Tweet from '../components/Tweet'
 
 const blankImg = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
+const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 class TweetResults extends React.Component {
   static propTypes = {
     closeNav: PropTypes.func,
+    tweets: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
-  constructor() {
-    super()
-    this.state = {
-      showing: 0,
-      total: 0
-    }
-  }
-
   render() {
+    const tweets = this.props.tweets.map(({name, date, body}) => (
+      <li>
+        <Tweet
+          imgLink={blankImg}
+          handle={"@" + name}
+          date={month[date.getMonth()] + ' ' + String(date.getDate())}
+          body={body}/>
+      </li>
+    ))
+
     return (
       <div className="tweetResults" onClick={() => this.props.closeNav()}>
         <div className="tweetTitle">
           <h3>Tweets</h3>
         </div>
         <ul>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah "/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
-          <li><Tweet imgLink={blankImg} handle="@edwickable" date="June 17" body="blah blah blah"/></li>
+          {tweets}
         </ul>
         <div className="tweetFooter">
-          <p>Showing {this.state.showing} of {this.state.total}</p>
+          <p>Showing {this.props.tweets.length} of {this.props.tweets.length}</p>
         </div>
+        <div id="tweetDummy"></div>
       </div>
     );
   }
 }
 
-export default connect()(TweetResults)
+const mapStateToProps = state => {
+  const { tweets, ...rest } = state
+  return { tweets }
+}
+
+export default connect(mapStateToProps)(TweetResults)

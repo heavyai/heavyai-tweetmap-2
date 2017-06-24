@@ -17,6 +17,7 @@ import { mapdConnect } from '../thunks/mapdConnect'
 import { createMapChart } from '../thunks/map';
 import { createLineChart } from '../thunks/timeFilter';
 import { createLegendChart } from '../thunks/legendFilter';
+import { createTweetChart } from '../thunks/tweets';
 
 let charts = []
 let resizeListener = null
@@ -43,7 +44,8 @@ class App extends React.Component {
         return Promise.all([
           dispatch(createMapChart()),
           dispatch(createLineChart()),
-          dispatch(createLegendChart())
+          dispatch(createLegendChart()),
+          dispatch(createTweetChart())
         ])
       }).then((result) => {
         // render charts
