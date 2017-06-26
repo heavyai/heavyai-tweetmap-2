@@ -2,26 +2,25 @@ import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
 import { getConnection } from '../services/connector';
 
-function createMultiFilterArray(search) {
-  if (search == "") {
-    return undefined;
-  }
+import { updateQueryTerms } from '../actions';
 
-  return search.split(' ').map(searchValue => searchValue.trim());
-}
+let searchDim = null
 
-export function filterSearch(value) {
-  return () => {
-    const crossfilter = getCf();
-    const searchFilterTweets = crossfilter.dimension("tweet_tokens").setDrillDownFilter(true);
+export function filterSearch(queries) {
+  return (dispatch) => {
+    dispatch(updateQueryTerms(queries))
 
-    var mutipleFilterArray = createMultiFilterArray(value);
-    if (mutipleFilterArray) {
-      searchFilterTweets.filterMulti(mutipleFilterArray);
-    } else {
-      // Clears all filters
-      searchFilterTweets.filter();
+    if (!searchDim) {
+      searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
     }
+
+    if (queries.length == 0) {
+      searchDim.filterAll()
+    }
+    else {
+      searchDim.filterMulti(queries)
+    }
+
     // You must call redrawAll after applying custom filters.
     dc.redrawAllAsync();
   }

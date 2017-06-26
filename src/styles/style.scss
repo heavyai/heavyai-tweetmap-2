@@ -161,6 +161,7 @@ map {
     list-style-type: none;
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
 
     li {
       border-bottom-style: solid;
@@ -205,7 +206,7 @@ map {
     flex: 1;
 
     p {
-      word-break: break-all;
+      word-wrap: break-word;
     }
   }
 }

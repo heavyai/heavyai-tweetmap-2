@@ -6,15 +6,13 @@ import Octicon from 'react-octicon'
 
 class SearchBar extends React.Component {
   static propTypes = {
+    queries: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -22,32 +20,42 @@ class SearchBar extends React.Component {
   }
 
   handleSubmit(event) {
-    this.props.dispatch(filterSearch(this.state.value))
     event.preventDefault();
+    if (this.state.value === '') {return}
+
+    let queries = this.state.value.split(/\s+/);
+    queries = [...new Set(this.props.queries.concat(queries))]
+    console.log(queries)
+    this.props.dispatch(filterSearch(queries))
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit.bind(this)}>
 
-          <div className="input-group">
-            <span className="input-group-addon" id="basic-addon1">
-              <Octicon name="search"/>
-            </span>
+        <div className="input-group">
+          <span className="input-group-addon" id="basic-addon1">
+            <Octicon name="search"/>
+          </span>
 
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search Tweets"
-              aria-describedby="basic-addon1"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </div>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search Tweets"
+            aria-describedby="basic-addon1"
+            value={this.state.value}
+            onChange={this.handleChange.bind(this)}
+          />
+        </div>
 
       </form>
     );
   }
 }
 
-export default connect()(SearchBar)
+const mapStateToProps = state => {
+  const { queryTerms, ...rest } = state
+  return {queries: queryTerms}
+}
+
+export default connect(mapStateToProps)(SearchBar)

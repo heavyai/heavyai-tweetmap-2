@@ -53,6 +53,8 @@ export function createLegendChart() {
 
 export function filterSelected(selected) {
   return (dispatch) => {
+    dispatch(updateSelected(selected))
+    
     if (selected.length == 0) {
       langDim.filterAll()
     }
@@ -61,6 +63,5 @@ export function filterSelected(selected) {
     }
 
     dc.redrawAllAsync()
-    dispatch(updateSelected(selected))
   }
 }

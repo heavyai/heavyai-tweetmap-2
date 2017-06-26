@@ -9,7 +9,6 @@ import LeftNav from './LeftNav.js';
 import SearchBar from './SearchBar.js';
 import Legend from './Legend.js'
 import TweetResults from './TweetResults.js'
-
 import MapChart from '../components/MapChart.js'
 import LineChart from '../components/LineChart.js'
 

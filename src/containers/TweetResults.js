@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import InfiniteScroll from 'redux-infinite-scroll';
 
+import QueryDisplay from './QueryDisplay.js'
 import Tweet from '../components/Tweet'
 import { loadMoreTweets } from '../thunks/tweets'
 
@@ -40,6 +41,8 @@ class TweetResults extends React.Component {
         <div className="tweetTitle">
           <h3>Tweets</h3>
         </div>
+
+        <QueryDisplay/>
 
         <InfiniteScroll
           children={this.renderMessages()}
