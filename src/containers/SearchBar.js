@@ -6,7 +6,7 @@ import Octicon from 'react-octicon'
 
 class SearchBar extends React.Component {
   static propTypes = {
-    queries: PropTypes.array.isRequired,
+    queryTerms: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -24,8 +24,7 @@ class SearchBar extends React.Component {
     if (this.state.value === '') {return}
 
     let queries = this.state.value.split(/\s+/);
-    queries = [...new Set(this.props.queries.concat(queries))]
-    console.log(queries)
+    queries = [...new Set(this.props.queryTerms.concat(queries))]
     this.props.dispatch(filterSearch(queries))
   }
 
@@ -55,7 +54,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = state => {
   const { queryTerms, ...rest } = state
-  return {queries: queryTerms}
+  return {queryTerms}
 }
 
 export default connect(mapStateToProps)(SearchBar)
