@@ -35,12 +35,14 @@ class SearchBar extends React.Component {
               <Octicon name="search"/>
             </span>
 
-            <input type="text"
+            <input
+              type="text"
               className="form-control"
               placeholder="Search Tweets"
               aria-describedby="basic-addon1"
               value={this.state.value}
-              onChange={this.handleChange}/>
+              onChange={this.handleChange}
+            />
           </div>
 
       </form>

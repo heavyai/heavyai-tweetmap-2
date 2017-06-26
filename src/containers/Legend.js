@@ -32,10 +32,12 @@ class Legend extends React.Component {
     const noneSelected = this.props.selected.length === 0
     const items = this.props.langCounts.map(({lang, count}) => (
       <li key={lang} className="notTitle" onClick={ () => { this.handleClick(lang) } }>
-        <LegendItem color={COLOR_MAP[lang]}
+        <LegendItem
+          color={COLOR_MAP[lang]}
           title={langCodes[lang].name}
           sub={String(count)}
-          active={noneSelected || this.props.selected.includes(lang)}/>
+          active={noneSelected || this.props.selected.includes(lang)}
+        />
       </li>
     ))
 

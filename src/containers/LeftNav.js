@@ -13,33 +13,43 @@ class LeftNav extends React.Component {
   render() {
     return (
       <div>
-        <a><Octicon name="three-bars"
-          mega
-          onClick={() => { this.props.toggle() }}/></a>
+        <a>
+          <Octicon
+            name="three-bars"
+            mega
+            onClick={() => { this.props.toggle() }}
+          />
+        </a>
 
         <div id="sideNav" className="nav flex-column" onHover={() => {alert('zomg')}}>
           <a>
-            <Octicon name="location"
+            <Octicon
+              name="location"
               mega
               data-toggle="tooltip"
               data-placement="right"
-              title="Search Location"/>
+              title="Search Location"
+            />
           </a>
 
           <a>
-            <Octicon name="globe"
+            <Octicon
+              name="globe"
               mega
               data-toggle="tooltip"
               data-placement="right"
-              title="Zoom to World"/>
+              title="Zoom to World"
+            />
           </a>
 
           <a>
-            <Octicon name="info"
+            <Octicon
+              name="info"
               mega
               data-toggle="tooltip"
               data-placement="right"
-              title="Learn More about MapD"/>
+              title="Learn More about MapD"
+            />
           </a>
         </div>
       </div>
