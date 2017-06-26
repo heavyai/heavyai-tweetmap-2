@@ -1,7 +1,8 @@
 import {
   LANG_COUNTS_UPDATE,
   SELECTED_LANG_UPDATE,
-  TWEETS_UPDATE
+  TWEETS_SET,
+  TWEETS_APPEND
 } from '../actions'
 
 const initialState = {
@@ -20,9 +21,13 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         selectedLangs: action.selected
       })
-    case TWEETS_UPDATE:
+    case TWEETS_SET:
       return Object.assign({}, state, {
         tweets: action.tweets
+      })
+    case TWEETS_APPEND:
+      return Object.assign({}, state, {
+        tweets: state.tweets.concat(action.tweets)
       })
     default:
       return state

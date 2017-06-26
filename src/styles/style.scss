@@ -203,6 +203,10 @@ map {
 
   .tweetBlock {
     flex: 1;
+
+    p {
+      word-break: break-all;
+    }
   }
 }
 

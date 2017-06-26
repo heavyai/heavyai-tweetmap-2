@@ -2,8 +2,27 @@ import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
 
 import {
-  updateTweets
+  setTweets,
+  appendTweets
 } from '../actions';
+
+const FETCH_SIZE = 15
+
+let _chart = null
+let offset = 0
+
+function fetchTweets() {
+  return _chart.dimension().order('tweet_time').topAsync(FETCH_SIZE, offset).then(results => {
+    const tweets = results.map(obj => ({
+      id: obj.tweet_id,
+      name: obj.sender_name,
+      date: obj.tweet_time,
+      body: obj.tweet_text
+    }))
+
+    return Promise.resolve(tweets)
+  })
+}
 
 /*
   TWEET CHART
@@ -22,7 +41,7 @@ export function createTweetChart() {
     ]);
 
     //  _chart lives in the chart registry, triggering redraws through dataAsync()
-    const _chart = dc.baseMixin({})
+    _chart = dc.baseMixin({})
     _chart.dimension(tweetDim)
     _chart.group(() => 0)
 
@@ -34,15 +53,9 @@ export function createTweetChart() {
     _chart._doRender = _chart._doRedraw = () => {}
 
     _chart.setDataAsync((group, callback) => {
-      _chart.dimension().order('tweet_time').topAsync(10).then(results => {
-        const tweets = results.map(obj => ({
-          id: obj.tweet_id,
-          name: obj.sender_name,
-          date: obj.tweet_time,
-          body: obj.tweet_text
-        }))
-
-        dispatch(updateTweets(tweets))
+      fetchTweets().then(tweets => {
+        offset = FETCH_SIZE
+        dispatch(setTweets(tweets))
         callback()
       }, err => {
         console.error(err);
@@ -51,5 +64,16 @@ export function createTweetChart() {
     })
 
     _chart.anchor('#tweetDummy')
+  }
+}
+
+export function loadMoreTweets() {
+  return (dispatch) => {
+    if (!_chart) { return }
+
+    fetchTweets().then(tweets => {
+      offset += FETCH_SIZE
+      dispatch(appendTweets(tweets))
+    }, console.error)
   }
 }
