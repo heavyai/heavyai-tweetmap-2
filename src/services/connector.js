@@ -9,6 +9,9 @@ const connection = new Connector()
   .user("mapd")
   .password("HyperInteractive");
 
+// log SQL queries
+// connection.logging(true)
+
 export function query(stmt) {
   return new Promise((resolve, reject) => {
     return connection.query(stmt, null, (error, result) => {

@@ -7,7 +7,7 @@ import { query } from '../services/connector'
 import Tweet from '../components/Tweet'
 
 const blankImg = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
-const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+const month = ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 class TweetResults extends React.Component {
   static propTypes = {
@@ -17,8 +17,8 @@ class TweetResults extends React.Component {
   }
 
   render() {
-    const tweets = this.props.tweets.map(({name, date, body}) => (
-      <li>
+    const tweets = this.props.tweets.map(({id, name, date, body}) => (
+      <li key={id}>
         <Tweet
           imgLink={blankImg}
           handle={"@" + name}

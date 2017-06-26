@@ -18,11 +18,7 @@ export function createTweetChart() {
       "sender_name",
       "tweet_time",
       "tweet_id",
-      "tweet_text",
-      "lon as x",
-      "lat as y",
-      "country",
-      "admin1"
+      "tweet_text"
     ]);
 
     //  _chart lives in the chart registry, triggering redraws through dataAsync()
@@ -38,9 +34,9 @@ export function createTweetChart() {
     _chart._doRender = _chart._doRedraw = () => {}
 
     _chart.setDataAsync((group, callback) => {
-      // TODO sort by date:
-      _chart.dimension().topAsync(10).then(results => {
+      _chart.dimension().order('tweet_time').topAsync(10).then(results => {
         const tweets = results.map(obj => ({
+          id: obj.tweet_id,
           name: obj.sender_name,
           date: obj.tweet_time,
           body: obj.tweet_text
@@ -48,8 +44,8 @@ export function createTweetChart() {
 
         dispatch(updateTweets(tweets))
         callback()
-      }, error => {
-        console.error(error)
+      }, err => {
+        console.error(err);
         callback()
       })
     })

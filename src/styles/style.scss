@@ -160,7 +160,7 @@ map {
   ul {
     list-style-type: none;
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     li {
       border-bottom-style: solid;
