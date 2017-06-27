@@ -51,7 +51,7 @@ class TweetResults extends React.Component {
         />
 
         <div className="tweetFooter">
-          <p>{this.props.tweets.length} of <span className="tweetCount"></span></p>
+          <p>Showing {this.props.tweets.length} of <span className="tweetCount"></span></p>
         </div>
         <div id="tweetDummy"></div>
       </div>

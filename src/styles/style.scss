@@ -48,7 +48,7 @@ map {
   background-color: $map-background;
 
   form {
-    width: 200px;
+    width: $search-width;
     position: absolute;
     margin: auto;
     left: 0; right: 0;
