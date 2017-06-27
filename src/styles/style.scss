@@ -178,18 +178,13 @@ map {
 
   .tweetFooter {
     height: $bottom-bar-height;
-    position: relative;
-
     border-top-style: solid;
     border-top-width: 1px;
     border-color: $light-grey;
+    text-align: center;
 
-    .tweetCount {
-      font-size: 1em;
-      white-space: nowrap;
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
+    p {
+      line-height: $bottom-bar-height;
     }
   }
 }

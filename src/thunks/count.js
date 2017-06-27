@@ -12,5 +12,12 @@ export function createCount() {
     const dataCount = dc.countWidget(".tweetCount")
       .dimension(crossfilter)
       .group(countGroup);
+
+    // hijack _doRender
+    dataCount._doRender = (val) => {
+      const selected = dataCount.formatNumber()(val)
+      const wrapper = dataCount.root().text(selected)
+      return dataCount
+    }
   }
 }
