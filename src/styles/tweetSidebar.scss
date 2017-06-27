@@ -1,0 +1,106 @@
+@import "variables";
+
+.tweetResults {
+  display: flex;
+  flex-direction: column;
+
+  .tweetTitle {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: $light-grey;
+
+    h3 {
+      margin: 1rem;
+    }
+  }
+
+  ul {
+    flex: 1;
+    list-style-type: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    li {
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-color: $light-grey;
+    }
+
+    li :hover {
+      background-color: #f5f8fa;
+    }
+  }
+
+  .tweetFooter {
+    height: $bottom-bar-height;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: $light-grey;
+    text-align: center;
+
+    p {
+      line-height: $bottom-bar-height;
+    }
+  }
+}
+
+.tweetItem {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  font-size: 0.9em;
+  line-height: 1.4em;
+
+  .tweetImage {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 0.8rem;
+  }
+
+  .tweetBlock {
+    flex: 1;
+
+    p {
+      word-wrap: break-word;
+    }
+  }
+}
+
+#queryDisplay {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: $light-grey;
+  padding: 0.25rem;
+
+  .queryPill {
+    height: $pill-height;
+    width: auto;
+    background-color: $light-grey;
+    border-radius: $pill-height/2;
+
+    margin: 0.25rem;
+    padding-left: 0.6rem; padding-right: 0.6rem;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: $pill-height;
+
+    font-size: 0.9em;
+
+    .delete {
+      font-size: 1em;
+      color: grey;
+    }
+  }
+
+  .queryPill:hover {
+    background-color: #1DA1F2;
+    color: white;
+
+    .delete {
+      font-size: 1em;
+      color: $light-grey;
+    }
+  }
+}

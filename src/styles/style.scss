@@ -1,23 +1,4 @@
-$sidebar-min-width: 216px;
-$nav-width: 80px;
-$bottom-bar-height: 64px;
-
-$search-width: 400px;
-$search-height: 40px;
-
-$pill-height: 25px;
-
-$map-background: #2c2c2c;
-$light-grey: #d3d3d3;
-
-container {
-  position: absolute;
-  left: 0;
-  top: 0;
-
-  width: 100%;
-  height: 100%;
-}
+@import "variables";
 
 #root {
   width: 100vw;
@@ -76,6 +57,15 @@ map {
   background-color: $map-background;
   position: relative;
 
+  container {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+
   #mapChart {
     width: 100%;
     height: 100%;
@@ -85,74 +75,6 @@ map {
     position: absolute;
     width: 100%;
     bottom: 0;
-  }
-}
-
-#legend {
-  background-color: white;
-  position: relative;
-
-
-  ul {
-    position: absolute;
-    width: 100%;
-
-    top: 0;
-    left: 0;
-
-    list-style-type: none;
-    display: flex;
-    flex-direction: row;
-    overflow-y: hidden;
-    overflow-x: auto;
-  }
-
-
-  li {
-    height: $bottom-bar-height
-  }
-
-  .notTitle :hover {
-    background-color: $light-grey;
-  }
-}
-
-.legendItem {
-  min-width: 70px;
-  height: $bottom-bar-height;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  position: relative;
-
-  .legendLabel {
-    width: 10px;
-    height: 10px;
-    margin-top: 7px;
-    border-radius: 5px;
-  }
-
-  .legendBlock {
-    flex: 1;
-    height: 100%;
-  }
-
-  .greyed {
-    background-color: white;
-    opacity: 0.7;
-    z-index: 20;
-    height: 100%;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-  }
-
-  p {
-    font-size: 0.9em;
-    margin: 5px;
   }
 }
 
@@ -170,73 +92,6 @@ form {
   }
 }
 
-.tweetResults {
-  display: flex;
-  flex-direction: column;
-
-  .tweetTitle {
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-color: $light-grey;
-
-    h3 {
-      margin: 1rem;
-    }
-  }
-
-  ul {
-    flex: 1;
-    list-style-type: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    li {
-      border-bottom-style: solid;
-      border-bottom-width: 1px;
-      border-color: $light-grey;
-    }
-
-    li :hover {
-      background-color: #f5f8fa;
-    }
-  }
-
-  .tweetFooter {
-    height: $bottom-bar-height;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-color: $light-grey;
-    text-align: center;
-
-    p {
-      line-height: $bottom-bar-height;
-    }
-  }
-}
-
-.tweetItem {
-  display: flex;
-  flex-direction: row;
-  padding: 1rem;
-  font-size: 0.9em;
-  line-height: 1.4em;
-
-  .tweetImage {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin-right: 0.8rem;
-  }
-
-  .tweetBlock {
-    flex: 1;
-
-    p {
-      word-wrap: break-word;
-    }
-  }
-}
-
 .octicon-three-bars {
   position: fixed;
   left: 25px;
@@ -249,18 +104,18 @@ a:hover .octicon-three-bars {
   color: $light-grey;
 }
 
-/* The side navigation menu */
+/* The left navigation menu */
 .nav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    height: 100%;
+    width: 0; /* 0 width - expanded with JavaScript */
+    position: fixed;
+    z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 80px; /* Place content 60px from the top */
-    transition: 0.1s; /* 0.5 second transition effect to slide in the nav */
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 80px;
+    transition: 0.1s;
     text-align: center;
 
     .mega-octicon {
@@ -271,42 +126,4 @@ a:hover .octicon-three-bars {
     a:hover .mega-octicon {
       color: $light-grey;
     }
-}
-
-#queryDisplay {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-color: $light-grey;
-  padding: 0.25rem;
-
-  .queryPill {
-    height: $pill-height;
-    width: auto;
-    background-color: $light-grey;
-    border-radius: $pill-height/2;
-
-    margin: 0.25rem;
-    padding-left: 0.6rem; padding-right: 0.6rem;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    line-height: $pill-height;
-
-    font-size: 0.9em;
-
-    .delete {
-      font-size: 1em;
-      color: grey;
-    }
-  }
-
-  .queryPill:hover {
-    background-color: #1DA1F2;
-    color: white;
-
-    .delete {
-      font-size: 1em;
-      color: $light-grey;
-    }
-  }
 }
