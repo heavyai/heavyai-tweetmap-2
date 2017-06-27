@@ -26,6 +26,8 @@ class SearchBar extends React.Component {
     let queries = this.state.value.split(/\s+/);
     queries = [...new Set(this.props.queryTerms.concat(queries))]
     this.props.dispatch(filterSearch(queries))
+
+    this.setState({value: ''});
   }
 
   render() {

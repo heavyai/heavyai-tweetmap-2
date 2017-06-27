@@ -17,6 +17,7 @@ import { createMapChart } from '../thunks/map';
 import { createLineChart } from '../thunks/timeFilter';
 import { createLegendChart } from '../thunks/legendFilter';
 import { createTweetChart } from '../thunks/tweets';
+import { createCount } from '../thunks/count';
 
 let charts = []
 let resizeListener = null
@@ -44,7 +45,8 @@ class App extends React.Component {
           dispatch(createMapChart()),
           dispatch(createLineChart()),
           dispatch(createLegendChart()),
-          dispatch(createTweetChart())
+          dispatch(createTweetChart()),
+          dispatch(createCount())
         ])
       }).then((result) => {
         // render charts
