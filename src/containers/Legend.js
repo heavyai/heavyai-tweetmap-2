@@ -42,11 +42,13 @@ class Legend extends React.Component {
     ))
 
     return (
-      <ul id="legend">
-        <li><LegendItem justTitle={true} title="Languages" sub="" active={true}/></li>
-        {items}
-        <div id="legendDummy"></div>
-      </ul>
+      <div id="legend">
+        <ul>
+          <li><LegendItem justTitle={true} title="Languages" sub="" active={true}/></li>
+          {items}
+          <div id="legendDummy"></div>
+        </ul>
+      </div>
     );
   }
 }

@@ -42,6 +42,7 @@ export function createLineChart() {
         const lineChart = dc.lineChart('.lineChart')
           .width(w)
           .height(h)
+          .margins({top: 16, right: 48, bottom: 0, left: 64})
           .elasticY(true)
           .brushOn(true)
           .dimension(timeChartDimension)
@@ -50,7 +51,7 @@ export function createLineChart() {
             numBins: 288, // 288 * 5 = number of minutes in a day
             binBounds: [timeChartBounds.minimum, timeChartBounds.maximum]
           });
-
+          
         lineChart
           .x(d3.time.scale.utc().domain([timeChartBounds.minimum, timeChartBounds.maximum]))
           .yAxis().ticks(5);

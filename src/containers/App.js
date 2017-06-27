@@ -96,12 +96,14 @@ class App extends React.Component {
         <LeftNav toggle={() => this.toggleNav()}/>
 
         <main onClick={() => this.closeNav()}>
+          <SearchBar/>
           <map>
-            <SearchBar/>
-            <MapChart/>
-            <LineChart/>
-            <Legend/>
+            <container>
+              <MapChart/>
+              <LineChart/>
+            </container>
           </map>
+          <Legend/>
         </main>
 
         <TweetResults closeNav={() => this.closeNav()}/>

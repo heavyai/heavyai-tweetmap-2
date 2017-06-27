@@ -38,6 +38,7 @@ class TweetResults extends React.Component {
   render() {
     return (
       <div className="tweetResults" onClick={() => this.props.closeNav()}>
+
         <div className="tweetTitle">
           <h3>Tweets</h3>
         </div>
@@ -54,6 +55,7 @@ class TweetResults extends React.Component {
           <p>Showing {this.props.tweets.length} of <span className="tweetCount"></span></p>
         </div>
         <div id="tweetDummy"></div>
+
       </div>
     );
   }

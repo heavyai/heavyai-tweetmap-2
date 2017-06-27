@@ -1,4 +1,4 @@
-$sidebar-min-width: 288px;
+$sidebar-min-width: 216px;
 $nav-width: 80px;
 $bottom-bar-height: 64px;
 
@@ -9,6 +9,15 @@ $pill-height: 25px;
 
 $map-background: #2c2c2c;
 $light-grey: #d3d3d3;
+
+container {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+}
 
 #root {
   width: 100vw;
@@ -29,23 +38,20 @@ dash {
   }
 
   main {
-    position: relative;
-    flex-grow: 5;
-    flex-basis: 0;
+    flex-grow: 11;
     height: 100%;
+  }
+
+  .tweetResults {
+    flex-grow: 1;
+    width: $sidebar-min-width;
   }
 }
 
-
-
-map {
+main {
+  position: relative;
   display: flex;
   flex-direction: column;
-  position: absolute;
-
-  width: 100%;
-  height: 100%;
-  background-color: $map-background;
 
   form {
     width: $search-width;
@@ -53,19 +59,22 @@ map {
     margin: auto;
     left: 0; right: 0;
     z-index: 1;
-
-    .input-group {
-      margin-top: 4vh;
-      width: $search-width;
-      height: $search-height;
-
-      input, span {
-        border-style: none;
-        background-color: white;
-        border-radius: $search-height/2;
-      }
-    }
   }
+
+  map {
+    flex: 1;
+    width: 100%;
+  }
+
+  #legend {
+    width: 100%;
+    height: $bottom-bar-height;
+  }
+}
+
+map {
+  background-color: $map-background;
+  position: relative;
 
   #mapChart {
     width: 100%;
@@ -73,29 +82,38 @@ map {
   }
 
   #lineChart {
+    position: absolute;
     width: 100%;
+    bottom: 0;
   }
+}
 
-  #legend {
-    list-style-type: none;
+#legend {
+  background-color: white;
+  position: relative;
+
+
+  ul {
+    position: absolute;
     width: 100%;
-    min-height: $bottom-bar-height;
-    background-color: white;
-    margin: 0px;
-    padding: 0px;
 
+    top: 0;
+    left: 0;
+
+    list-style-type: none;
     display: flex;
     flex-direction: row;
-    overflow-x: auto;
     overflow-y: hidden;
+    overflow-x: auto;
+  }
 
-    li {
-      height: $bottom-bar-height
-    }
 
-    .notTitle :hover {
-      background-color: $light-grey;
-    }
+  li {
+    height: $bottom-bar-height
+  }
+
+  .notTitle :hover {
+    background-color: $light-grey;
   }
 }
 
@@ -121,9 +139,7 @@ map {
 
   .greyed {
     background-color: white;
-    filter:alpha(opacity=70); /* IE */
-    opacity: 0.7; /* Safari, Opera */
-    -moz-opacity:0.70; /* FireFox */
+    opacity: 0.7;
     z-index: 20;
     height: 100%;
     width: 100%;
@@ -140,14 +156,23 @@ map {
   }
 }
 
-.tweetResults {
-  flex-grow: 1;
-  flex-basis: 0;
-  min-width: $sidebar-min-width;
+form {
+  .input-group {
+    margin-top: 4vh;
+    width: $search-width;
+    height: $search-height;
 
+    input, span {
+      border-style: none;
+      background-color: white;
+      border-radius: $search-height/2;
+    }
+  }
+}
+
+.tweetResults {
   display: flex;
   flex-direction: column;
-  border-bottom-style: solid;
 
   .tweetTitle {
     border-bottom-style: solid;
@@ -160,8 +185,8 @@ map {
   }
 
   ul {
-    list-style-type: none;
     flex: 1;
+    list-style-type: none;
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -261,7 +286,7 @@ a:hover .octicon-three-bars {
     border-radius: $pill-height/2;
 
     margin: 0.25rem;
-    padding-left: 0.5rem; padding-right: 0.6rem;
+    padding-left: 0.6rem; padding-right: 0.6rem;
     display: inline-block;
     text-align: center;
     vertical-align: middle;

@@ -33,7 +33,6 @@ class SearchBar extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-
         <div className="input-group">
           <span className="input-group-addon" id="basic-addon1">
             <Octicon name="search"/>
@@ -48,7 +47,6 @@ class SearchBar extends React.Component {
             onChange={this.handleChange.bind(this)}
           />
         </div>
-
       </form>
     );
   }
