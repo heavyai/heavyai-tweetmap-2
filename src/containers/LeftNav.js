@@ -32,7 +32,7 @@ class LeftNav extends React.Component {
           />
         </a>
 
-        <a>
+        <a href="https://www.mapd.com" target="_blank">
           <Octicon
             name="info"
             mega

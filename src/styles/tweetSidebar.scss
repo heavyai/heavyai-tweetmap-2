@@ -64,6 +64,15 @@
     p {
       word-wrap: break-word;
     }
+
+    a {
+      color: #0084B3;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 }
 
