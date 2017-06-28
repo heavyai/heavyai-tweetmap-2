@@ -40,7 +40,7 @@ class TweetResults extends React.Component {
       <div className="tweetResults" onClick={() => this.props.closeNav()}>
 
         <div className="tweetTitle">
-          <h3>Tweets</h3>
+          <h1>Tweets</h1>
         </div>
 
         <QueryDisplay/>

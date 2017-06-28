@@ -8,8 +8,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
-const autoprefixerBrowsers = require('bootstrap/grunt/postcss').autoprefixer.browsers;
-
 module.exports = {
   entry: {
     app: [
@@ -30,7 +28,8 @@ module.exports = {
         include: [
           path.resolve(__dirname, "src"),
           path.resolve(__dirname, "node_modules/@mapd/mapdc"),
-          path.resolve(__dirname, "node_modules/@mapd/connector")
+          path.resolve(__dirname, "node_modules/@mapd/connector"),
+          path.resolve(__dirname, "node_modules/@mapd/crossfilter")
         ]
       },
       {
@@ -52,13 +51,5 @@ module.exports = {
     ]
   },
   devtool: '#eval-source-map',
-  plugins: [
-    new webpack.ProvidePlugin({
-      'jQuery': 'jquery',
-      'window.jQuery': 'jquery',
-      'Tether': 'tether',
-      'window.Tether': 'tether'
-    }),
-    HtmlWebpackPluginConfig
-  ]
+  plugins: [HtmlWebpackPluginConfig]
 }

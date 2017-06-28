@@ -41,15 +41,34 @@ a:hover .octicon-three-bars {
 }
 
 form {
-  .input-group {
+  .searchBar {
     max-width: $search-width;
     height: $search-height;
     margin: 0 auto;
+    background-color: white;
+    border-radius: $search-height/2;
+    display: flex;
 
-    input, span {
+    div {
+      margin-left: 0.8em;
+      margin-right: 0.8em;
+      height: 100%;
+      display: table;
+
+      span {
+        display:table-cell;
+        vertical-align:middle;
+        color: grey;
+      }
+    }
+
+    input {
       border-style: none;
-      background-color: white;
-      border-radius: $search-height/2;
+      outline: none;
+      flex: 1;
+      height: 95%;
+      margin-right:  $search-height/2;
+      font-size: 1em;
     }
   }
 }

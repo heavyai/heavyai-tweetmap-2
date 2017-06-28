@@ -82,6 +82,8 @@ map {
 
 /* The left navigation menu */
 .nav {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 0px; /* 0 width - expanded with JavaScript */
     position: fixed;

@@ -10,11 +10,7 @@ const TopOverlay = (props) => {
     <div id="overlay">
 
       <a id="settings">
-        <Octicon
-        name="three-bars"
-        mega
-        onClick={props.toggle}
-        />
+        <Octicon name="three-bars" mega onClick={props.toggle}/>
       </a>
 
       <SearchBar/>

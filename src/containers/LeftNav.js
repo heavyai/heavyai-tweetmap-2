@@ -11,35 +11,17 @@ class LeftNav extends React.Component {
 
   render() {
     return (
-      <div id="sideNav" className="nav flex-column" onHover={() => {alert('zomg')}}>
+      <div id="sideNav" className="nav">
         <a>
-          <Octicon
-            name="location"
-            mega
-            data-toggle="tooltip"
-            data-placement="right"
-            title="Search Location"
-          />
+          <Octicon name="location" mega/>
         </a>
 
         <a>
-          <Octicon
-            name="globe"
-            mega
-            data-toggle="tooltip"
-            data-placement="right"
-            title="Zoom to World"
-          />
+          <Octicon name="globe" mega/>
         </a>
 
         <a href="https://www.mapd.com" target="_blank">
-          <Octicon
-            name="info"
-            mega
-            data-toggle="tooltip"
-            data-placement="right"
-            title="Learn More about MapD"
-          />
+          <Octicon name="info" mega/>
         </a>
       </div>
     );

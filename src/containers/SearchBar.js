@@ -33,16 +33,12 @@ class SearchBar extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <div className="input-group">
-          <span className="input-group-addon" id="basic-addon1">
-            <Octicon name="search"/>
-          </span>
+        <div className="searchBar">
+          <div><Octicon name="search"/></div>
 
           <input
             type="text"
-            className="form-control"
             placeholder="Search Tweets"
-            aria-describedby="basic-addon1"
             value={this.state.value}
             onChange={this.handleChange.bind(this)}
           />
