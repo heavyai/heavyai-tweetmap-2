@@ -1,0 +1,80 @@
+@import "variables";
+
+#overlay {
+  position: absolute;
+  left: 0; right: 0;
+  z-index: 1;
+
+  display: flex;
+
+  #settings {
+    display: inline-block;
+
+    margin-top: 30px;
+    margin-left: 25px;
+  }
+
+  form {
+    display: inline-block;
+    flex: 1;
+    margin-top: 4vh;
+    margin-left: 25px; margin-right: 25px;
+
+    text-align: center;
+  }
+
+  .logo {
+    width: 104px;
+    height: (281 / 308) * 104px;
+
+    margin-top: 30px;
+    margin-right: 25px;
+  }
+}
+
+a .octicon-three-bars {
+  color: white;
+}
+
+a:hover .octicon-three-bars {
+  color: $light-grey;
+}
+
+form {
+  .input-group {
+    max-width: $search-width;
+    height: $search-height;
+    margin: 0 auto;
+
+    input, span {
+      border-style: none;
+      background-color: white;
+      border-radius: $search-height/2;
+    }
+  }
+}
+
+
+/* The left navigation menu */
+.nav {
+    height: 100%;
+    width: 0px; /* 0 width - expanded with JavaScript */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 80px;
+    transition: 0.1s;
+    text-align: center;
+
+    .mega-octicon {
+      color: white;
+      margin-top: 1em;
+    }
+
+    a:hover .mega-octicon {
+      color: $light-grey;
+    }
+}

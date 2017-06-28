@@ -9,3 +9,4 @@ require("@mapd/mapdc/scss/chart.scss");
 import './style.scss'
 import './tweetSidebar.scss'
 import './legend.scss'
+import './overlay.scss'

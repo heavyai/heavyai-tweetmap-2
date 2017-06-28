@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 import * as dc from '@mapd/mapdc';
 const _ = require('lodash');
 
-import LeftNav from './LeftNav.js';
-import SearchBar from './SearchBar.js';
-import Legend from './Legend.js'
-import TweetResults from './TweetResults.js'
-import MapChart from '../components/MapChart.js'
-import LineChart from '../components/LineChart.js'
+import LeftNav from './LeftNav'
+import Legend from './Legend'
+import TweetResults from './TweetResults'
+import MapChart from '../components/MapChart'
+import LineChart from '../components/LineChart'
+import TopOverlay from '../components/TopOverlay'
 
 import { mapdConnect } from '../thunks/mapdConnect'
 import { createMapChart } from '../thunks/map';
@@ -80,8 +80,8 @@ class App extends React.Component {
   }
 
   toggleNav() {
-    const w = this.state.navShowing ? '0px' : '72px'
-    document.getElementById("sideNav").style.width = w
+    const width = this.state.navShowing ? '0px' : '72px'
+    document.getElementById("sideNav").style.width = width
     this.setState({navShowing: !this.state.navShowing})
   }
 
@@ -93,17 +93,16 @@ class App extends React.Component {
   render() {
     return (
       <dash>
-        <LeftNav toggle={() => this.toggleNav()}/>
-
-        <main onClick={() => this.closeNav()}>
-          <SearchBar/>
-          <map>
+        <LeftNav/>
+        <main>
+          <TopOverlay toggle={() => this.toggleNav()}/>
+          <map onClick={() => this.closeNav()}>
             <container>
               <MapChart/>
               <LineChart/>
             </container>
           </map>
-          <Legend/>
+          <Legend onClick={() => this.closeNav()}/>
         </main>
 
         <TweetResults closeNav={() => this.closeNav()}/>
