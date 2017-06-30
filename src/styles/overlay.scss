@@ -51,7 +51,6 @@ form {
 
     div {
       margin-left: 0.8em;
-      margin-right: 0.8em;
       height: 100%;
       display: table;
 
@@ -65,6 +64,7 @@ form {
     input {
       border-style: none;
       outline: none;
+      margin-left: 1em;
       flex: 1;
       height: 95%;
       margin-right:  $search-height/2;

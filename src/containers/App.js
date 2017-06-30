@@ -30,7 +30,8 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      navShowing: false
+      navShowing: false,
+      searchShowing: false
     }
   }
 
@@ -80,20 +81,30 @@ class App extends React.Component {
   }
 
   toggleNav() {
-    const width = this.state.navShowing ? '0px' : '72px'
+    if (this.state.navShowing) {
+      this.setState({searchShowing: false})
+    }
+    const width = this.state.navShowing ? '0px' : '76px'
     document.getElementById("sideNav").style.width = width
     this.setState({navShowing: !this.state.navShowing})
   }
 
   closeNav() {
     document.getElementById("sideNav").style.width = 0
-    this.setState({navShowing: false})
+    this.setState({navShowing: false, searchShowing: false})
+  }
+
+  toggleSearch() {
+    this.setState({searchShowing: !this.state.searchShowing})
   }
 
   render() {
     return (
       <dash>
-        <LeftNav/>
+        <LeftNav
+          search={this.state.searchShowing}
+          toggle={() => this.toggleSearch()}
+        />
         <main>
           <TopOverlay toggle={() => this.toggleNav()}/>
           <map onClick={() => this.closeNav()}>

@@ -1,0 +1,56 @@
+@import "variables";
+
+/* The left navigation menu */
+.nav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 0px; /* 0 width - expanded with JavaScript */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 80px;
+    transition: 0.1s;
+    text-align: center;
+
+    .mega-octicon {
+      color: white;
+      margin-top: 1em;
+    }
+
+    a:hover .mega-octicon {
+      color: $light-grey;
+    }
+}
+
+.Popover {
+  position: relative;
+  z-index: 3;
+}
+
+.Popover-body {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0.8rem;
+  background: hsl(0, 0%, 27%);
+  color: white;
+  border-radius: 0.3rem;
+}
+
+.Popover-tipShape {
+  fill: hsl(0, 0%, 27%);
+}
+
+.searchPopover .searchBar {
+  border-style: solid;
+  border-color: grey;
+  height: 30px;
+
+  input {
+    height: 95%;
+    font-size: 0.8em;
+  }
+}
