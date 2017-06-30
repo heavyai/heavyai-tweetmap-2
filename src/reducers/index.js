@@ -2,6 +2,7 @@ import {
   LANG_COUNTS_UPDATE,
   SELECTED_LANG_UPDATE,
   QUERIES_UPDATE,
+  COUNT_UPDATE,
   TWEETS_SET,
   TWEETS_APPEND
 } from '../actions'
@@ -10,7 +11,8 @@ const initialState = {
   queryTerms: [],
   langCounts: [],
   selectedLangs: [],
-  tweets: []
+  tweets: [],
+  totalTweets: 0
 }
 
 export default function reducer(state = initialState, action) {
@@ -26,6 +28,10 @@ export default function reducer(state = initialState, action) {
     case QUERIES_UPDATE:
       return Object.assign({}, state, {
         queryTerms: action.queries
+      })
+    case COUNT_UPDATE:
+      return Object.assign({}, state, {
+        totalTweets: action.count
       })
     case TWEETS_SET:
       return Object.assign({}, state, {

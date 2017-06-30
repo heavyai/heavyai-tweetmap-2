@@ -9,12 +9,13 @@ import Tweet from '../components/Tweet'
 import { loadMoreTweets } from '../thunks/tweets'
 
 const blankImg = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
-const month = ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 class TweetResults extends React.Component {
   static propTypes = {
     closeNav: PropTypes.func,
     tweets: PropTypes.array.isRequired,
+    totalTweets: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -36,6 +37,9 @@ class TweetResults extends React.Component {
   }
 
   render() {
+    const totalTweets = this.props.totalTweets
+    const listTweets = this.props.tweets.length
+
     return (
       <div className="tweetResults" onClick={() => this.props.closeNav()}>
 
@@ -49,6 +53,7 @@ class TweetResults extends React.Component {
           children={this.renderMessages()}
           loadMore={this.loadTweets.bind(this)}
           holderType="ul"
+          hasMore={listTweets < totalTweets}
         />
 
         <div className="tweetFooter">
@@ -62,8 +67,11 @@ class TweetResults extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { tweets, ...rest } = state
-  return { tweets }
+  const { tweets, totalTweets, ...rest } = state
+  return {
+    tweets,
+    totalTweets
+  }
 }
 
 export default connect(mapStateToProps)(TweetResults)

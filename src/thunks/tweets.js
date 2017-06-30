@@ -6,7 +6,7 @@ import {
   appendTweets
 } from '../actions';
 
-const FETCH_SIZE = 15
+const FETCH_SIZE = 25
 
 let _chart = null
 
@@ -69,8 +69,8 @@ export function loadMoreTweets() {
   return (dispatch, getState) => {
     if (!_chart) { return }
 
-    const { tweets: currentTweets, ...rest } = getState()
-    fetchTweets(currentTweets.length).then(tweets => {
+    const offset = getState().tweets.length
+    fetchTweets(offset).then(tweets => {
       dispatch(appendTweets(tweets))
     }, console.error)
   }
