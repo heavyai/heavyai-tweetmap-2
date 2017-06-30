@@ -75,6 +75,15 @@ export function createMapChart() {
 
     return pointMapChart.pushLayer("points", pointLayer).init()
       .then(() => {
+        const displayPopupWithData = (event) => {
+          pointMapChart.getClosestResult(event.point, pointMapChart.displayPopup)
+        }
+        const debouncedPopup = _.debounce(displayPopupWithData, 250)
+
+        pointMapChart.map().on('mousewheel', pointMapChart.hidePopup);
+        pointMapChart.map().on('mousemove', pointMapChart.hidePopup)
+        pointMapChart.map().on('mousemove', debouncedPopup)
+
         return initGeocoder()
       })
       .then(() => {
