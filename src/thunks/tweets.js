@@ -9,9 +9,8 @@ import {
 const FETCH_SIZE = 15
 
 let _chart = null
-let offset = 0
 
-function fetchTweets() {
+function fetchTweets(offset) {
   return _chart.dimension().order('tweet_time').topAsync(FETCH_SIZE, offset).then(results => {
     const tweets = results.map(obj => ({
       id: obj.tweet_id,
@@ -31,7 +30,7 @@ function fetchTweets() {
   triggered by updating props/state
 */
 export function createTweetChart() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     const crossfilter = getCf();
     const tweetDim = crossfilter.dimension(null).projectOn([
       "sender_name",
@@ -53,8 +52,7 @@ export function createTweetChart() {
     _chart._doRender = _chart._doRedraw = () => {}
 
     _chart.setDataAsync((group, callback) => {
-      fetchTweets().then(tweets => {
-        offset = FETCH_SIZE
+      fetchTweets(0).then(tweets => {
         dispatch(setTweets(tweets))
         callback()
       }, err => {
@@ -68,11 +66,11 @@ export function createTweetChart() {
 }
 
 export function loadMoreTweets() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     if (!_chart) { return }
 
-    fetchTweets().then(tweets => {
-      offset += FETCH_SIZE
+    const { tweets: currentTweets, ...rest } = getState()
+    fetchTweets(currentTweets.length).then(tweets => {
       dispatch(appendTweets(tweets))
     }, console.error)
   }

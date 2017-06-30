@@ -51,10 +51,14 @@ export function createLegendChart() {
   }
 }
 
-export function filterSelected(selected) {
-  return (dispatch) => {
-    dispatch(updateSelected(selected))
-    
+export function selectFilter(lang) {
+  return (dispatch, getState) => {
+    const { selectedLangs, ...rest } = getState()
+
+    const selected = selectedLangs.includes(lang) ?
+      selectedLangs.filter(item => item !== lang) :
+      [...selectedLangs, lang]
+
     if (selected.length == 0) {
       langDim.filterAll()
     }
@@ -63,5 +67,6 @@ export function filterSelected(selected) {
     }
 
     dc.redrawAllAsync()
+    dispatch(updateSelected(selected))
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { filterSearch } from '../thunks/search'
+import { removeFilter } from '../thunks/search'
 
 class QueryDisplay extends React.Component {
   static propTypes = {
@@ -11,9 +11,7 @@ class QueryDisplay extends React.Component {
   }
 
   removeQuery(query) {
-    const queries = this.props.queryTerms.filter((queryTerm) => queryTerm !== query )
-
-    this.props.dispatch(filterSearch(queries))
+    this.props.dispatch(removeFilter(query))
   }
 
   render() {

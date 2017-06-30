@@ -7,7 +7,7 @@ import * as dc from '@mapd/mapdc';
 import LegendItem from '../components/LegendItem'
 import { COLOR_MAP } from '../constants';
 import langCodes from '../services/langCodes'
-import { filterSelected } from '../thunks/legendFilter'
+import { selectFilter } from '../thunks/legendFilter'
 
 class Legend extends React.Component {
   static propTypes = {
@@ -17,15 +17,7 @@ class Legend extends React.Component {
   }
 
   handleClick(lang) {
-    let selected
-    if (this.props.selected.includes(lang)) {
-      selected = this.props.selected.filter(item => item !== lang)
-    }
-    else {
-      selected = [...this.props.selected, lang]
-    }
-
-    this.props.dispatch(filterSelected(selected))
+    this.props.dispatch(selectFilter(lang))
   }
 
   render() {

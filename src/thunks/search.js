@@ -6,10 +6,8 @@ import { updateQueryTerms } from '../actions';
 
 let searchDim = null
 
-export function filterSearch(queries) {
-  return (dispatch) => {
-    dispatch(updateQueryTerms(queries))
-
+function filterSearch(queries) {
+  return (dispatch, getState) => {
     if (!searchDim) {
       searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
     }
@@ -23,5 +21,22 @@ export function filterSearch(queries) {
 
     // You must call redrawAll after applying custom filters.
     dc.redrawAllAsync();
+    dispatch(updateQueryTerms(queries))
+  }
+}
+
+export function addFilters(queries) {
+  return (dispatch, getState) => {
+    const { queryTerms, ...rest } = getState()
+    const unique = [...new Set(queryTerms.concat(queries))]
+    dispatch(filterSearch(unique))
+  }
+}
+
+export function removeFilter(query) {
+  return (dispatch, getState) => {
+    const { queryTerms, ...rest } = getState()
+    const queries = queryTerms.filter((queryTerm) => queryTerm !== query )
+    dispatch(filterSearch(queries))
   }
 }

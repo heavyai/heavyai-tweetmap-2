@@ -53,7 +53,7 @@ class LeftNav extends React.Component {
           </Popover>
         </a>
 
-        <a>
+        <a href="https://www.mapd.com" target="_blank">
           <Popover
             isOpen={this.state.tooltip === 3}
             place="right"

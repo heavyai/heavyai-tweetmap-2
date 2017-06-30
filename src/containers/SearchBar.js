@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { filterSearch } from '../thunks/search'
+import { addFilters } from '../thunks/search'
 import Octicon from 'react-octicon'
 
 class SearchBar extends React.Component {
@@ -24,8 +24,7 @@ class SearchBar extends React.Component {
     if (this.state.value === '') {return}
 
     let queries = this.state.value.split(/\s+/);
-    queries = [...new Set(this.props.queryTerms.concat(queries))]
-    this.props.dispatch(filterSearch(queries))
+    this.props.dispatch(addFilters(queries))
 
     this.setState({value: ''});
   }
