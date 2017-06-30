@@ -43,7 +43,7 @@ export function createMapChart() {
 
     const [w, h] = getChartSize();
 
-    const pointMapDim = crossfilter.dimension(null).projectOn(["conv_4326_900913_x(lon) as x", "conv_4326_900913_y(lat) as y", "lang as color", "3 as size"]);
+    const pointMapDim = crossfilter.dimension(null).projectOn(["conv_4326_900913_x(lon) as x", "conv_4326_900913_y(lat) as y", "lang as color"]);
     const xDim = crossfilter.dimension("lon");
     const yDim = crossfilter.dimension("lat");
 
@@ -63,9 +63,7 @@ export function createMapChart() {
     .group(pointMapDim)
     .cap(5000000)
     .sampling(true)
-    .sizeAttr("size")
     .dynamicSize(d3.scale.sqrt().domain([20000,0]).range([1.0,7.0]).clamp(true))
-    .sizeScale(sizeScale)
     .xAttr("x")
     .yAttr("y")
     .xDim(xDim)
