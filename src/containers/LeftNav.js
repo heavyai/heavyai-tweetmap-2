@@ -7,6 +7,8 @@ import Octicon from 'react-octicon'
 
 import SearchPopover from './SearchPopover'
 
+import { zoomOut } from '../thunks/map'
+
 class LeftNav extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired
@@ -49,7 +51,8 @@ class LeftNav extends React.Component {
 
             <Octicon name="globe" mega
               onMouseEnter={() => this.setState({ tooltip: 2 })}
-              onMouseLeave={() => this.setState({ tooltip: 0 })}/>
+              onMouseLeave={() => this.setState({ tooltip: 0 })}
+              onClick={() => {this.props.dispatch(zoomOut())}}/>
           </Popover>
         </a>
 

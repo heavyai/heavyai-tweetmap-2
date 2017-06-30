@@ -102,3 +102,12 @@ export function geocode(placeName) {
     })
   }
 }
+
+export function zoomOut() {
+  return () => {
+    const zoom = pointMapChart.map().getZoom();
+    const center = pointMapChart.map().getCenter();
+
+    pointMapChart.map().flyTo({center:[10,0], zoom:1}, 1);
+  }
+}
