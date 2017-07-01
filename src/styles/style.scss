@@ -79,3 +79,28 @@ map {
     opacity: 0.3;
   }
 }
+
+h1 {
+  font-size: 1.5em;
+  margin: 1rem;
+}
+
+.textBar {
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 100px;
+  display: flex;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: $light-grey;
+
+  input {
+    border-style: none;
+    outline: none;
+    margin-left: 1em;
+    flex: 1;
+    height: 95%;
+    font-size: 1em;
+  }
+}

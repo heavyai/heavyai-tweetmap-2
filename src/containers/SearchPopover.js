@@ -6,6 +6,7 @@ import { geocode } from '../thunks/map'
 
 class SearchPopover extends React.Component {
   static propTypes = {
+    closeNav: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -24,6 +25,7 @@ class SearchPopover extends React.Component {
 
     this.props.dispatch(geocode(this.state.value))
     this.setState({value: ''});
+    this.props.closeNav()
   }
 
   componentDidMount() {
@@ -33,7 +35,7 @@ class SearchPopover extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <div className="searchBar">
+        <div className="textBar">
           <input
             type="text"
             placeholder="Search Location"

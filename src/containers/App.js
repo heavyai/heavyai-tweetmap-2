@@ -5,9 +5,12 @@ import { connect } from 'react-redux'
 import * as dc from '@mapd/mapdc';
 const _ = require('lodash');
 
+import Modal from 'react-modal'
+
 import LeftNav from './LeftNav'
 import Legend from './Legend'
 import TweetResults from './TweetResults'
+import ShareMenu from './ShareMenu'
 import MapChart from '../components/MapChart'
 import LineChart from '../components/LineChart'
 import TopOverlay from '../components/TopOverlay'
@@ -31,7 +34,8 @@ class App extends React.Component {
     super()
     this.state = {
       navShowing: false,
-      searchShowing: false
+      searchShowing: false,
+      shareShowing: false
     }
   }
 
@@ -104,6 +108,8 @@ class App extends React.Component {
         <LeftNav
           search={this.state.searchShowing}
           toggle={() => this.toggleSearch()}
+          closeNav={() => this.closeNav()}
+          openShare={() => this.setState({shareShowing: true})}
         />
         <main>
           <TopOverlay toggle={() => this.toggleNav()}/>
@@ -117,6 +123,15 @@ class App extends React.Component {
         </main>
 
         <TweetResults closeNav={() => this.closeNav()}/>
+
+        <Modal
+          isOpen={this.state.shareShowing}
+          onRequestClose={() => this.setState({shareShowing: false})}
+          contentLabel="Modal"
+          style={{overlay: {backgroundColor: 'rgba(0, 0, 0, 0.75)'}}}
+        >
+          <ShareMenu/>
+        </Modal>
       </dash>
     );
   }

@@ -30,24 +30,10 @@
     margin-top: 30px;
     margin-right: 25px;
   }
-}
 
-a .octicon-three-bars {
-  color: white;
-}
-
-a:hover .octicon-three-bars {
-  color: $light-grey;
-}
-
-form {
-  .searchBar {
+  .textBar {
     max-width: $search-width;
     height: $search-height;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: $search-height/2;
-    display: flex;
 
     div {
       margin-left: 0.8em;
@@ -62,13 +48,15 @@ form {
     }
 
     input {
-      border-style: none;
-      outline: none;
-      margin-left: 1em;
-      flex: 1;
-      height: 95%;
       margin-right:  $search-height/2;
-      font-size: 1em;
     }
   }
+}
+
+a .octicon-three-bars {
+  color: white;
+}
+
+a:hover .octicon-three-bars {
+  color: $light-grey;
 }

@@ -32,7 +32,7 @@ class SearchBar extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <div className="searchBar">
+        <div className="textBar">
           <div><Octicon name="search"/></div>
 
           <input

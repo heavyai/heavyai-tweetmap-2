@@ -44,13 +44,50 @@
   fill: hsl(0, 0%, 27%);
 }
 
-.searchPopover .searchBar {
-  border-style: solid;
-  border-color: grey;
+.searchPopover .textBar {
   height: 30px;
 
   input {
-    height: 95%;
     font-size: 0.8em;
+    margin-right: 1em;
+  }
+}
+
+.ReactModal__Overlay {
+  z-index: 5;
+  background-color: black;
+}
+
+.ReactModal__Content {
+  margin: auto;
+  width: 500px;
+  height: 300px;
+
+  .textBar {
+    border-right-style: none;
+    height: 32px;
+    max-width: 432px;
+
+    margin-top: 32px;
+
+    button {
+      padding-left: 1.5em; padding-right: 2em;
+      border-color: $light-grey;
+      background-color: white;
+      border-width: 1px;
+      border-top-right-radius: 100px; border-bottom-right-radius: 100px;
+      outline: none;
+    }
+  }
+}
+
+.switch {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  p {
+    display: inline-block;
+    margin-right: 1em;
   }
 }

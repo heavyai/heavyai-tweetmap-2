@@ -11,18 +11,23 @@ import { zoomOut } from '../thunks/map'
 
 class LeftNav extends React.Component {
   static propTypes = {
+    search: PropTypes.bool.isRequired,
+    toggle: PropTypes.func.isRequired,
+    closeNav: PropTypes.func.isRequired,
+    openShare: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
   constructor() {
     super()
     this.state = {
-      tooltip: 0
+      tooltip: 0,
+      shareModal: false
     }
   }
 
   render() {
-    const searchPopover = <SearchPopover/>
+    const searchPopover = <SearchPopover closeNav={this.props.closeNav}/>
 
     return (
       <div id="sideNav" className="nav">
@@ -52,21 +57,47 @@ class LeftNav extends React.Component {
             <Octicon name="globe" mega
               onMouseEnter={() => this.setState({ tooltip: 2 })}
               onMouseLeave={() => this.setState({ tooltip: 0 })}
-              onClick={() => {this.props.dispatch(zoomOut())}}/>
+              onClick={() => {this.props.dispatch(zoomOut()); this.props.closeNav()}}/>
+          </Popover>
+        </a>
+
+        <a href="https://github.com/mapd/new-tweetmap" target="_blank">
+          <Popover
+            isOpen={this.state.tooltip === 3}
+            place="right"
+            body="see code">
+
+            <Octicon name="mark-github" mega
+              onMouseEnter={() => this.setState({ tooltip: 3 })}
+              onMouseLeave={() => this.setState({ tooltip: 0 })}/>
           </Popover>
         </a>
 
         <a href="https://www.mapd.com" target="_blank">
           <Popover
-            isOpen={this.state.tooltip === 3}
+            isOpen={this.state.tooltip === 4}
             place="right"
             body="about">
 
             <Octicon name="info" mega
-              onMouseEnter={() => this.setState({ tooltip: 3 })}
+              onMouseEnter={() => this.setState({ tooltip: 4 })}
               onMouseLeave={() => this.setState({ tooltip: 0 })}/>
           </Popover>
         </a>
+
+        <a>
+          <Popover
+            isOpen={this.state.tooltip === 5}
+            place="right"
+            body="share">
+
+            <Octicon name="link" mega
+              onMouseEnter={() => this.setState({ tooltip: 5 })}
+              onMouseLeave={() => this.setState({ tooltip: 0 })}
+              onClick={() => {this.props.openShare(); this.props.closeNav()}}/>
+          </Popover>
+        </a>
+
       </div>
     );
   }
