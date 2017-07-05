@@ -123,3 +123,9 @@ export function zoomOut() {
     pointMapChart.map().flyTo({center:[0,0], zoom:1}, 1);
   }
 }
+
+export function initView(center, zoom) {
+  return () => {
+    pointMapChart.map().flyTo({center: center, zoom: zoom, animate: false});
+  }
+}

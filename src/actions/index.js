@@ -3,6 +3,7 @@ export const MAPD_CONNECT_SUCCESS = 'MAPD_CONNECT_SUCCESS';
 export const MAPD_CONNECT_FAILURE = 'MAPD_CONNECT_FAILURE';
 
 export const MOVE_MAP = 'MOVE_MAP';
+export const FILTER_TIME = 'FILTER_TIME';
 
 export const LANG_COUNTS_UPDATE = 'LANG_COUNTS_UPDATE';
 export const SELECTED_LANG_UPDATE = 'SELECTED_LANG_UPDATE';
@@ -36,6 +37,13 @@ export function moveMap(zoom, center) {
     type: MOVE_MAP,
     zoom,
     center
+  }
+}
+
+export function filterTime(times) {
+  return {
+    type: FILTER_TIME,
+    times
   }
 }
 

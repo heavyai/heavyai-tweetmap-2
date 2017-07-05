@@ -7,6 +7,7 @@ import Octicon from 'react-octicon'
 
 class ShareMenu extends React.Component {
   static propTypes = {
+    state: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   }
 
@@ -15,7 +16,14 @@ class ShareMenu extends React.Component {
     this.state = {
       share: true
     }
-    this.shareLink = "https://mapd.com"
+
+    this.baseUrl = window.location.origin + window.location.pathname
+  }
+
+  componentWillMount() {
+    const stateString = JSON.stringify(this.props.state)
+    console.log(stateString)
+    this.viewUrl = window.location.origin + window.location.pathname + "#" + btoa(stateString);
   }
 
   handleFocus(event) {
@@ -42,7 +50,7 @@ class ShareMenu extends React.Component {
         <div className="textBar">
           <input
             type="text"
-            value={this.state.share ? this.shareLink : "https://mapd.com/demos/tweetmap/"}
+            value={this.state.share ? this.viewUrl : this.baseUrl}
             ref={input => this.textInput = input}
             onFocus={this.handleFocus}
             readOnly
@@ -54,4 +62,11 @@ class ShareMenu extends React.Component {
   }
 }
 
-export default connect()(ShareMenu)
+const mapStateToProps = state => {
+  const { mapCenter, mapZoom, timeBounds, queryTerms, selectedLangs } = state
+  return {
+    state: { mapCenter, mapZoom, timeBounds, queryTerms, selectedLangs }
+  }
+}
+
+export default connect(mapStateToProps)(ShareMenu)

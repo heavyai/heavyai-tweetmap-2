@@ -70,3 +70,12 @@ export function selectFilter(lang) {
     dispatch(updateSelected(selected))
   }
 }
+
+export function initFilters(langs) {
+  return (dispatch) => {
+    if (langs.length !== 0) {
+      langDim.filterMulti(langs)
+      dispatch(updateSelected(langs))
+    }
+  }
+}

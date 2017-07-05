@@ -38,7 +38,7 @@ class LeftNav extends React.Component {
             place="right"
             body={this.props.search ? searchPopover : "search location"}>
 
-            <Octicon name="search" mega
+            <Octicon name="location" mega
               onMouseEnter={() => this.setState({ tooltip: 1 })}
               onMouseLeave={() => this.setState({ tooltip: 0 })}
               onClick={() => {
@@ -65,7 +65,7 @@ class LeftNav extends React.Component {
           <Popover
             isOpen={this.state.tooltip === 3}
             place="right"
-            body="see code">
+            body="see repo">
 
             <Octicon name="mark-github" mega
               onMouseEnter={() => this.setState({ tooltip: 3 })}

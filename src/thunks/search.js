@@ -40,3 +40,13 @@ export function removeFilter(query) {
     dispatch(filterSearch(queries))
   }
 }
+
+export function initFilters(queries) {
+  return (dispatch) => {
+    searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
+    if (queries.length !== 0) {
+      searchDim.filterMulti(queries)
+      dispatch(updateQueryTerms(queries))
+    }
+  }
+}

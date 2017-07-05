@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import * as dc from '@mapd/mapdc';
-const _ = require('lodash');
-
 import Modal from 'react-modal'
 
 import LeftNav from './LeftNav'
@@ -15,14 +12,8 @@ import MapChart from '../components/MapChart'
 import LineChart from '../components/LineChart'
 import TopOverlay from '../components/TopOverlay'
 
-import { mapdConnect } from '../thunks/mapdConnect'
-import { createMapChart } from '../thunks/map';
-import { createLineChart } from '../thunks/timeFilter';
-import { createLegendChart } from '../thunks/legendFilter';
-import { createTweetChart } from '../thunks/tweets';
-import { createCount } from '../thunks/count';
+import { setupCharts } from '../thunks/setup'
 
-let charts = []
 let resizeListener = null
 
 class App extends React.Component {
@@ -41,43 +32,11 @@ class App extends React.Component {
 
   // initialize charts
   componentDidMount() {
-    const dispatch = this.props.dispatch
-
-    dispatch(mapdConnect())
-      .then(() => {
-        // run chart init thunks
-        return Promise.all([
-          dispatch(createMapChart()),
-          dispatch(createLineChart()),
-          dispatch(createLegendChart()),
-          dispatch(createTweetChart()),
-          dispatch(createCount())
-        ])
-      }).then((result) => {
-        // render charts
-        charts = result
-        return dc.renderAllAsync()
-      }).then(() => {
-        // attach resize listener
-        const [[mapChart, mapSizeFunc], [lineChart, lineSizeFunc]] = charts
-
-        resizeListener = _.debounce(() => {
-          const [mapW, mapH] = mapSizeFunc();
-          const [lineW, lineH] = lineSizeFunc();
-
-          lineChart.width(lineW).height(lineH)
-
-          mapChart.map().resize();
-          mapChart.isNodeAnimate = false;
-          mapChart.width(mapW).height(mapH).render();
-
-          dc.redrawAllAsync();
-        }, 500)
-
-        window.addEventListener("resize", resizeListener);
-      }, err =>  {
-        console.error(err)
-      })
+    this.props.dispatch(setupCharts()).then((listener) => {
+      resizeListener = listener
+    }, err => {
+      console.error(err)
+    })
   }
 
   componentWillUnmount() {

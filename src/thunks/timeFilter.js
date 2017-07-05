@@ -1,11 +1,15 @@
 import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
 
+import { filterTime } from '../actions';
+
+let lineChart = null
+
 /*
   LINE CHART
 */
 export function createLineChart() {
-  return () => {
+  return (dispatch) => {
     const crossfilter = getCf();
     const parent = document.getElementById("mapChart");
 
@@ -39,7 +43,7 @@ export function createLineChart() {
           .reduceCount('*')
 
         const [w, h] = getChartSize();
-        const lineChart = dc.lineChart('.lineChart')
+        lineChart = dc.lineChart('.lineChart')
           .width(w)
           .height(h)
           .margins({top: 16, right: 48, bottom: 0, left: 64})
@@ -51,16 +55,26 @@ export function createLineChart() {
             numBins: 288, // 288 * 5 = number of minutes in a day
             binBounds: [timeChartBounds.minimum, timeChartBounds.maximum]
           });
-          
+
         lineChart
           .x(d3.time.scale.utc().domain([timeChartBounds.minimum, timeChartBounds.maximum]))
           .yAxis().ticks(5);
 
-        lineChart
-          .xAxis()
-          .orient('top');
+        lineChart.xAxis().orient('top');
+
+        lineChart.on('filtered', (_, filter) =>  {
+          dispatch(filterTime(filter))
+        })
 
         return Promise.resolve([lineChart, getChartSize])
       });
+  }
+}
+
+export function initFilter(filter) {
+  return (dispatch) => {
+    if (filter != null) {
+      lineChart.filter(filter.map(str => new Date(str)))
+    }
   }
 }
