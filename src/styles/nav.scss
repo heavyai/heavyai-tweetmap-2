@@ -61,14 +61,18 @@
 .ReactModal__Content {
   margin: auto;
   width: 500px;
-  height: 300px;
+  height: 250px;
+
+  h1 {
+    margin: 0;
+  }
 
   .textBar {
     border-right-style: none;
     height: 32px;
     max-width: 432px;
 
-    margin-top: 32px;
+    margin-top: 2.5rem;
 
     button {
       padding-left: 1.5em; padding-right: 2em;
@@ -79,12 +83,19 @@
       outline: none;
     }
   }
+
+  .socialBar {
+    margin-top: 2em;
+    .icon {
+      margin-right: 0.8em;
+    }
+  }
 }
 
 .switch {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 2.8rem;
+  right: 2.5rem;
 
   p {
     display: inline-block;

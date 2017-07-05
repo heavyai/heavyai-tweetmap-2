@@ -40,7 +40,7 @@ class ShareMenu extends React.Component {
       <div>
         <h1>Share</h1>
         <div className="switch">
-          <p>Share current view:</p>
+          <p>Share with current filters:</p>
           <Switch
             onChange={() => {this.setState({share: !this.state.share})}}
             checked={this.state.share}
@@ -56,6 +56,15 @@ class ShareMenu extends React.Component {
             readOnly
           />
           <button onClick={() => this.copyLink()}><Octicon name="clippy"/></button>
+        </div>
+
+        <div className="socialBar">
+          <a href={'https://www.facebook.com/share.php?u=' + (this.state.share ? this.viewUrl : this.baseUrl)} target="_blank">
+            <img className="icon" src="src/assets/facebook_icon.svg" />
+          </a>
+          <a href={'https://twitter.com/intent/tweet?text=Explore%20millions%20of%20tweets%20with%20MapD%27s%20GPU-powered%20interactive%20Tweetmap%20' + (this.state.share ? this.viewUrl : this.baseUrl) + '%20@mapd'} target="_blank">
+            <img className="icon" src="src/assets/twitter_icon.svg" />
+          </a>
         </div>
       </div>
     );

@@ -87,7 +87,10 @@ class App extends React.Component {
           isOpen={this.state.shareShowing}
           onRequestClose={() => this.setState({shareShowing: false})}
           contentLabel="Modal"
-          style={{overlay: {backgroundColor: 'rgba(0, 0, 0, 0.75)'}}}
+          style={{
+            overlay: {backgroundColor: 'rgba(0, 0, 0, 0.75)'},
+            content: {padding: '2.5rem'}
+          }}
         >
           <ShareMenu/>
         </Modal>
