@@ -1,4 +1,5 @@
 import {
+  MOVE_MAP,
   LANG_COUNTS_UPDATE,
   SELECTED_LANG_UPDATE,
   QUERIES_UPDATE,
@@ -8,15 +9,22 @@ import {
 } from '../actions'
 
 const initialState = {
+  mapCenter: [0,0],
+  mapZoom: 1,
   queryTerms: [],
-  langCounts: [],
   selectedLangs: [],
+  langCounts: [],
   tweets: [],
   totalTweets: 0
 }
 
 export default function reducer(state = initialState, action) {
   switch(action.type) {
+    case MOVE_MAP:
+      return Object.assign({}, state, {
+        zoom: action.zoom,
+        center: action.center,
+      })
     case LANG_COUNTS_UPDATE:
       return Object.assign({}, state, {
         langCounts: action.langCounts

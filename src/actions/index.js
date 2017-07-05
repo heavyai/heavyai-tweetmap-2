@@ -2,7 +2,9 @@ export const MAPD_CONNECT_REQUEST = 'MAPD_CONNECT_REQUEST';
 export const MAPD_CONNECT_SUCCESS = 'MAPD_CONNECT_SUCCESS';
 export const MAPD_CONNECT_FAILURE = 'MAPD_CONNECT_FAILURE';
 
-export const LANG_COUNTS_UPDATE = 'MAPD_CONNECT_FAILURE';
+export const MOVE_MAP = 'MOVE_MAP';
+
+export const LANG_COUNTS_UPDATE = 'LANG_COUNTS_UPDATE';
 export const SELECTED_LANG_UPDATE = 'SELECTED_LANG_UPDATE';
 export const QUERIES_UPDATE = 'QUERIES_UPDATE';
 export const COUNT_UPDATE = 'COUNT_UPDATE';
@@ -26,6 +28,14 @@ export function mapdConnectFailure(error) {
   return {
     type: MAPD_CONNECT_FAILURE,
     error
+  }
+}
+
+export function moveMap(zoom, center) {
+  return {
+    type: MOVE_MAP,
+    zoom,
+    center
   }
 }
 

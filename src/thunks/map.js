@@ -1,6 +1,7 @@
 import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
 import { getConnection, query } from '../services/connector';
+import { moveMap } from '../actions';
 import { LANG_DOMAIN, LANG_COLORS } from '../constants';
 
 import fetchJs from 'fetch-js'
@@ -29,7 +30,7 @@ const initGeocoder = () => {
   BACKEND RENDERED POINT MAP
 */
 export function createMapChart() {
-  return () => {
+  return (dispatch) => {
     const crossfilter = getCf();
     const connection = getConnection();
 
@@ -75,15 +76,22 @@ export function createMapChart() {
 
     return pointMapChart.pushLayer("points", pointLayer).init()
       .then(() => {
+        /* display pop up on mouse hover */
         const displayPopupWithData = (event) => {
           pointMapChart.getClosestResult(event.point, pointMapChart.displayPopup)
         }
         const debouncedPopup = _.debounce(displayPopupWithData, 250)
+        const map = pointMapChart.map()
 
-        pointMapChart.map().on('mousewheel', pointMapChart.hidePopup);
-        pointMapChart.map().on('mousemove', pointMapChart.hidePopup)
-        pointMapChart.map().on('mousemove', debouncedPopup)
+        map.on('mousewheel', pointMapChart.hidePopup);
+        map.on('mousemove', pointMapChart.hidePopup)
+        map.on('mousemove', debouncedPopup)
 
+        map.on('moveend', () => {
+          dispatch(moveMap(map.getZoom(), map.getCenter()))
+        })
+
+        /* set up Google geocoder */
         return initGeocoder()
       })
       .then(() => {
