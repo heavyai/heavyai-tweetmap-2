@@ -36,7 +36,7 @@ class Legend extends React.Component {
     return (
       <div id="legend">
         <ul>
-          <li><LegendItem justTitle={true} title="Languages" sub="" active={true}/></li>
+          <li style={{marginLeft: '0.8em'}}><LegendItem justTitle={true} title="Languages" sub="" active={true}/></li>
           {items}
           <div id="legendDummy"></div>
         </ul>

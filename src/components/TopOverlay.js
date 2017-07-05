@@ -16,7 +16,7 @@ const TopOverlay = (props) => {
       <SearchBar/>
 
       <a href="https://www.mapd.com" target="_blank">
-        <img className="logo" src="https://www.mapd.com/blog/content/images/2016/02/logo-mapd-blog.png" />
+        <img className="logo" src="src/assets/logo.svg" />
       </a>
     </div>
   )
