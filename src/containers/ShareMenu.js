@@ -14,16 +14,33 @@ class ShareMenu extends React.Component {
   constructor() {
     super()
     this.state = {
-      share: true
+      share: true,
+      baseUrl: window.location.origin + window.location.pathname,
+      viewUrl: ''
     }
-
-    this.baseUrl = window.location.origin + window.location.pathname
   }
 
   componentWillMount() {
     const stateString = JSON.stringify(this.props.state)
-    console.log(stateString)
-    this.viewUrl = window.location.origin + window.location.pathname + "#" + btoa(stateString);
+
+    const fullViewUrl = window.location.origin + window.location.pathname + "#" + btoa(stateString);
+    const url = new FormData();
+    url.append( 'url', fullViewUrl);
+
+    fetch('http://external-apis.mapd.com/shorten', {
+      method: 'POST',
+      body: url
+    }).then(res => {
+      if (res.status !== 200) {
+        return Promise.resolve(fullViewUrl)
+      }
+      
+      return res.text()
+    }).then(text => {
+      this.setState({viewUrl: text})
+    }, err => {
+      console.error(err)
+    })
   }
 
   handleFocus(event) {
@@ -36,6 +53,8 @@ class ShareMenu extends React.Component {
   }
 
   render() {
+    const url = this.state.share ? this.state.viewUrl : this.state.baseUrl
+
     return (
       <div>
         <h1>Share</h1>
@@ -50,7 +69,7 @@ class ShareMenu extends React.Component {
         <div className="textBar">
           <input
             type="text"
-            value={this.state.share ? this.viewUrl : this.baseUrl}
+            value={url}
             ref={input => this.textInput = input}
             onFocus={this.handleFocus}
             readOnly
@@ -59,10 +78,10 @@ class ShareMenu extends React.Component {
         </div>
 
         <div className="socialBar">
-          <a href={'https://www.facebook.com/share.php?u=' + (this.state.share ? this.viewUrl : this.baseUrl)} target="_blank">
+          <a href={'https://www.facebook.com/share.php?u=' + url} target="_blank">
             <img className="icon" src="src/assets/facebook_icon.svg" />
           </a>
-          <a href={'https://twitter.com/intent/tweet?text=Explore%20millions%20of%20tweets%20with%20MapD%27s%20GPU-powered%20interactive%20Tweetmap%20' + (this.state.share ? this.viewUrl : this.baseUrl) + '%20@mapd'} target="_blank">
+          <a href={'https://twitter.com/intent/tweet?text=Explore%20millions%20of%20tweets%20with%20MapD%27s%20GPU-powered%20interactive%20Tweetmap%20' + url + '%20@mapd'} target="_blank">
             <img className="icon" src="src/assets/twitter_icon.svg" />
           </a>
         </div>

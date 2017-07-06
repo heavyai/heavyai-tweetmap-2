@@ -44,7 +44,6 @@ export function setupCharts() {
 
       return dc.renderAllAsync()
     }).then(() => {
-      console.log('done rendering')
       // attach resize listener
       const [[mapChart, mapSizeFunc], [lineChart, lineSizeFunc]] = charts
 
