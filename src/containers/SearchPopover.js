@@ -1,31 +1,33 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { geocode } from '../thunks/map'
+import { geocode } from '../thunks/map';
 
 class SearchPopover extends React.Component {
   static propTypes = {
     closeNav: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
-  }
+  };
 
   constructor() {
     super();
-    this.state = {value: ''};
+    this.state = { value: '' };
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.value === '') {return}
+    if (this.state.value === '') {
+      return;
+    }
 
-    this.props.dispatch(geocode(this.state.value))
-    this.setState({value: ''});
-    this.props.closeNav()
+    this.props.dispatch(geocode(this.state.value));
+    this.setState({ value: '' });
+    this.props.closeNav();
   }
 
   componentDidMount() {
@@ -41,7 +43,9 @@ class SearchPopover extends React.Component {
             placeholder="Search Location"
             value={this.state.value}
             onChange={this.handleChange.bind(this)}
-            ref={(input) => { this.input = input }}
+            ref={input => {
+              this.input = input;
+            }}
           />
         </div>
       </form>
@@ -49,4 +53,4 @@ class SearchPopover extends React.Component {
   }
 }
 
-export default connect()(SearchPopover)
+export default connect()(SearchPopover);

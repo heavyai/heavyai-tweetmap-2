@@ -1,13 +1,13 @@
-require("@mapd/connector/dist/browser-connector");
+require('@mapd/connector/dist/browser-connector');
 const Connector = window.MapdCon;
 
 const connection = new Connector()
-  .protocol("https")
-  .host("metis.mapd.com")
-  .port("443")
-  .dbName("mapd")
-  .user("mapd")
-  .password("HyperInteractive");
+  .protocol('https')
+  .host('metis.mapd.com')
+  .port('443')
+  .dbName('mapd')
+  .user('mapd')
+  .password('HyperInteractive');
 
 // log SQL queries
 // connection.logging(true)
@@ -21,5 +21,5 @@ export function connect() {
 }
 
 export function getConnection() {
-  return connection
+  return connection;
 }

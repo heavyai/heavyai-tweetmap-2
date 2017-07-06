@@ -1,15 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import InfiniteScroll from 'redux-infinite-scroll';
 
-import QueryDisplay from './QueryDisplay.js'
-import Tweet from '../components/Tweet'
-import { loadMoreTweets } from '../thunks/tweets'
+import QueryDisplay from './QueryDisplay.js';
+import Tweet from '../components/Tweet';
+import { loadMoreTweets } from '../thunks/tweets';
 
-const blankImg = 'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png'
-const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+const blankImg =
+  'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';
+const month = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+];
 
 class TweetResults extends React.Component {
   static propTypes = {
@@ -17,37 +31,36 @@ class TweetResults extends React.Component {
     tweets: PropTypes.array.isRequired,
     totalTweets: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired
-  }
+  };
 
   loadTweets() {
-    this.props.dispatch(loadMoreTweets())
+    this.props.dispatch(loadMoreTweets());
   }
 
   renderMessages() {
-    return this.props.tweets.map(({id, name, date, body}) => (
+    return this.props.tweets.map(({ id, name, date, body }) =>
       <li key={id}>
         <Tweet
           imgLink={blankImg}
-          handle={"@" + name}
+          handle={'@' + name}
           date={month[date.getMonth()] + ' ' + String(date.getDate())}
           body={body}
         />
       </li>
-    ))
+    );
   }
 
   render() {
-    const totalTweets = this.props.totalTweets
-    const listTweets = this.props.tweets.length
+    const totalTweets = this.props.totalTweets;
+    const listTweets = this.props.tweets.length;
 
     return (
       <div className="tweetResults" onClick={() => this.props.closeNav()}>
-
         <div className="tweetTitle">
           <h1>Tweets</h1>
         </div>
 
-        <QueryDisplay/>
+        <QueryDisplay />
 
         <InfiniteScroll
           children={this.renderMessages()}
@@ -57,21 +70,23 @@ class TweetResults extends React.Component {
         />
 
         <div className="tweetFooter">
-          <p>Showing {this.props.tweets.length} of <span className="tweetCount"></span></p>
+          <p>
+            Showing {this.props.tweets.length} of{' '}
+            <span className="tweetCount" />
+          </p>
         </div>
-        <div id="tweetDummy"></div>
-
+        <div id="tweetDummy" />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const { tweets, totalTweets, ...rest } = state
+  const { tweets, totalTweets, ...rest } = state;
   return {
     tweets,
     totalTweets
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(TweetResults)
+export default connect(mapStateToProps)(TweetResults);

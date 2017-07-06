@@ -7,21 +7,22 @@ import { updateCount } from '../actions';
   DC COUNT
 */
 export function createCount() {
-  return (dispatch) => {
+  return dispatch => {
     const crossfilter = getCf();
 
     const countGroup = crossfilter.groupAll();
-    const dataCount = dc.countWidget(".tweetCount")
+    const dataCount = dc
+      .countWidget('.tweetCount')
       .dimension(crossfilter)
       .group(countGroup);
 
     // hijack _doRender
-    dataCount._doRender = (val) => {
-      const selected = dataCount.formatNumber()(val)
-      const wrapper = dataCount.root().text(selected)
+    dataCount._doRender = val => {
+      const selected = dataCount.formatNumber()(val);
+      const wrapper = dataCount.root().text(selected);
 
-      dispatch(updateCount(val))
-      return dataCount
-    }
-  }
+      dispatch(updateCount(val));
+      return dataCount;
+    };
+  };
 }

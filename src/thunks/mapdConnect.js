@@ -8,17 +8,22 @@ import {
 } from '../actions';
 
 export function mapdConnect() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(mapdConnectRequest());
 
-    return connect().then(con => {
-      return createCf(con);
-    }).then((cf, con) => {
-      dispatch(mapdConnectSuccess())
-      return Promise.resolve()
-    }, err => {
-      dispatch(mapdConnectFailure(err))
-      return Promise.reject(err)
-    })
-  }
+    return connect()
+      .then(con => {
+        return createCf(con);
+      })
+      .then(
+        (cf, con) => {
+          dispatch(mapdConnectSuccess());
+          return Promise.resolve();
+        },
+        err => {
+          dispatch(mapdConnectFailure(err));
+          return Promise.reject(err);
+        }
+      );
+  };
 }
