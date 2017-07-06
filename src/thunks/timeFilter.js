@@ -49,6 +49,7 @@ export function createLineChart() {
           .margins({ top: 16, right: 48, bottom: 0, left: 64 })
           .elasticY(true)
           .brushOn(true)
+          .renderArea(true)
           .dimension(timeChartDimension)
           .group(timeChartGroup)
           .binParams({
