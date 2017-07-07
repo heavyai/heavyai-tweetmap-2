@@ -7,7 +7,7 @@ import { updateQueryTerms } from '../actions';
 let searchDim = null;
 
 function filterSearch(queries) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if (!searchDim) {
       searchDim = getCf().dimension('tweet_tokens').setDrillDownFilter(true);
     }
@@ -25,6 +25,10 @@ function filterSearch(queries) {
 }
 
 export function addFilters(queries) {
+  if (!Array.isArray(queries)) {
+    queries = [queries]
+  }
+
   return (dispatch, getState) => {
     const { queryTerms, ...rest } = getState();
     const unique = [...new Set(queryTerms.concat(queries))];
@@ -41,8 +45,9 @@ export function removeFilter(query) {
 }
 
 export function initFilters(queries) {
+  searchDim = getCf().dimension('tweet_tokens').setDrillDownFilter(true);
+
   return dispatch => {
-    searchDim = getCf().dimension('tweet_tokens').setDrillDownFilter(true);
     if (queries.length !== 0) {
       searchDim.filterMulti(queries);
       dispatch(updateQueryTerms(queries));

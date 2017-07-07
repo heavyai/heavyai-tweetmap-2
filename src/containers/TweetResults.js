@@ -11,6 +11,7 @@ import QueryDisplay from './QueryDisplay.js';
 import Tweet from '../components/Tweet';
 import Hashtag from '../components/Hashtag';
 
+import { addFilters } from '../thunks/search';
 import { HASHTAG_EXCLUDE } from '../constants'
 
 const blankImg =
@@ -49,7 +50,10 @@ class TweetResults extends React.Component {
       return this.props.hashtags
         .filter(({ hashtag, count }) => !HASHTAG_EXCLUDE.includes(hashtag))
         .map(({ hashtag, count }) =>
-        <li key={hashtag}>
+        <li key={hashtag} onClick={() => {
+          this.props.dispatch(addFilters(hashtag))
+          this.props.dispatch(setTweetBar('tweet'))
+        }}>
           <Hashtag
             title={hashtag}
             count={count}
