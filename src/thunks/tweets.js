@@ -2,8 +2,7 @@ import * as dc from '@mapd/mapdc';
 import { getCf } from '../services/crossfilter';
 
 import { setTweets, appendTweets } from '../actions';
-
-const FETCH_SIZE = 25;
+import { TWEET_FETCH_SIZE } from '../constants';
 
 let _chart = null;
 
@@ -11,7 +10,7 @@ function fetchTweets(offset) {
   return _chart
     .dimension()
     .order('tweet_time')
-    .topAsync(FETCH_SIZE, offset)
+    .topAsync(TWEET_FETCH_SIZE, offset)
     .then(results => {
       const tweets = results.map(obj => ({
         id: obj.tweet_id,

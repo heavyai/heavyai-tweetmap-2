@@ -7,6 +7,7 @@ import { createMapChart, initView as initMap } from './map';
 import { createLineChart, initFilter as initTime } from './timeFilter';
 import { createLegendChart, initFilters as initLangs } from './legendFilter';
 import { createTweetChart } from './tweets';
+import { createHashtagChart } from './hashtags';
 import { createCount } from './count';
 import { initFilters as initQueries } from './search';
 
@@ -25,6 +26,7 @@ export function setupCharts() {
           dispatch(createLineChart()),
           dispatch(createLegendChart()),
           dispatch(createTweetChart()),
+          dispatch(createHashtagChart()),
           dispatch(createCount())
         ]);
       })

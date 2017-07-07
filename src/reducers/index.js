@@ -6,7 +6,9 @@ import {
   QUERIES_UPDATE,
   COUNT_UPDATE,
   TWEETS_SET,
-  TWEETS_APPEND
+  TWEETS_APPEND,
+  HASHTAGS_SET,
+  TOGGLE_TWEET_BAR
 } from '../actions';
 
 const initialState = {
@@ -17,7 +19,9 @@ const initialState = {
   selectedLangs: [],
   langCounts: [],
   tweets: [],
-  totalTweets: 0
+  hashtags: [],
+  totalTweets: 0,
+  tweetBar: 'hashtag'
 };
 
 export default function reducer(state = initialState, action) {
@@ -66,6 +70,14 @@ export default function reducer(state = initialState, action) {
 
       return Object.assign({}, state, {
         tweets: uniques
+      });
+    case HASHTAGS_SET:
+      return Object.assign({}, state, {
+        hashtags: action.hashtags
+      });
+    case TOGGLE_TWEET_BAR:
+      return Object.assign({}, state, {
+        tweetBar: action.setting
       });
     default:
       return state;

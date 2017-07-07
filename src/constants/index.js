@@ -61,4 +61,8 @@ for (let i = 0; i < LANG_DOMAIN.length; i++) {
   COLOR_MAP[LANG_DOMAIN[i]] = COLORS[i % COLORS.length];
 }
 
+export const HASHTAG_EXCLUDE = ["#jobs", "#job", "#", "#tweetmyjobs", "#job:", "#healthcare", "#nursing", "#hospitality", "#veteranjob", "#retail", "#sales", "#transportation", "#skilledtrade", "#it", "#customerservice", "#businessmgmt", "#manufacturing", "#education", "#clerical", "#accounting", "#engineering", "#pharmaceutical", "#1", "#hiring", "#careerarc", "#veterans", "#cosmetology"];
+export const HASHTAG_FETCH_SIZE = 60;
+export const TWEET_FETCH_SIZE = 25;
+
 export const TABLE_NAME = 'tweets_nov_feb';

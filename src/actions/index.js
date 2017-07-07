@@ -12,6 +12,9 @@ export const COUNT_UPDATE = 'COUNT_UPDATE';
 
 export const TWEETS_SET = 'TWEETS_SET';
 export const TWEETS_APPEND = 'TWEETS_APPEND';
+export const HASHTAGS_SET = 'HASHTAGS_SET';
+
+export const TOGGLE_TWEET_BAR = 'TOGGLE_TWEET_BAR';
 
 export function mapdConnectRequest() {
   return {
@@ -86,5 +89,19 @@ export function appendTweets(tweets) {
   return {
     type: TWEETS_APPEND,
     tweets
+  };
+}
+
+export function setHashtags(hashtags) {
+  return {
+    type: HASHTAGS_SET,
+    hashtags
+  };
+}
+
+export function setTweetBar(setting) {
+  return {
+    type: TOGGLE_TWEET_BAR,
+    setting
   };
 }

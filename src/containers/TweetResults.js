@@ -4,9 +4,14 @@ import { connect } from 'react-redux';
 
 import InfiniteScroll from 'redux-infinite-scroll';
 
+import { setTweetBar } from '../actions';
+import { loadMoreTweets } from '../thunks/tweets';
+
 import QueryDisplay from './QueryDisplay.js';
 import Tweet from '../components/Tweet';
-import { loadMoreTweets } from '../thunks/tweets';
+import Hashtag from '../components/Hashtag';
+
+import { HASHTAG_EXCLUDE } from '../constants'
 
 const blankImg =
   'https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';
@@ -38,26 +43,55 @@ class TweetResults extends React.Component {
   }
 
   renderMessages() {
-    return this.props.tweets.map(({ id, name, date, body }) =>
-      <li key={id}>
-        <Tweet
-          imgLink={blankImg}
-          handle={'@' + name}
-          date={month[date.getMonth()] + ' ' + String(date.getDate())}
-          body={body}
-        />
-      </li>
-    );
+    if (this.props.tweetBar === 'hashtag') {
+      const max = this.props.hashtags[0] ? this.props.hashtags[0].count : 1
+
+      return this.props.hashtags
+        .filter(({ hashtag, count }) => !HASHTAG_EXCLUDE.includes(hashtag))
+        .map(({ hashtag, count }) =>
+        <li key={hashtag}>
+          <Hashtag
+            title={hashtag}
+            count={count}
+            barLength={count / max}
+          />
+        </li>
+      );
+    }
+    else {
+      return this.props.tweets.map(({ id, name, date, body }) =>
+        <li key={id}>
+          <Tweet
+            imgLink={blankImg}
+            handle={'@' + name}
+            date={month[date.getMonth()] + ' ' + String(date.getDate())}
+            body={body}
+          />
+        </li>
+      );
+    }
   }
 
   render() {
     const totalTweets = this.props.totalTweets;
     const listTweets = this.props.tweets.length;
+    const isHashtag = this.props.tweetBar === 'hashtag';
 
     return (
       <div className="tweetResults" onClick={() => this.props.closeNav()}>
         <div className="tweetTitle">
-          <h1>Tweets</h1>
+          <div className="buttonGroup">
+            <button
+              className={isHashtag ? 'well' : null}
+              onClick={() => this.props.dispatch(setTweetBar('hashtag'))}>
+              Hashtags
+            </button>
+            <button
+              className={isHashtag ? null: 'well'}
+              onClick={() => this.props.dispatch(setTweetBar('tweet'))}>
+              Tweets
+            </button>
+          </div>
         </div>
 
         <QueryDisplay />
@@ -66,10 +100,10 @@ class TweetResults extends React.Component {
           children={this.renderMessages()}
           loadMore={this.loadTweets.bind(this)}
           holderType="ul"
-          hasMore={listTweets < totalTweets}
+          hasMore={(!isHashtag) && listTweets < totalTweets}
         />
 
-        <div className="tweetFooter">
+        <div className="tweetFooter" style={{display: isHashtag ? 'none' : 'inline'}}>
           <p>
             Showing {this.props.tweets.length} of{' '}
             <span className="tweetCount" />
@@ -82,10 +116,12 @@ class TweetResults extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { tweets, totalTweets, ...rest } = state;
+  const { tweets, totalTweets, hashtags, tweetBar, ...rest } = state;
   return {
     tweets,
-    totalTweets
+    totalTweets,
+    hashtags,
+    tweetBar
   };
 };
 
