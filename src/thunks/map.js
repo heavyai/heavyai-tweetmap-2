@@ -147,6 +147,16 @@ export function zoomOut() {
   };
 }
 
+export function zoomTo(position) {
+  return () => {
+    pointMapChart.jumpTo({
+      center: [position.coords.longitude, position.coords.latitude],
+      zoom: 17,
+      speed: 2
+    });
+  };
+}
+
 export function initView(center, zoom) {
   return () => {
     pointMapChart.map().flyTo({ center: center, zoom: zoom, animate: false });
