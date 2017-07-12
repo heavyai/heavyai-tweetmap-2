@@ -10,7 +10,7 @@ const TopOverlay = props => {
   return (
     <div id="overlay">
       <a id="icon">
-        <Octicon name="three-bars" mega onClick={props.toggle} />
+        <Octicon name="three-bars" mega onClick={props.toggleNav} />
       </a>
 
       <SearchBar />
@@ -23,7 +23,7 @@ const TopOverlay = props => {
 
       <MediaQuery query='(max-width: 992px)'>
       <a id="icon">
-        <Octicon name="list-unordered" mega onClick={props.toggle} />
+        <Octicon name="list-unordered" mega onClick={props.toggleTweets} />
       </a>
       </MediaQuery>
     </div>
@@ -31,7 +31,8 @@ const TopOverlay = props => {
 };
 
 TopOverlay.propTypes = {
-  toggle: PropTypes.func.isRequired
+  toggleNav: PropTypes.func.isRequired,
+  toggleTweets: PropTypes.func.isRequired
 };
 
 export default TopOverlay;

@@ -82,7 +82,7 @@ class TweetResults extends React.Component {
     const isHashtag = this.props.tweetBar === 'hashtag';
 
     return (
-      <div className="tweetResults" onClick={() => this.props.closeNav()}>
+      <div id="tweetResults" className="tweetResults" onClick={() => this.props.closeNav()}>
         <div className="tweetTitle">
           <div className="buttonGroup">
             <button

@@ -27,7 +27,7 @@ class NavItem extends React.Component {
       <a
         href={this.props.url}
         target="_blank"
-        onMouseEnter={() => this.setState({popover: true})}
+        onMouseEnter={window.innerWidth > 992 ? () => this.setState({popover: true}) : null}
         onMouseLeave={() => this.setState({popover: false})}
         onClick={() => {
           this.setState({popover: true})
@@ -41,7 +41,7 @@ class NavItem extends React.Component {
           body={this.props.body || this.props.description}>
           <p>
             <Octicon name={this.props.icon} mega />
-            {window.innerWidth < 992 ? '\t' + this.props.description: null}
+            {window.innerWidth < 992 ? this.props.description: null}
           </p>
         </Popover>
       </a>

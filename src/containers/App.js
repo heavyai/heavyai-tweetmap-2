@@ -26,7 +26,8 @@ class App extends React.Component {
     this.state = {
       navShowing: false,
       searchShowing: false,
-      shareShowing: false
+      shareShowing: false,
+      tweetBarShowing: false,
     };
   }
 
@@ -47,18 +48,35 @@ class App extends React.Component {
   }
 
   toggleNav() {
-    if (this.state.navShowing) {
-      this.setState({ searchShowing: false });
-    }
     const openWidth = window.innerWidth > 992 ? '4.75em' : '15em';
     const width = this.state.navShowing ? '0px' : openWidth;
     document.getElementById('sideNav').style.width = width;
-    this.setState({ navShowing: !this.state.navShowing });
+    this.setState({
+      navShowing: !this.state.navShowing,
+      searchShowing: false
+     });
   }
 
   closeNav() {
     document.getElementById('sideNav').style.width = 0;
     this.setState({ navShowing: false, searchShowing: false });
+  }
+
+  toggleTweetBar() {
+    const width = this.state.tweetBarShowing ? 0 : '17em';
+    document.getElementById('tweetResults').style.width = width;
+    document.getElementById("main").style.marginLeft = "-" + width;
+    this.setState({ tweetBarShowing: !this.state.tweetBarShowing });
+  }
+
+  closeAll() {
+    this.closeNav();
+
+    if (this.state.tweetBarShowing) {
+      document.getElementById('tweetResults').style.width = 0;
+      document.getElementById("main").style.marginLeft = 0;
+      this.setState({ tweetBarShowing: false });
+    }
   }
 
   toggleSearch() {
@@ -71,18 +89,21 @@ class App extends React.Component {
         <LeftNav
           search={this.state.searchShowing}
           toggle={() => this.toggleSearch()}
-          closeNav={() => this.closeNav()}
+          closeNav={() => this.closeAll()}
           openShare={() => this.setState({ shareShowing: true })}
         />
-        <main>
-          <TopOverlay toggle={() => this.toggleNav()} />
-          <map onClick={() => this.closeNav()}>
+        <main id="main">
+          <TopOverlay
+            toggleNav={() => this.toggleNav()}
+            toggleTweets={() => this.toggleTweetBar()}
+          />
+          <map onClick={() => this.closeAll()}>
             <container>
               <MapChart />
               <LineChart />
             </container>
           </map>
-          <Legend onClick={() => this.closeNav()} />
+          <Legend onClick={() => this.closeAll()} />
         </main>
 
         <TweetResults closeNav={() => this.closeNav()} />

@@ -41,7 +41,6 @@ class LeftNav extends React.Component {
           description='Search Location'
           body={this.props.search ? searchPopover : null}
           clicked={() => {
-            console.log('hi')
             this.props.toggle();
           }}
         />

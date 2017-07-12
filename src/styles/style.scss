@@ -24,11 +24,10 @@ dash {
   }
 
   .tweetResults {
-    width: 0px;
-  }
+    width: 0;
+    transition: 0.3s;
 
-  @media (min-width: 992px) {
-    .tweetResults {
+    @media (min-width: 992px) {
       flex-grow: 1;
       width: $sidebar-min-width;
     }
