@@ -1,5 +1,22 @@
 @import "variables";
 
+@media (max-width: 992px) {
+  #overlay {
+    padding: 0.8em;
+    border-bottom-style: solid;
+    border-bottom-color: white;
+    border-bottom-width: 1px;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  #icon {
+    margin: 0.25em;
+  }
+}
+
 #overlay {
   position: absolute;
   left: 0; right: 0;
@@ -7,17 +24,26 @@
 
   display: flex;
 
-  #settings {
-    display: inline-block;
+  @media (min-width: 992px) {
+    form {
+      margin-top: 4vh;
+    }
 
-    margin-top: 30px;
-    margin-left: 25px;
+    #icon {
+      display: inline-block;
+      margin-top: 30px;
+      margin-left: 25px;
+    }
+
+    .textBar {
+      max-width: $search-width;
+    }
   }
 
   form {
     display: inline-block;
     flex: 1;
-    margin-top: 4vh;
+    flex-basis: 0;
     margin-left: 25px; margin-right: 25px;
 
     text-align: center;
@@ -32,7 +58,6 @@
   }
 
   .textBar {
-    max-width: $search-width;
     height: $search-height;
 
     div {
@@ -49,14 +74,15 @@
 
     input {
       margin-right:  $search-height/2;
+      width: 10px;
     }
   }
 }
 
-a .octicon-three-bars {
+a {
   color: white;
 }
 
-a:hover .octicon-three-bars {
+a:hover {
   color: $light-grey;
 }

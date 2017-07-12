@@ -5,25 +5,49 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 0px; /* 0 width - expanded with JavaScript */
+    width: 0; /* 0 width - expanded with JavaScript */
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    padding-top: 80px;
     transition: 0.1s;
-    text-align: center;
+    @media (min-width: 992px) {
+      padding-top: 5em;
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+      margin-top: 2em;
+    }
 
     .mega-octicon {
       color: white;
-      margin-top: 1em;
+      display: inline-block;
+      @media (max-width: 992px) {
+        margin-left: 1em; margin-right: 0.5em;
+      }
     }
+
 
     a:hover .mega-octicon {
       color: $light-grey;
     }
+
+    #close {
+      font-size: 2em;
+      text-align: right;
+      margin-right: 1rem;
+      margin-top: 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+  .nav {
+    z-index: 2;
+  }
 }
 
 .Popover {

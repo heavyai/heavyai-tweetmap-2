@@ -24,8 +24,14 @@ dash {
   }
 
   .tweetResults {
-    flex-grow: 1;
-    width: $sidebar-min-width;
+    width: 0px;
+  }
+
+  @media (min-width: 992px) {
+    .tweetResults {
+      flex-grow: 1;
+      width: $sidebar-min-width;
+    }
   }
 }
 
@@ -67,6 +73,10 @@ map {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: 0;
+  }
+
+  @media (min-width: 992px) {
     height: $line-chart-height;
   }
 
@@ -100,7 +110,7 @@ h1 {
     outline: none;
     margin-left: 1em;
     flex: 1;
-    height: 95%;
+    box-sizing: border-box;
     font-size: 1em;
   }
 }

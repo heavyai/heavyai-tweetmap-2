@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import Popover from 'react-popover';
-import Octicon from 'react-octicon';
+import MediaQuery from 'react-responsive';
 
 import SearchPopover from './SearchPopover';
 
 import { zoomOut } from '../thunks/map';
+import NavItem from '../components/NavItem';
 
 class LeftNav extends React.Component {
   static propTypes = {
@@ -21,7 +20,6 @@ class LeftNav extends React.Component {
   constructor() {
     super();
     this.state = {
-      tooltip: 0,
       shareModal: false
     };
   }
@@ -31,82 +29,48 @@ class LeftNav extends React.Component {
 
     return (
       <div id="sideNav" className="nav">
-        <a>
-          <Popover
-            className={this.props.search ? 'searchPopover' : null}
-            isOpen={this.state.tooltip === 1 || this.props.search}
-            place="right"
-            body={this.props.search ? searchPopover : 'search location'}>
-            <Octicon
-              name="location"
-              mega
-              onMouseEnter={() => this.setState({ tooltip: 1 })}
-              onMouseLeave={() => this.setState({ tooltip: 0 })}
-              onClick={() => {
-                this.props.toggle();
-                this.setState({ tooltip: 0 });
-              }}
-            />
-          </Popover>
-        </a>
+        <MediaQuery query='(max-width: 992px)'>
+          <a id="close" onClick={this.props.closeNav}>
+            &times;
+          </a>
+        </MediaQuery>
 
-        <a>
-          <Popover
-            isOpen={this.state.tooltip === 2}
-            place="right"
-            body="zoom out">
-            <Octicon
-              name="globe"
-              mega
-              onMouseEnter={() => this.setState({ tooltip: 2 })}
-              onMouseLeave={() => this.setState({ tooltip: 0 })}
-              onClick={() => {
-                this.props.dispatch(zoomOut());
-                this.props.closeNav();
-              }}
-            />
-          </Popover>
-        </a>
+        <NavItem
+          className={this.props.search ? 'searchPopover' : null}
+          icon="location"
+          description='Search Location'
+          body={this.props.search ? searchPopover : null}
+          clicked={() => {
+            console.log('hi')
+            this.props.toggle();
+          }}
+        />
 
-        <a href="https://github.com/mapd/new-tweetmap" target="_blank">
-          <Popover
-            isOpen={this.state.tooltip === 3}
-            place="right"
-            body="see repo">
-            <Octicon
-              name="mark-github"
-              mega
-              onMouseEnter={() => this.setState({ tooltip: 3 })}
-              onMouseLeave={() => this.setState({ tooltip: 0 })}
-            />
-          </Popover>
-        </a>
+        <NavItem
+          icon="globe"
+          description="Zoom Out"
+          clicked={() => {
+            this.props.dispatch(zoomOut());
+            this.props.closeNav();
+          }}
+        />
 
-        <a href="https://www.mapd.com" target="_blank">
-          <Popover isOpen={this.state.tooltip === 4} place="right" body="about">
-            <Octicon
-              name="info"
-              mega
-              onMouseEnter={() => this.setState({ tooltip: 4 })}
-              onMouseLeave={() => this.setState({ tooltip: 0 })}
-            />
-          </Popover>
-        </a>
+        <NavItem
+          icon="mark-github"
+          description="See Repo"
+          url="https://github.com/mapd/new-tweetmap"
+        />
 
-        <a>
-          <Popover isOpen={this.state.tooltip === 5} place="right" body="share">
-            <Octicon
-              name="link"
-              mega
-              onMouseEnter={() => this.setState({ tooltip: 5 })}
-              onMouseLeave={() => this.setState({ tooltip: 0 })}
-              onClick={() => {
-                this.props.openShare();
-                this.props.closeNav();
-              }}
-            />
-          </Popover>
-        </a>
+        <NavItem icon="info" description="About" url="https://www.mapd.com" />
+
+        <NavItem
+          icon="link"
+          description="Share"
+          clicked={() => {
+            this.props.openShare();
+            this.props.closeNav();
+          }}
+        />
       </div>
     );
   }

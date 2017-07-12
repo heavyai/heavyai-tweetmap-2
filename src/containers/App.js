@@ -50,7 +50,8 @@ class App extends React.Component {
     if (this.state.navShowing) {
       this.setState({ searchShowing: false });
     }
-    const width = this.state.navShowing ? '0px' : '76px';
+    const openWidth = window.innerWidth > 992 ? '4.75em' : '15em';
+    const width = this.state.navShowing ? '0px' : openWidth;
     document.getElementById('sideNav').style.width = width;
     this.setState({ navShowing: !this.state.navShowing });
   }
