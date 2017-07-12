@@ -12,7 +12,7 @@
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    transition: 0.2s;
+    transition: 0.5s;
     @media (min-width: 992px) {
       padding-top: 5em;
       text-align: center;
@@ -21,6 +21,7 @@
     a {
       text-decoration: none;
       margin-top: 2em;
+      white-space: nowrap;
     }
 
     .mega-octicon {
@@ -31,9 +32,10 @@
       }
     }
 
-
-    a:hover .mega-octicon {
-      color: $light-grey;
+    @media (min-width: 992px) {
+      a:hover .mega-octicon {
+        color: $light-grey;
+      }
     }
 
     #close {

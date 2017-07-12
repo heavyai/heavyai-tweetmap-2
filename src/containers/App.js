@@ -8,8 +8,8 @@ import LeftNav from './LeftNav';
 import Legend from './Legend';
 import TweetResults from './TweetResults';
 import ShareMenu from './ShareMenu';
+import BottomOverlay from './BottomOverlay';
 import MapChart from '../components/MapChart';
-import LineChart from '../components/LineChart';
 import TopOverlay from '../components/TopOverlay';
 
 import { setupCharts } from '../thunks/setup';
@@ -100,7 +100,7 @@ class App extends React.Component {
           <map onClick={() => this.closeAll()}>
             <container>
               <MapChart />
-              <LineChart />
+              <BottomOverlay />
             </container>
           </map>
           <Legend onClick={() => this.closeAll()} />

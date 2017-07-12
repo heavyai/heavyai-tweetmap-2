@@ -32,8 +32,10 @@
       background: white;
     }
 
-    button:hover {
-      background: $light-blue;
+    @media (min-width: 992px) {
+      button:hover {
+        background: $light-blue;
+      }
     }
 
     button.well {
@@ -65,8 +67,10 @@
       border-color: $light-grey;
     }
 
-    li :hover {
-      background-color: $light-blue;
+    @media (min-width: 992px) {
+      li :hover {
+        background-color: $light-blue;
+      }
     }
   }
 
@@ -104,13 +108,19 @@
       word-wrap: break-word;
     }
 
+    p .hashtag {
+      white-space: nowrap;
+    }
+
     a {
       color: #0084B3;
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
+    @media (min-width: 992px) {
+      a:hover {
+        text-decoration: underline;
+      }
     }
   }
 

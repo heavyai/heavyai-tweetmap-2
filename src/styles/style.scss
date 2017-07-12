@@ -21,11 +21,12 @@ dash {
   main {
     flex-grow: 11;
     height: 100%;
+    transition: 0.5s;
   }
 
   .tweetResults {
     width: 0;
-    transition: 0.3s;
+    transition: 0.5s;
 
     @media (min-width: 992px) {
       flex-grow: 1;
@@ -68,16 +69,40 @@ map {
     height: 100%;
   }
 
-  #lineChart {
+  #bottomOverlay {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 0;
+
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+
+    button {
+      background-color: white;
+      width: 4em;
+      height: 4em;
+      border-radius: 2em;
+      border-style: none;
+      margin-right: 1em;
+      margin-bottom: 2em;
+      margin-left:auto;
+      outline: none;
+
+      pointer-events: all;
+    }
   }
 
-  @media (min-width: 992px) {
+  #lineChart {
+    width: 100%;
     height: $line-chart-height;
+    transition: 0.3s;
+    @media (max-width: 992px) {
+      height: 0;
+    }
   }
+
+
 
   #background {
     position: absolute;
@@ -86,6 +111,10 @@ map {
     height: $line-chart-height;
     background-color: $light-grey;
     opacity: 0.3;
+    transition: 0.3s;
+    @media (max-width: 992px) {
+      height: 0;
+    }
   }
 }
 
@@ -112,4 +141,10 @@ h1 {
     box-sizing: border-box;
     font-size: 1em;
   }
+}
+
+a.mapbox-maplogo, div.mapboxgl-ctrl-attrib {
+  left: 20px;
+  right: auto;
+  z-index: 0;
 }

@@ -64,6 +64,11 @@ export function setupCharts() {
           dc.redrawAllAsync();
         }, 500);
 
+        if (window.innerWidth < 992) {
+          document.getElementById('background').style.height = 0;
+          document.getElementById('lineChart').style.height = 0;
+        }
+
         window.addEventListener('resize', resizeListener);
         return Promise.resolve(resizeListener);
       });

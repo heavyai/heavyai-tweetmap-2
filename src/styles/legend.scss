@@ -24,8 +24,10 @@
     height: $bottom-bar-height
   }
 
-  .notTitle :hover {
-    background-color: $light-grey;
+  @media (min-width: 992px) {
+    .notTitle :hover {
+      background-color: $light-grey;
+    }
   }
 }
 
