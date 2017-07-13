@@ -149,7 +149,7 @@ export function zoomOut() {
 
 export function zoomTo(position) {
   return () => {
-    pointMapChart.jumpTo({
+    pointMapChart.map().flyTo({
       center: [position.coords.longitude, position.coords.latitude],
       zoom: 17,
       speed: 2

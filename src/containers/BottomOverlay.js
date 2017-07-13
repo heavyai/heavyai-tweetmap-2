@@ -17,17 +17,20 @@ class BottomOverlay extends React.Component {
     super();
 
     this.state = {
-      chartOn: false
+      chartOn: false,
+      loading: false
     }
   }
 
   userLocation() {
     const zoomToPosition = position => {
+      this.setState({loading: false})
       this.props.dispatch(zoomTo(position));
     };
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(zoomToPosition);
+      this.setState({loading: true})
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
@@ -45,7 +48,10 @@ class BottomOverlay extends React.Component {
     return (
       <div id="bottomOverlay">
         <button onClick={() => this.userLocation()}>
-          <i className="fa fa-location-arrow fa-lg" aria-hidden="true"></i>
+          <i
+            className={"fa fa-location-arrow fa-lg" + (this.state.loading ? " fa-spin" : "")}
+            aria-hidden="true">
+          </i>
         </button>
 
         <MediaQuery query='(max-width: 992px)'>
