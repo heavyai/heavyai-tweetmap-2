@@ -1,15 +1,15 @@
-import * as dc from '@mapd/mapdc';
-import { getCf } from '../services/crossfilter';
+import * as dc from "@mapd/mapdc"
+import {getCf} from "../services/crossfilter"
 
-import { setTweets, appendTweets } from '../actions';
-import { TWEET_FETCH_SIZE } from '../constants';
+import {appendTweets, setTweets} from "../actions"
+import {TWEET_FETCH_SIZE} from "../constants"
 
-let _chart = null;
+let _chart = null
 
-function fetchTweets(offset) {
+function fetchTweets (offset) {
   return _chart
     .dimension()
-    .order('tweet_time')
+    .order("tweet_time")
     .topAsync(TWEET_FETCH_SIZE, offset)
     .then(results => {
       const tweets = results.map(obj => ({
@@ -17,10 +17,10 @@ function fetchTweets(offset) {
         name: obj.sender_name,
         date: obj.tweet_time,
         body: obj.tweet_text
-      }));
+      }))
 
-      return Promise.resolve(tweets);
-    });
+      return Promise.resolve(tweets)
+    })
 }
 
 /*
@@ -29,51 +29,51 @@ function fetchTweets(offset) {
   tweet side bar is actually rendered by React,
   triggered by updating props/state
 */
-export function createTweetChart() {
+export function createTweetChart () {
   return (dispatch, getState) => {
-    const crossfilter = getCf();
+    const crossfilter = getCf()
     const tweetDim = crossfilter
       .dimension(null)
-      .projectOn(['sender_name', 'tweet_time', 'tweet_id', 'tweet_text']);
+      .projectOn(["sender_name", "tweet_time", "tweet_id", "tweet_text"])
 
     //  _chart lives in the chart registry, triggering redraws through dataAsync()
-    _chart = dc.baseMixin({});
-    _chart.dimension(tweetDim);
-    _chart.group(() => 0);
+    _chart = dc.baseMixin({})
+    _chart.dimension(tweetDim)
+    _chart.group(() => 0)
 
     // dummy DOM elem should take no space
-    _chart.minWidth(0);
-    _chart.minHeight(0);
+    _chart.minWidth(0)
+    _chart.minHeight(0)
 
     // rendering is instead done by React
-    _chart._doRender = _chart._doRedraw = () => {};
+    _chart._doRender = _chart._doRedraw = () => {}
 
     _chart.setDataAsync((group, callback) => {
       fetchTweets(0).then(
         tweets => {
-          dispatch(setTweets(tweets));
-          callback();
+          dispatch(setTweets(tweets))
+          callback()
         },
         err => {
-          console.error(err);
-          callback();
+          console.error(err)
+          callback()
         }
-      );
-    });
+      )
+    })
 
-    _chart.anchor('#tweetDummy');
-  };
+    _chart.anchor("#tweetDummy")
+  }
 }
 
-export function loadMoreTweets() {
+export function loadMoreTweets () {
   return (dispatch, getState) => {
     if (!_chart) {
-      return;
+      return
     }
 
-    const offset = getState().tweets.length;
+    const offset = getState().tweets.length
     fetchTweets(offset).then(tweets => {
-      dispatch(appendTweets(tweets));
-    }, console.error);
-  };
+      dispatch(appendTweets(tweets))
+    }, console.error)
+  }
 }

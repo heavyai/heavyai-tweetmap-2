@@ -1,12 +1,10 @@
-import React from 'react';
+import React from "react"
 
-const LineChart = () => {
-  return (
-    <div>
-      <div id="background" />
-      <div id="lineChart" className="lineChart" />
-    </div>
-  );
-};
+const LineChart = () => (
+  <div>
+    <div id="background" />
+    <div className="lineChart"id="lineChart" />
+  </div>
+)
 
-export default LineChart;
+export default LineChart

@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react"
+import PropTypes from "prop-types"
 
-import Popover from 'react-popover';
-import Octicon from 'react-octicon';
-import MediaQuery from 'react-responsive';
+import Popover from "react-popover"
+import Octicon from "react-octicon"
+import MediaQuery from "react-responsive"
 
 class NavItem extends React.Component {
   static propTypes = {
@@ -15,15 +15,15 @@ class NavItem extends React.Component {
     body: PropTypes.object
   }
 
-  constructor() {
+  constructor () {
     super()
     this.state = {
       popover: false
     }
   }
 
-  render() {
-    return(
+  render () {
+    return (
       <a
         href={this.props.url}
         target="_blank"
@@ -38,15 +38,16 @@ class NavItem extends React.Component {
           className={this.props.className}
           isOpen={this.state.popover}
           place="right"
-          body={this.props.body || this.props.description}>
+          body={this.props.body || this.props.description}
+        >
           <p>
             <Octicon name={this.props.icon} mega />
-            {window.innerWidth < 992 ? this.props.description: null}
+            {window.innerWidth < 992 ? this.props.description : null}
           </p>
         </Popover>
       </a>
-    );
+    )
   }
 }
 
-export default NavItem;
+export default NavItem

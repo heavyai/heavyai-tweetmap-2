@@ -1,28 +1,28 @@
-import * as dc from '@mapd/mapdc';
-import { getCf } from '../services/crossfilter';
+import * as dc from "@mapd/mapdc"
+import {getCf} from "../services/crossfilter"
 
-import { updateCount } from '../actions';
+import {updateCount} from "../actions"
 
 /*
   DC COUNT
 */
-export function createCount() {
+export function createCount () {
   return dispatch => {
-    const crossfilter = getCf();
+    const crossfilter = getCf()
 
-    const countGroup = crossfilter.groupAll();
+    const countGroup = crossfilter.groupAll()
     const dataCount = dc
-      .countWidget('.tweetCount')
+      .countWidget(".tweetCount")
       .dimension(crossfilter)
-      .group(countGroup);
+      .group(countGroup)
 
     // hijack _doRender
     dataCount._doRender = val => {
-      const selected = dataCount.formatNumber()(val);
-      const wrapper = dataCount.root().text(selected);
+      const selected = dataCount.formatNumber()(val)
+      const wrapper = dataCount.root().text(selected)
 
-      dispatch(updateCount(val));
-      return dataCount;
-    };
-  };
+      dispatch(updateCount(val))
+      return dataCount
+    }
+  }
 }

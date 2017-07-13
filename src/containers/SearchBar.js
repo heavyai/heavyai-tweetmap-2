@@ -1,37 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addFilters } from '../thunks/search';
-import Octicon from 'react-octicon';
+import React from "react"
+import PropTypes from "prop-types"
+import {connect} from "react-redux"
+import {addFilters} from "../thunks/search"
+import Octicon from "react-octicon"
 
 class SearchBar extends React.Component {
   static propTypes = {
-    queryTerms: PropTypes.arrayOf(PropTypes.string).isRequired,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    queryTerms: PropTypes.arrayOf(PropTypes.string).isRequired
   };
 
-  constructor() {
-    super();
-    this.state = { value: '' };
+  constructor () {
+    super()
+    this.state = {value: ""}
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+  handleChange (event) {
+    this.setState({value: event.target.value})
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    if (this.state.value === '') {
-      return;
+  handleSubmit (event) {
+    event.preventDefault()
+    if (this.state.value === "") {
+      return
     }
 
-    let queries = this.state.value.toLowerCase().split(/\s+/);
-    this.props.dispatch(addFilters(queries));
+    const queries = this.state.value.toLowerCase().split(/\s+/)
+    this.props.dispatch(addFilters(queries))
 
-    this.setState({ value: '' });
+    this.setState({value: ""})
   }
 
-  render() {
+  render () {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <div className="textBar">
@@ -47,13 +47,13 @@ class SearchBar extends React.Component {
           />
         </div>
       </form>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => {
-  const { queryTerms, ...rest } = state;
-  return { queryTerms };
-};
+  const {queryTerms, ...rest} = state
+  return {queryTerms}
+}
 
-export default connect(mapStateToProps)(SearchBar);
+export default connect(mapStateToProps)(SearchBar)

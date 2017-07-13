@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import MediaQuery from 'react-responsive';
+import React from "react"
+import PropTypes from "prop-types"
+import {connect} from "react-redux"
+import MediaQuery from "react-responsive"
 
 import LineChart from '../components/LineChart';
 import { zoomTo } from '../thunks/map';
 
-import Octicon from 'react-octicon';
+import Octicon from "react-octicon"
 
 class BottomOverlay extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired
   };
 
-  constructor() {
-    super();
+  constructor () {
+    super()
 
     this.state = {
       chartOn: false,
@@ -61,8 +61,8 @@ class BottomOverlay extends React.Component {
         </MediaQuery>
         <LineChart />
       </div>
-    );
+    )
   }
 }
 
-export default connect()(BottomOverlay);
+export default connect()(BottomOverlay)

@@ -1,28 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types"
+import React from "react"
 
 const LegendItem = props =>
   <div className="legendItem">
-    {!props.justTitle &&
-      <div className="legendLabel" style={{ backgroundColor: props.color }} />}
+    {!props.justTitle && <div className="legendLabel" style={{backgroundColor: props.color}} />}
     <div className="legendBlock">
       <p>
         {props.title}
       </p>
-      <p style={{ color: 'grey' }}>
+      <p style={{color: "grey"}}>
         {props.sub}
       </p>
     </div>
 
     {props.active ? null : <div className="greyed" />}
-  </div>;
+  </div>
 
 LegendItem.propTypes = {
-  justTitle: PropTypes.bool,
+  active: PropTypes.bool.isRequired,
   color: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  justTitle: PropTypes.bool,
   sub: PropTypes.string.isRequired,
-  active: PropTypes.bool.isRequired
-};
+  title: PropTypes.string.isRequired
+}
 
-export default LegendItem;
+export default LegendItem
