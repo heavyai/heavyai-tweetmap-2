@@ -69,3 +69,19 @@
     margin: 5px;
   }
 }
+
+#fade {
+  position: absolute;
+  right: 0;
+
+  width: 4em;
+  height: 100%;
+
+  background: linear-gradient(90deg, transparent, grey);
+
+  @media (min-width: 992px) {
+    background: linear-gradient(90deg, transparent, $light-grey);
+  }
+
+  pointer-events: none;
+}

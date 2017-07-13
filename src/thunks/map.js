@@ -93,6 +93,7 @@ export function createMapChart() {
 
     return pointMapChart
       .pushLayer('points', pointLayer)
+      .attribLocation('bottom-left')
       .init()
       .then(() => {
         /* display pop up on mouse hover */

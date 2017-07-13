@@ -52,6 +52,7 @@ class Legend extends React.Component {
           {items}
           <div id="legendDummy" />
         </ul>
+        <div id="fade"></div>
       </div>
     );
   }
