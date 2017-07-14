@@ -1,12 +1,10 @@
-import React from "react"
-import PropTypes from "prop-types"
 import {connect} from "react-redux"
 import MediaQuery from "react-responsive"
-
-import SearchPopover from "./SearchPopover"
-
-import {zoomOut} from "../thunks/map"
 import NavItem from "../components/NavItem"
+import PropTypes from "prop-types"
+import React from "react"
+import SearchPopover from "./SearchPopover"
+import {zoomOut} from "../thunks/map"
 
 class LeftNav extends React.Component {
   static propTypes = {
@@ -28,7 +26,7 @@ class LeftNav extends React.Component {
     const searchPopover = <SearchPopover closeNav={this.props.closeNav} />
 
     return (
-      <div id="sideNav" className="nav">
+      <div className="nav" id="sideNav" >
         <MediaQuery query="(max-width: 992px)">
           <a id="close" onClick={this.props.closeNav}>
             &times;
@@ -36,18 +34,18 @@ class LeftNav extends React.Component {
         </MediaQuery>
 
         <NavItem
-          className={this.props.search ? "searchPopover" : null}
-          icon="location"
-          description="Search Location"
           body={this.props.search ? searchPopover : null}
+          className={this.props.search ? "searchPopover" : null}
           clicked={() => {
             this.props.toggle()
           }}
+          description="Search Location"
+          icon="location"
         />
 
         <NavItem
-          icon="globe"
           description="Zoom Out"
+          icon="globe"
           clicked={() => {
             this.props.dispatch(zoomOut())
             this.props.closeNav()
@@ -55,20 +53,21 @@ class LeftNav extends React.Component {
         />
 
         <NavItem
-          icon="mark-github"
           description="See Repo"
+          icon="mark-github"
           url="https://github.com/mapd/new-tweetmap"
         />
 
-        <NavItem icon="info" description="About" url="https://www.mapd.com" />
+        <NavItem description="About" icon="info" url="https://www.mapd.com" />
 
         <NavItem
-          icon="link"
-          description="Share"
           clicked={() => {
             this.props.openShare()
             this.props.closeNav()
           }}
+          description="Share"
+          icon="link"
+
         />
       </div>
     )

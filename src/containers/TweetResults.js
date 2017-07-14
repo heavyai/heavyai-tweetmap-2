@@ -1,18 +1,15 @@
-import React from "react"
-import PropTypes from "prop-types"
-import {connect} from "react-redux"
-
-import InfiniteScroll from "redux-infinite-scroll"
-
-import {setTweetBar} from "../actions"
-import {loadMoreTweets} from "../thunks/tweets"
-
-import QueryDisplay from "./QueryDisplay.js"
-import Tweet from "../components/Tweet"
-import Hashtag from "../components/Hashtag"
-
 import {addFilters} from "../thunks/search"
+import {connect} from "react-redux"
+import Hashtag from "../components/Hashtag"
 import {HASHTAG_EXCLUDE} from "../constants"
+import InfiniteScroll from "redux-infinite-scroll"
+import {loadMoreTweets} from "../thunks/tweets"
+import PropTypes from "prop-types"
+import QueryDisplay from "./QueryDisplay.js"
+import React from "react"
+import {setTweetBar} from "../actions"
+import Tweet from "../components/Tweet"
+
 
 const blankImg = "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
 const month = [
@@ -41,7 +38,9 @@ class TweetResults extends React.Component {
   static propTypes = {
     closeNav: PropTypes.func,
     dispatch: PropTypes.func.isRequired,
+    hashtags: PropTypes.array,
     totalTweets: PropTypes.number.isRequired,
+    tweetBar: PropTypes.string,
     tweets: PropTypes.arrayOf(tweetType).isRequired
   };
 
@@ -62,9 +61,9 @@ class TweetResults extends React.Component {
           }}
           >
             <Hashtag
-                title={hashtag}
-                count={count}
-                barLength={count / max}
+              barLength={count / max}
+              count={count}
+              title={hashtag}
             />
           </li>
         )
@@ -72,10 +71,10 @@ class TweetResults extends React.Component {
       return this.props.tweets.map(({id, name, date, body}) =>
         <li key={id}>
           <Tweet
-            imgLink={blankImg}
-            handle={`@${name}`}
-            date={`${month[date.getMonth()]} ${String(date.getDate())}`}
             body={body}
+            date={`${month[date.getMonth()]} ${String(date.getDate())}`}
+            handle={`@${name}`}
+            imgLink={blankImg}
           />
         </li>
       )

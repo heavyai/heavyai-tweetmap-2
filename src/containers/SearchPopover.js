@@ -15,6 +15,10 @@ class SearchPopover extends React.Component {
     this.state = {value: ""}
   }
 
+  componentDidMount () {
+    this.input.focus()
+  }
+
   handleChange (event) {
     this.setState({value: event.target.value})
   }
@@ -28,10 +32,6 @@ class SearchPopover extends React.Component {
     this.props.dispatch(geocode(this.state.value))
     this.setState({value: ""})
     this.props.closeNav()
-  }
-
-  componentDidMount () {
-    this.input.focus()
   }
 
   render () {

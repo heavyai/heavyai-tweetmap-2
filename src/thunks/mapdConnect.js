@@ -1,11 +1,10 @@
-import {createCf} from "../services/crossfilter"
-import {connect} from "../services/connector"
-
 import {
   mapdConnectFailure,
   mapdConnectRequest,
   mapdConnectSuccess
 } from "../actions"
+import {connect} from "../services/connector"
+import {createCf} from "../services/crossfilter"
 
 export function mapdConnect () {
   return dispatch => {

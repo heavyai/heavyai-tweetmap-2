@@ -144,17 +144,17 @@ export function zoomOut () {
   }
 }
 
-export function zoomTo(position) {
+export function zoomTo (position) {
   return () => {
     pointMapChart.map().flyTo({
       center: [position.coords.longitude, position.coords.latitude],
       zoom: 17,
       speed: 2
-    });
-  };
+    })
+  }
 }
 
-export function initView(center, zoom) {
+export function initView (center, zoom) {
   return () => {
     pointMapChart.map().flyTo({center, zoom, animate: false})
   }

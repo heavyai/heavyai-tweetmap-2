@@ -1,11 +1,11 @@
-const webpack = require('webpack');
-const path = require('path');
+const webpack = require("webpack");
+const path = require("path");
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './src/index.html',
-  filename: 'index.html',
-  inject: 'body'
+  template: "./src/index.html",
+  filename: "index.html",
+  inject: "body"
 })
 
 module.exports = {
@@ -17,8 +17,8 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve('dist'),
-    filename: 'index_bundle.js'
+    path: path.resolve("dist"),
+    filename: "index_bundle.js"
   },
   module: {
     rules: [
@@ -42,14 +42,14 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: "style-loader!css-loader"
       },
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2).*$/,
-        loader: 'url-loader?limit=8192'
+        loader: "url-loader?limit=8192"
       }
     ]
   },
-  devtool: '#eval-source-map',
+  devtool: "eval-source-map",
   plugins: [HtmlWebpackPluginConfig]
 }

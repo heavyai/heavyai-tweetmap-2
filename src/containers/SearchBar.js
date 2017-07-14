@@ -1,8 +1,8 @@
-import React from "react"
-import PropTypes from "prop-types"
-import {connect} from "react-redux"
 import {addFilters} from "../thunks/search"
+import {connect} from "react-redux"
 import Octicon from "react-octicon"
+import PropTypes from "prop-types"
+import React from "react"
 
 class SearchBar extends React.Component {
   static propTypes = {
@@ -40,10 +40,10 @@ class SearchBar extends React.Component {
           </div>
 
           <input
-            type="text"
-            placeholder="Search Tweets"
-            value={this.state.value}
             onChange={this.handleChange.bind(this)}
+            placeholder="Search Tweets"
+            type="text"
+            value={this.state.value}
           />
         </div>
       </form>

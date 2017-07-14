@@ -1,7 +1,6 @@
 import * as dc from "@mapd/mapdc"
-import {getCf} from "../services/crossfilter"
-
 import {appendTweets, setTweets} from "../actions"
+import {getCf} from "../services/crossfilter"
 import {TWEET_FETCH_SIZE} from "../constants"
 
 let _chart = null

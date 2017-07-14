@@ -1,8 +1,6 @@
 import * as dc from "@mapd/mapdc"
-import {getCf} from "../services/crossfilter"
-
 import {filterTime} from "../actions"
-
+import {getCf} from "../services/crossfilter"
 let lineChart = null
 
 /*

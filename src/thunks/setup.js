@@ -1,16 +1,14 @@
 import * as dc from "@mapd/mapdc"
+import {createLegendChart, initFilters as initLangs} from "./legendFilter"
+import {createLineChart, initFilter as initTime} from "./timeFilter"
+import {createMapChart, initView as initMap} from "./map"
+import {createCount} from "./count"
+import {createHashtagChart} from "./hashtags"
+import {createTweetChart} from "./tweets"
+import {initFilters as initQueries} from "./search"
+import {mapdConnect} from "./mapdConnect"
 
 const _ = require("lodash")
-
-import {mapdConnect} from "./mapdConnect"
-import {createMapChart, initView as initMap} from "./map"
-import {createLineChart, initFilter as initTime} from "./timeFilter"
-import {createLegendChart, initFilters as initLangs} from "./legendFilter"
-import {createTweetChart} from "./tweets"
-import {createHashtagChart} from "./hashtags"
-import {createCount} from "./count"
-import {initFilters as initQueries} from "./search"
-
 let charts = []
 
 /*

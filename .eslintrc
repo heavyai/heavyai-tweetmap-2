@@ -162,7 +162,7 @@
     "no-undef": 2, // catches ReferenceErrors.
     "no-undef-init": 2, // unnecessary.
     "no-undefined": 2, // better to check typeof
-    "no-underscore-dangle": 2, // should not rely on variable name to reason about scoping, as it may change.
+    "no-underscore-dangle": 1, // should not rely on variable name to reason about scoping, as it may change.
     "no-unexpected-multiline": 2, // prevents issues related to semicolons.
     "no-unmodified-loop-condition": 2, // possible infinite loop; probably a mistake.
     "no-unneeded-ternary": 2, // improves consistency and readability.
@@ -211,7 +211,7 @@
       "eventHandlerPropPrefix": "on"
     }],
     "react/jsx-indent": [2, 2], // improves consistency, readability.
-    "react/jsx-indent-props": 2, // improves consistency, readability.
+    "react/jsx-indent-props": [2, 2], // improves consistency, readability.
     "react/jsx-key": 2, // avoid warning.
     "react/jsx-max-props-per-line": 0, // concise code gives reader more context.
     "react/jsx-no-bind": 2, // performance issue, happens on every render. #TODO enable this rule.
@@ -221,10 +221,10 @@
     "react/jsx-no-undef": 2, // catches syntax errors.
     "react/jsx-pascal-case": 2, // improves consistency and readability.
     "react/jsx-sort-props": [2, {"ignoreCase": true}], // improves consistency and readability.
-    "react/jsx-space-before-closing": 2, // improves consistency.
+    "react/jsx-tag-spacing": 2, // improves consistency.
     "react/jsx-uses-react": 2, // helps linter know that react is used by jsx.
     "react/jsx-uses-vars": 2, // unused variables are useless.
-    "react/no-danger": 2, // protects against  html injection vulnerabilities.
+    "react/no-danger": 1, // protects against  html injection vulnerabilities.
     "react/no-deprecated": 2, // should stay up to date.
     "react/no-did-mount-set-state": 2, // will cause a multiple render calls.
     "react/no-did-update-set-state": 1, // will cause a multiple render calls.

@@ -1,8 +1,7 @@
 import * as dc from "@mapd/mapdc"
 import {getCf} from "../services/crossfilter"
-
-import {setHashtags} from "../actions"
 import {HASHTAG_FETCH_SIZE} from "../constants"
+import {setHashtags} from "../actions"
 
 let _chart
 

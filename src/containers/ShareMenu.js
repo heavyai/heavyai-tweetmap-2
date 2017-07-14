@@ -44,20 +44,20 @@ class ShareMenu extends React.Component {
         <div className="switch">
           <p>Share with current filters:</p>
           <Switch
+            checked={this.state.share}
             onChange={() => {
               this.setState({share: !this.state.share})
             }}
-            checked={this.state.share}
           />
         </div>
 
         <div className="textBar">
           <input
-            type="text"
-            value={url}
-            ref={input => (this.textInput = input)}
             onFocus={this.handleFocus}
             readOnly
+            ref={input => (this.textInput = input)}
+            type="text"
+            value={url}
           />
           <button onClick={() => this.copyLink()}>
             <Octicon name="clippy" />

@@ -29,17 +29,17 @@ class Legend extends React.Component {
     const noneSelected = this.props.selected.length === 0
     const items = this.props.langCounts.map(({lang, count}) =>
       <li
-        key={lang}
         className="notTitle"
+        key={lang}
         onClick={() => {
           this.handleClick(lang)
         }}
       >
         <LegendItem
-          color={COLOR_MAP[lang]}
-          title={langCodes[lang].name}
-          sub={String(count)}
           active={noneSelected || this.props.selected.includes(lang)}
+          color={COLOR_MAP[lang]}
+          sub={String(count)}
+          title={langCodes[lang].name}
         />
       </li>
     )
@@ -49,10 +49,10 @@ class Legend extends React.Component {
         <ul>
           <li style={{marginLeft: "0.8em"}}>
             <LegendItem
-              justTitle
-              title="Languages"
-              sub=""
               active
+              justTitle
+              sub=""
+              title="Languages"
             />
           </li>
           {items}
