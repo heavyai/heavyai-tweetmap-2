@@ -96,6 +96,7 @@ class App extends React.Component {
           <TopOverlay
             toggleNav={() => this.toggleNav()}
             toggleTweets={() => this.toggleTweetBar()}
+            closeNav={() => this.closeNav()}
           />
           <map onClick={() => this.closeAll()}>
             <container>

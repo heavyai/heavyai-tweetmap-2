@@ -23,7 +23,10 @@ const TopOverlay = props => {
 
       <MediaQuery query='(max-width: 992px)'>
       <a id="icon">
-        <Octicon name="list-unordered" mega onClick={props.toggleTweets} />
+        <Octicon name="list-unordered" mega onClick={() => {
+          props.toggleTweets();
+          props.closeNav();
+        }} />
       </a>
       </MediaQuery>
     </div>
