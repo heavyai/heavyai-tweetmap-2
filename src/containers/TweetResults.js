@@ -31,10 +31,17 @@ const month = [
   'Dec'
 ];
 
+const tweetType = PropTypes.shape({
+  id: PropTypes.number,
+  name: PropTypes.string,
+  date: PropTypes.instanceOf(Date),
+  body: PropTypes.string
+});
+
 class TweetResults extends React.Component {
   static propTypes = {
     closeNav: PropTypes.func,
-    tweets: PropTypes.array.isRequired,
+    tweets: PropTypes.arrayOf(tweetType).isRequired,
     totalTweets: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired
   };

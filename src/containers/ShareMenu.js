@@ -5,9 +5,20 @@ import { connect } from 'react-redux';
 import Switch from 'rc-switch';
 import Octicon from 'react-octicon';
 
+const stateType = PropTypes.shape({
+  mapCenter: PropTypes.shape({
+    lng: PropTypes.number,
+    lat: PropTypes.number
+  }),
+  mapZoom: PropTypes.number,
+  timeBounds: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  queryTerms: PropTypes.arrayOf(PropTypes.string),
+  selectedLangs: PropTypes.arrayOf(PropTypes.string)
+});
+
 class ShareMenu extends React.Component {
   static propTypes = {
-    state: PropTypes.object.isRequired,
+    state: stateType.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 

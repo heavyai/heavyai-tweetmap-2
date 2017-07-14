@@ -6,7 +6,7 @@ import { removeFilter } from '../thunks/search';
 
 class QueryDisplay extends React.Component {
   static propTypes = {
-    queryTerms: PropTypes.array.isRequired,
+    queryTerms: PropTypes.arrayOf(PropTypes.string).isRequired,
     dispatch: PropTypes.func.isRequired
   };
 

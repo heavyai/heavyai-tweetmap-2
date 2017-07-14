@@ -9,10 +9,15 @@ import { COLOR_MAP } from '../constants';
 import langCodes from '../services/langCodes';
 import { selectFilter } from '../thunks/legendFilter';
 
+const langItemType = PropTypes.shape({
+  lang: PropTypes.string,
+  count: PropTypes.number
+});
+
 class Legend extends React.Component {
   static propTypes = {
-    langCounts: PropTypes.array.isRequired,
-    selected: PropTypes.array.isRequired,
+    langCounts: PropTypes.arrayOf(langItemType).isRequired,
+    selected: PropTypes.arrayOf(PropTypes.string).isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
