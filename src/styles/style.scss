@@ -146,12 +146,18 @@ h1 {
 
 a.mapbox-maplogo {
   left: 1em;
-  right: auto;
   bottom: 2em;
+
+  @media (min-width: 992px) {
+    bottom: 24px + $line-chart-height;
+  }
 }
 div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   left: 1em;
-  right: auto;
   white-space: nowrap;
   background: transparent;
+
+  @media (min-width: 992px) {
+    bottom: 4px + $line-chart-height;
+  }
 }

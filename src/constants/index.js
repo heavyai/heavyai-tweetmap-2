@@ -1,3 +1,6 @@
+export langCodes from './langCodes';
+
+export const TABLE_NAME = 'tweets_nov_feb';
 export const LANG_DOMAIN = [
   'en',
   'pt',
@@ -56,13 +59,41 @@ export const COLORS = [
 
 export let LANG_COLORS = [];
 export let COLOR_MAP = {};
+
 for (let i = 0; i < LANG_DOMAIN.length; i++) {
   LANG_COLORS.push(COLORS[i % COLORS.length]);
   COLOR_MAP[LANG_DOMAIN[i]] = COLORS[i % COLORS.length];
 }
 
-export const HASHTAG_EXCLUDE = ["#jobs", "#job", "#", "#tweetmyjobs", "#job:", "#healthcare", "#nursing", "#hospitality", "#veteranjob", "#retail", "#sales", "#transportation", "#skilledtrade", "#it", "#customerservice", "#businessmgmt", "#manufacturing", "#education", "#clerical", "#accounting", "#engineering", "#pharmaceutical", "#1", "#hiring", "#careerarc", "#veterans", "#cosmetology"];
+export const HASHTAG_EXCLUDE = [
+  '#jobs',
+  '#job',
+  '#',
+  '#tweetmyjobs',
+  '#job:',
+  '#healthcare',
+  '#nursing',
+  '#hospitality',
+  '#veteranjob',
+  '#retail',
+  '#sales',
+  '#transportation',
+  '#skilledtrade',
+  '#it',
+  '#customerservice',
+  '#businessmgmt',
+  '#manufacturing',
+  '#education',
+  '#clerical',
+  '#accounting',
+  '#engineering',
+  '#pharmaceutical',
+  '#1',
+  '#hiring',
+  '#careerarc',
+  '#veterans',
+  '#cosmetology'
+];
+
 export const HASHTAG_FETCH_SIZE = 60;
 export const TWEET_FETCH_SIZE = 25;
-
-export const TABLE_NAME = 'tweets_nov_feb';

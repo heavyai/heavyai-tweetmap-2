@@ -6,7 +6,7 @@ import * as dc from '@mapd/mapdc';
 
 import LegendItem from '../components/LegendItem';
 import { COLOR_MAP } from '../constants';
-import langCodes from '../services/langCodes';
+import langCodes from '../constants/langCodes';
 import { selectFilter } from '../thunks/legendFilter';
 
 const langItemType = PropTypes.shape({
