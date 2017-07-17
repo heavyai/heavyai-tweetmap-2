@@ -16,6 +16,8 @@ export const HASHTAGS_SET = 'HASHTAGS_SET';
 
 export const TOGGLE_TWEET_BAR = 'TOGGLE_TWEET_BAR';
 
+export const VIEW_URL_UPDATE = 'VIEW_URL_UPDATE';
+
 export function mapdConnectRequest() {
   return {
     type: MAPD_CONNECT_REQUEST
@@ -103,5 +105,12 @@ export function setTweetBar(setting) {
   return {
     type: TOGGLE_TWEET_BAR,
     setting
+  };
+}
+
+export function setViewUrl(url) {
+  return {
+    type: VIEW_URL_UPDATE,
+    url
   };
 }

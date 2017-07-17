@@ -2,23 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { getShareUrl } from  '../thunks/getShareUrl';
+
 import Switch from 'rc-switch';
 import Octicon from 'react-octicon';
 
-const stateType = PropTypes.shape({
-  mapCenter: PropTypes.shape({
-    lng: PropTypes.number,
-    lat: PropTypes.number
-  }),
-  mapZoom: PropTypes.number,
-  timeBounds: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-  queryTerms: PropTypes.arrayOf(PropTypes.string),
-  selectedLangs: PropTypes.arrayOf(PropTypes.string)
-});
+const baseUrl = window.location.origin + window.location.pathname;
 
 class ShareMenu extends React.Component {
   static propTypes = {
-    state: stateType.isRequired,
+    viewUrl: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
@@ -26,41 +19,11 @@ class ShareMenu extends React.Component {
     super();
     this.state = {
       share: true,
-      baseUrl: window.location.origin + window.location.pathname,
-      viewUrl: ''
     };
   }
 
   componentWillMount() {
-    const stateString = JSON.stringify(this.props.state);
-
-    const fullViewUrl =
-      window.location.origin +
-      window.location.pathname +
-      '#' +
-      btoa(stateString);
-    const url = new FormData();
-    url.append('url', fullViewUrl);
-
-    fetch('http://external-apis.mapd.com/shorten', {
-      method: 'POST',
-      body: url
-    })
-      .then(res => {
-        if (res.status !== 200) {
-          return Promise.resolve(fullViewUrl);
-        }
-
-        return res.text();
-      })
-      .then(
-        text => {
-          this.setState({ viewUrl: text });
-        },
-        err => {
-          console.error(err);
-        }
-      );
+    this.props.dispatch(getShareUrl());
   }
 
   handleFocus(event) {
@@ -73,7 +36,7 @@ class ShareMenu extends React.Component {
   }
 
   render() {
-    const url = this.state.share ? this.state.viewUrl : this.state.baseUrl;
+    const url = this.state.share ? this.props.viewUrl : baseUrl;
 
     return (
       <div>
@@ -123,10 +86,7 @@ class ShareMenu extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const { mapCenter, mapZoom, timeBounds, queryTerms, selectedLangs } = state;
-  return {
-    state: { mapCenter, mapZoom, timeBounds, queryTerms, selectedLangs }
-  };
+  return { viewUrl: state.viewUrl };
 };
 
 export default connect(mapStateToProps)(ShareMenu);

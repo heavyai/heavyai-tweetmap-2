@@ -8,7 +8,8 @@ import {
   TWEETS_SET,
   TWEETS_APPEND,
   HASHTAGS_SET,
-  TOGGLE_TWEET_BAR
+  TOGGLE_TWEET_BAR,
+  VIEW_URL_UPDATE
 } from '../actions';
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
   tweets: [],
   hashtags: [],
   totalTweets: 0,
-  tweetBar: 'hashtag'
+  tweetBar: 'hashtag',
+  viewUrl: '#'
 };
 
 export default function reducer(state = initialState, action) {
@@ -78,6 +80,10 @@ export default function reducer(state = initialState, action) {
     case TOGGLE_TWEET_BAR:
       return Object.assign({}, state, {
         tweetBar: action.setting
+      });
+    case VIEW_URL_UPDATE:
+      return Object.assign({}, state, {
+        viewUrl: action.url
       });
     default:
       return state;
