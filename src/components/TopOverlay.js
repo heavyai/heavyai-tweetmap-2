@@ -1,41 +1,34 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MediaQuery from 'react-responsive';
+import MediaQuery from "react-responsive"
+import Octicon from "react-octicon"
+import PropTypes from "prop-types"
+import React from "react"
+import SearchBar from "../containers/SearchBar"
 
-import SearchBar from '../containers/SearchBar';
+const TopOverlay = props => (
+  <div id="overlay">
+    <a id="icon">
+      <Octicon mega name="three-bars" onClick={props.toggleNav} />
+    </a>
 
-import Octicon from 'react-octicon';
+    <SearchBar />
 
-const TopOverlay = props => {
-  return (
-    <div id="overlay">
-      <a id="icon">
-        <Octicon name="three-bars" mega onClick={props.toggleNav} />
+    <MediaQuery query="(min-width: 992px)">
+      <a href="https://www.mapd.com" rel="noopener noreferrer" target="_blank">
+        <img className="logo" src="src/assets/logo.svg" />
       </a>
+    </MediaQuery>
 
-      <SearchBar />
-
-      <MediaQuery query='(min-width: 992px)'>
-        <a href="https://www.mapd.com" target="_blank">
-          <img className="logo" src="src/assets/logo.svg" />
-        </a>
-      </MediaQuery>
-
-      <MediaQuery query='(max-width: 992px)'>
+    <MediaQuery query="(max-width: 992px)">
       <a id="icon">
-        <Octicon name="list-unordered" mega onClick={() => {
-          props.toggleTweets();
-          props.closeNav();
-        }} />
+        <Octicon mega name="list-unordered" onClick={props.toggleTweets} />
       </a>
-      </MediaQuery>
-    </div>
-  );
-};
+    </MediaQuery>
+  </div>
+)
 
 TopOverlay.propTypes = {
   toggleNav: PropTypes.func.isRequired,
   toggleTweets: PropTypes.func.isRequired
-};
+}
 
-export default TopOverlay;
+export default TopOverlay

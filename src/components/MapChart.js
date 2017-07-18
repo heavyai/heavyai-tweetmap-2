@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react"
 
-const MapChart = () => <div id="mapChart" />;
+const MapChart = () => <div id="mapChart" />
 
-export default MapChart;
+export default MapChart

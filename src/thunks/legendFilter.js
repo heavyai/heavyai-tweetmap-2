@@ -1,11 +1,10 @@
-import * as dc from '@mapd/mapdc';
-import { getCf } from '../services/crossfilter';
+import * as dc from "@mapd/mapdc"
 
-import { COLORS } from '../constants';
+import {COLORS} from "../constants"
+import {getCf} from "../services/crossfilter"
+import {updateLangCounts, updateSelected} from "../actions"
 
-import { updateLangCounts, updateSelected } from '../actions';
-
-let langDim = null;
+let langDim = null
 
 /*
   LEGEND CHART
@@ -13,71 +12,69 @@ let langDim = null;
   legend is actually rendered by React, triggered by
   updating props/state
 */
-export function createLegendChart() {
+export function createLegendChart () {
   return dispatch => {
-    const crossfilter = getCf();
-    langDim = crossfilter.dimension('lang');
-    const group = langDim.group();
+    const crossfilter = getCf()
+    langDim = crossfilter.dimension("lang")
+    const group = langDim.group()
 
     //  _chart lives in the chart registry, triggering redraws through dataAsync()
-    const _chart = dc.baseMixin({});
-    _chart.dimension(langDim);
-    _chart.group(group);
+    const _chart = dc.baseMixin({})
+    _chart.dimension(langDim)
+    _chart.group(group)
     // dummy DOM elem should take no space
-    _chart.minWidth(0);
-    _chart.minHeight(0);
+    _chart.minWidth(0)
+    _chart.minHeight(0)
     // rendering is instead done by React
-    _chart._doRender = _chart._doRedraw = () => {};
+    _chart._doRender = _chart._doRedraw = () => {}
 
-    _chart.setDataAsync((group, callback) => {
-      const numColors = COLORS.length;
+    _chart.setDataAsync((_group, callback) => {
+      const numColors = COLORS.length
 
-      group.reduceCount('*').topAsync(numColors).then(
+      group.reduceCount("*").topAsync(numColors).then(
         results => {
           // rename keys
           const langCounts = results.map(obj => ({
             lang: obj.key0,
             count: obj.val
-          }));
+          }))
 
-          dispatch(updateLangCounts(langCounts));
-          callback();
+          dispatch(updateLangCounts(langCounts))
+          callback()
         },
         error => {
-          console.error(error);
-          callback();
+          console.error(error)
+          callback()
         }
-      );
-    });
+      )
+    })
 
-    _chart.anchor('#legendDummy');
-  };
+    _chart.anchor("#legendDummy")
+  }
 }
 
-export function selectFilter(lang) {
+export function selectFilter (lang) {
   return (dispatch, getState) => {
-    const { selectedLangs, ...rest } = getState();
+    const {selectedLangs} = getState()
 
-    const selected = selectedLangs.includes(lang)
-      ? selectedLangs.filter(item => item !== lang)
-      : [...selectedLangs, lang];
+    const selected = selectedLangs.includes(lang) ? selectedLangs.filter(item => item !== lang) : [...selectedLangs, lang]
 
-    if (selected.length == 0) {
-      langDim.filterAll();
+    if (selected.length === 0) {
+      langDim.filterAll()
     } else {
-      langDim.filterMulti(selected);
+      langDim.filterMulti(selected)
     }
 
-    dc.redrawAllAsync();
-    dispatch(updateSelected(selected));
-  };
+    dc.redrawAllAsync()
+    dispatch(updateSelected(selected))
+  }
 }
 
-export function initFilters(langs) {
+export function initFilters (langs) {
   return dispatch => {
     if (langs.length !== 0) {
-      langDim.filterMulti(langs);
-      dispatch(updateSelected(langs));
+      langDim.filterMulti(langs)
+      dispatch(updateSelected(langs))
     }
-  };
+  }
 }

@@ -1,20 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import MediaQuery from 'react-responsive';
-
-import LineChart from '../components/LineChart';
-import { zoomTo } from '../thunks/map';
-
-import Octicon from 'react-octicon';
+import {connect} from "react-redux"
+import LineChart from "../components/LineChart"
+import MediaQuery from "react-responsive"
+import PropTypes from "prop-types"
+import React from "react"
+import {zoomTo} from "../thunks/map"
 
 class BottomOverlay extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired
-  };
+  }
 
-  constructor() {
-    super();
+  constructor () {
+    super()
 
     this.state = {
       chartOn: false,
@@ -22,47 +19,49 @@ class BottomOverlay extends React.Component {
     }
   }
 
-  userLocation() {
+  userLocation () {
     const zoomToPosition = position => {
       this.setState({loading: false})
-      this.props.dispatch(zoomTo(position));
-    };
+      this.props.dispatch(zoomTo(position))
+    }
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(zoomToPosition);
+      navigator.geolocation.getCurrentPosition(zoomToPosition)
       this.setState({loading: true})
     } else {
-      console.log("Geolocation is not supported by this browser.");
+      console.error("Geolocation is not supported by this browser.")
     }
   }
 
-  toggleLineChart() {
-    const height = this.state.chartOn ? '0px' : '120px';
+  toggleLineChart () {
+    const height = this.state.chartOn ? "0px" : "120px"
 
-    document.getElementById('background').style.height = height;
-    document.getElementById('lineChart').style.height = height;
+    document.getElementById("background").style.height = height
+    document.getElementById("lineChart").style.height = height
     this.setState({chartOn: !this.state.chartOn})
   }
 
-  render() {
+  render () {
+    const spinning = this.state.loading ? " fa-spin" : ""
+
     return (
       <div id="bottomOverlay">
         <button onClick={() => this.userLocation()}>
           <i
-            className={"fa fa-location-arrow fa-lg" + (this.state.loading ? " fa-spin" : "")}
-            aria-hidden="true">
-          </i>
+            aria-hidden="true"
+            className={`fa fa-location-arrow fa-lg${spinning}`}
+          />
         </button>
 
-        <MediaQuery query='(max-width: 992px)'>
+        <MediaQuery query="(max-width: 992px)">
           <button onClick={() => this.toggleLineChart()}>
-            <i className="fa fa-area-chart fa-lg" aria-hidden="true"></i>
+            <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
           </button>
         </MediaQuery>
         <LineChart />
       </div>
-    );
+    )
   }
 }
 
-export default connect()(BottomOverlay);
+export default connect()(BottomOverlay)

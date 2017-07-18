@@ -1,29 +1,26 @@
-import { createCf } from '../services/crossfilter';
-import { connect } from '../services/connector';
-
 import {
+  mapdConnectFailure,
   mapdConnectRequest,
-  mapdConnectSuccess,
-  mapdConnectFailure
-} from '../actions';
+  mapdConnectSuccess
+} from "../actions"
+import {connect} from "../services/connector"
+import {createCf} from "../services/crossfilter"
 
-export function mapdConnect() {
+export function mapdConnect () {
   return dispatch => {
-    dispatch(mapdConnectRequest());
+    dispatch(mapdConnectRequest())
 
     return connect()
-      .then(con => {
-        return createCf(con);
-      })
+      .then(con => createCf(con))
       .then(
-        (cf, con) => {
-          dispatch(mapdConnectSuccess());
-          return Promise.resolve();
+        (cf, _con) => {
+          dispatch(mapdConnectSuccess())
+          return Promise.resolve()
         },
         err => {
-          dispatch(mapdConnectFailure(err));
-          return Promise.reject(err);
+          dispatch(mapdConnectFailure(err))
+          return Promise.reject(err)
         }
-      );
-  };
+      )
+  }
 }

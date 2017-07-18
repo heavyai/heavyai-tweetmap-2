@@ -1,56 +1,55 @@
-import * as dc from '@mapd/mapdc';
-import { getCf } from '../services/crossfilter';
-import { getConnection } from '../services/connector';
+import * as dc from "@mapd/mapdc"
+import {getCf} from "../services/crossfilter"
 
-import { updateQueryTerms } from '../actions';
+import {updateQueryTerms} from "../actions"
 
-let searchDim = null;
+let searchDim = null
 
-function filterSearch(queries) {
+function filterSearch (queries) {
   return (dispatch) => {
     if (!searchDim) {
-      searchDim = getCf().dimension('tweet_tokens').setDrillDownFilter(true);
+      searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
     }
 
-    if (queries.length == 0) {
-      searchDim.filterAll();
+    if (queries.length === 0) {
+      searchDim.filterAll()
     } else {
-      searchDim.filterMulti(queries);
+      searchDim.filterMulti(queries)
     }
 
     // You must call redrawAll after applying custom filters.
-    dc.redrawAllAsync();
-    dispatch(updateQueryTerms(queries));
-  };
+    dc.redrawAllAsync()
+    dispatch(updateQueryTerms(queries))
+  }
 }
 
-export function addFilters(queries) {
+export function addFilters (queries) {
   if (!Array.isArray(queries)) {
     queries = [queries]
   }
 
   return (dispatch, getState) => {
-    const { queryTerms, ...rest } = getState();
-    const unique = [...new Set(queryTerms.concat(queries))];
-    dispatch(filterSearch(unique));
-  };
+    const {queryTerms} = getState()
+    const unique = [...new Set(queryTerms.concat(queries))]
+    dispatch(filterSearch(unique))
+  }
 }
 
-export function removeFilter(query) {
+export function removeFilter (query) {
   return (dispatch, getState) => {
-    const { queryTerms, ...rest } = getState();
-    const queries = queryTerms.filter(queryTerm => queryTerm !== query);
-    dispatch(filterSearch(queries));
-  };
+    const {queryTerms} = getState()
+    const queries = queryTerms.filter(queryTerm => queryTerm !== query)
+    dispatch(filterSearch(queries))
+  }
 }
 
-export function initFilters(queries) {
-  searchDim = getCf().dimension('tweet_tokens').setDrillDownFilter(true);
+export function initFilters (queries) {
+  searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
 
   return dispatch => {
     if (queries.length !== 0) {
-      searchDim.filterMulti(queries);
-      dispatch(updateQueryTerms(queries));
+      searchDim.filterMulti(queries)
+      dispatch(updateQueryTerms(queries))
     }
-  };
+  }
 }
