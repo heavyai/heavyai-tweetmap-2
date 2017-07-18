@@ -2,23 +2,20 @@ import React from "react"
 import PropTypes from "prop-types"
 import {connect} from "react-redux"
 
-import * as dc from "@mapd/mapdc"
-
 import LegendItem from "../components/LegendItem"
-import {COLOR_MAP} from "../constants"
-import langCodes from "../services/langCodes"
+import {COLOR_MAP, langCodes} from "../constants"
 import {selectFilter} from "../thunks/legendFilter"
 
 const langItemType = PropTypes.shape({
   lang: PropTypes.string,
   count: PropTypes.number
-});
+})
 
 class Legend extends React.Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
     langCounts: PropTypes.arrayOf(langItemType).isRequired,
-    selected: PropTypes.arrayOf(PropTypes.string).isRequired,
-    dispatch: PropTypes.func.isRequired
+    selected: PropTypes.arrayOf(PropTypes.string).isRequired
   };
 
   handleClick (lang) {
@@ -47,6 +44,7 @@ class Legend extends React.Component {
     return (
       <div id="legend">
         <ul>
+          {/* first list item is title */}
           <li style={{marginLeft: "0.8em"}}>
             <LegendItem
               active
@@ -55,17 +53,18 @@ class Legend extends React.Component {
               title="Languages"
             />
           </li>
+
           {items}
           <div id="legendDummy" />
         </ul>
-        <div id="fade"></div>
+        <div id="fade" />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const {langCounts, selectedLangs, ...rest} = state
+  const {langCounts, selectedLangs} = state
   return {
     selected: selectedLangs,
     langCounts

@@ -57,7 +57,7 @@ export function createLineChart () {
 
         lineChart
           .x(
-            d3.time.scale
+            window.d3.time.scale
               .utc()
               .domain([timeChartBounds.minimum, timeChartBounds.maximum])
           )
@@ -76,8 +76,8 @@ export function createLineChart () {
 }
 
 export function initFilter (filter) {
-  return dispatch => {
-    if (filter != null) {
+  return () => {
+    if (filter !== null) {
       lineChart.filter(filter.map(str => new Date(str)))
     }
   }

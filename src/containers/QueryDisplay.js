@@ -19,9 +19,7 @@ class QueryDisplay extends React.Component {
       <div
         className="queryPill"
         key={query}
-        onClick={() => {
-          this.removeQuery(query)
-        }}
+        onClick={() => { this.removeQuery(query) }}
       >
         {query}
         <span className="delete"> &times;</span>
@@ -41,8 +39,7 @@ class QueryDisplay extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const {queryTerms, ...rest} = state
-  return {queryTerms}
+  return {queryTerms: state.queryTerms}
 }
 
 export default connect(mapStateToProps)(QueryDisplay)

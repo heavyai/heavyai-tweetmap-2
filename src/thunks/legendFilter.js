@@ -1,8 +1,7 @@
 import * as dc from "@mapd/mapdc"
-import {getCf} from "../services/crossfilter"
 
 import {COLORS} from "../constants"
-
+import {getCf} from "../services/crossfilter"
 import {updateLangCounts, updateSelected} from "../actions"
 
 let langDim = null
@@ -29,7 +28,7 @@ export function createLegendChart () {
     // rendering is instead done by React
     _chart._doRender = _chart._doRedraw = () => {}
 
-    _chart.setDataAsync((group, callback) => {
+    _chart.setDataAsync((_group, callback) => {
       const numColors = COLORS.length
 
       group.reduceCount("*").topAsync(numColors).then(
@@ -56,11 +55,11 @@ export function createLegendChart () {
 
 export function selectFilter (lang) {
   return (dispatch, getState) => {
-    const {selectedLangs, ...rest} = getState()
+    const {selectedLangs} = getState()
 
     const selected = selectedLangs.includes(lang) ? selectedLangs.filter(item => item !== lang) : [...selectedLangs, lang]
 
-    if (selected.length == 0) {
+    if (selected.length === 0) {
       langDim.filterAll()
     } else {
       langDim.filterMulti(selected)

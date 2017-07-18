@@ -3,7 +3,6 @@ import Popover from "react-popover"
 import PropTypes from "prop-types"
 import React from "react"
 
-
 class NavItem extends React.Component {
   static propTypes = {
     body: PropTypes.object,
@@ -22,14 +21,18 @@ class NavItem extends React.Component {
   }
 
   render () {
+    const handleClick = () => {
+      this.setState({popover: true})
+      this.props.clicked()
+    }
+
+    const isMobile = window.innerWidth < 992
+
     return (
       <a
         href={this.props.url}
-        onClick={() => {
-          this.setState({popover: true})
-          this.props.clicked()
-        }}
-        onMouseEnter={window.innerWidth > 992 ? () => this.setState({popover: true}) : null}
+        onClick={handleClick}
+        onMouseEnter={isMobile ? null : () => this.setState({popover: true})}
         onMouseLeave={() => this.setState({popover: false})}
         target="_blank"
       >
@@ -41,7 +44,7 @@ class NavItem extends React.Component {
         >
           <p>
             <Octicon mega name={this.props.icon} />
-            {window.innerWidth < 992 ? this.props.description : null}
+            {isMobile ? this.props.description : null}
           </p>
         </Popover>
       </a>

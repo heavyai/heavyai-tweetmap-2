@@ -19,7 +19,7 @@ export function createCount () {
     // hijack _doRender
     dataCount._doRender = val => {
       const selected = dataCount.formatNumber()(val)
-      const wrapper = dataCount.root().text(selected)
+      dataCount.root().text(selected)
 
       dispatch(updateCount(val))
       return dataCount

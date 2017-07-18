@@ -1,16 +1,18 @@
 import * as dc from "@mapd/mapdc"
 import {getCf} from "../services/crossfilter"
-import {getConnection, query} from "../services/connector"
+import {getConnection} from "../services/connector"
 import {moveMap} from "../actions"
 import {LANG_COLORS, LANG_DOMAIN} from "../constants"
 
 import fetchJs from "fetch-js"
 
+const _ = require("lodash")
+
 let geocoder = null
 let pointMapChart = null
 
 window.mapApiLoaded = () => {
-  geocoder = new google.maps.Geocoder()
+  geocoder = new window.google.maps.Geocoder()
 }
 
 const initGeocoder = () => new Promise((resolve, reject) => {
@@ -54,8 +56,6 @@ export function createMapChart () {
     const xDim = crossfilter.dimension("lon")
     const yDim = crossfilter.dimension("lat")
 
-    const sizeScale = d3.scale.linear().domain([0, 5000]).range([1, 12])
-
     pointMapChart = dc
       .rasterChart(parent, true)
       .con(connection)
@@ -71,7 +71,7 @@ export function createMapChart () {
       .cap(5000000)
       .sampling(true)
       .dynamicSize(
-        d3.scale.sqrt().domain([20000, 0]).range([1.0, 7.0]).clamp(true)
+        window.d3.scale.sqrt().domain([20000, 0]).range([1.0, 7.0]).clamp(true)
       )
       .xAttr("x")
       .yAttr("y")
@@ -79,7 +79,7 @@ export function createMapChart () {
       .yDim(yDim)
       .fillColorAttr("color")
       .defaultFillColor("#80DEEA")
-      .fillColorScale(d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
+      .fillColorScale(window.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
       .popupColumns([
         "tweet_text",
         "sender_name",
@@ -90,8 +90,8 @@ export function createMapChart () {
       ])
 
     return pointMapChart
-      .pushLayer('points', pointLayer)
-      .attribLocation('bottom-left')
+      .pushLayer("points", pointLayer)
+      .attribLocation("bottom-left")
       .init()
       .then(() => {
         /* display pop up on mouse hover */
@@ -120,9 +120,9 @@ export function createMapChart () {
 }
 
 export function geocode (placeName) {
-  return dispatch => {
+  return () => {
     geocoder.geocode({address: placeName}, (data, status) => {
-      if (status != google.maps.GeocoderStatus.OK) {
+      if (status !== window.google.maps.GeocoderStatus.OK) {
         return null
       }
       const viewport = data[0].geometry.viewport

@@ -3,7 +3,7 @@ import {getCf} from "../services/crossfilter"
 import {HASHTAG_FETCH_SIZE} from "../constants"
 import {setHashtags} from "../actions"
 
-let _chart
+let _chart = null
 
 function fetchHashtags () {
   return _chart
@@ -26,7 +26,7 @@ function fetchHashtags () {
   triggered by updating props/state
 */
 export function createHashtagChart () {
-  return (dispatch, getState) => {
+  return dispatch => {
     const crossfilter = getCf()
     const hashtagDim = crossfilter.dimension("hashtags").allowTargeted(false)
     const hashtagGroup = hashtagDim.group().reduceCount()

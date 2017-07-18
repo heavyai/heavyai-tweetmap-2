@@ -29,7 +29,7 @@ function fetchTweets (offset) {
   triggered by updating props/state
 */
 export function createTweetChart () {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     const crossfilter = getCf()
     const tweetDim = crossfilter
       .dimension(null)

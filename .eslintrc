@@ -65,7 +65,7 @@
     // "no-comma-dangle": 0, // removed.
     "no-cond-assign": 0, // usually typos.
     "no-confusing-arrow": [1, {"allowParens": true}], // avoids typos and ambiguity while allowing concise syntax.
-    "no-console": 1, // for debugging only; shouldn't be committed.
+    "no-console": ["error", { allow: ["warn", "error"] }], // for debugging only; shouldn't be committed.
     "no-const-assign": 2, // catches runtime syntax errors.
     "no-constant-condition": 0, // unnecessary; usually a typo.
     "no-continue": 2, // makes reasoning about loops more difficult.
@@ -246,7 +246,7 @@
     "require-yield": 2, // omission is probably a mistake.
     "semi": [2, "never"], // unnecessary due to ASI; improves consistency and readability.
     "semi-spacing": 2, // improves consistency.
-    "sort-imports": [2, {"ignoreCase": true}], // improves consistency, readability.
+    "sort-imports": [0, {"ignoreCase": true}], // improves consistency, readability.
     "sort-vars": 1, // improves consistency.
     // "space-after-function-name": 0, // removed.
     // "space-after-keywords": 0, // removed.

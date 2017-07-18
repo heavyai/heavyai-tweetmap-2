@@ -32,7 +32,7 @@ const tweetType = PropTypes.shape({
   name: PropTypes.string,
   date: PropTypes.instanceOf(Date),
   body: PropTypes.string
-});
+})
 
 class TweetResults extends React.Component {
   static propTypes = {
@@ -40,7 +40,7 @@ class TweetResults extends React.Component {
     dispatch: PropTypes.func.isRequired,
     hashtags: PropTypes.array,
     totalTweets: PropTypes.number.isRequired,
-    tweetBar: PropTypes.string,
+    tweetBarMode: PropTypes.string,
     tweets: PropTypes.arrayOf(tweetType).isRequired
   };
 
@@ -49,11 +49,11 @@ class TweetResults extends React.Component {
   }
 
   renderMessages () {
-    if (this.props.tweetBar === "hashtag") {
+    if (this.props.tweetBarMode === "hashtag") {
       const max = this.props.hashtags[0] ? this.props.hashtags[0].count : 1
 
       return this.props.hashtags
-        .filter(({hashtag, count}) => !HASHTAG_EXCLUDE.includes(hashtag))
+        .filter(({hashtag}) => !HASHTAG_EXCLUDE.includes(hashtag))
         .map(({hashtag, count}) =>
           <li key={hashtag} onClick={() => {
             this.props.dispatch(addFilters(hashtag))
@@ -84,21 +84,24 @@ class TweetResults extends React.Component {
   render () {
     const totalTweets = this.props.totalTweets
     const listTweets = this.props.tweets.length
-    const isHashtag = this.props.tweetBar === "hashtag"
+    const isHashtag = this.props.tweetBarMode === "hashtag"
+
+    const tweetBarMode = (mode) => () => this.props.dispatch(setTweetBar(mode))
 
     return (
-      <div id="tweetResults" className="tweetResults" onClick={() => this.props.closeNav()}>
+      <div className="tweetResults" id="tweetResults" onClick={() => this.props.closeNav()}>
         <div className="tweetTitle">
           <div className="buttonGroup">
             <button
               className={isHashtag ? "well" : null}
-              onClick={() => this.props.dispatch(setTweetBar("hashtag"))}
+              onClick={tweetBarMode("hashtag")}
             >
               Hashtags
             </button>
+
             <button
               className={isHashtag ? null : "well"}
-              onClick={() => this.props.dispatch(setTweetBar("tweet"))}
+              onClick={tweetBarMode("tweet")}
             >
               Tweets
             </button>
@@ -109,9 +112,9 @@ class TweetResults extends React.Component {
 
         <InfiniteScroll
           children={this.renderMessages()}
-          loadMore={this.loadTweets.bind(this)}
-          holderType="ul"
           hasMore={(!isHashtag) && listTweets < totalTweets}
+          holderType="ul"
+          loadMore={this.loadTweets.bind(this)}
         />
 
         <div className="tweetFooter" style={{display: isHashtag ? "none" : "inline"}}>
@@ -127,12 +130,12 @@ class TweetResults extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const {tweets, totalTweets, hashtags, tweetBar, ...rest} = state
+  const {tweets, totalTweets, hashtags, tweetBarMode} = state
   return {
     tweets,
     totalTweets,
     hashtags,
-    tweetBar
+    tweetBarMode
   }
 }
 

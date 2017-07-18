@@ -1,6 +1,5 @@
-export langCodes from './langCodes';
-
-export const TABLE_NAME = 'tweets_nov_feb';
+export langCodes from "./langCodes"
+export const TABLE_NAME = "tweets_nov_feb"
 export const LANG_DOMAIN = [
   "en",
   "pt",
@@ -60,7 +59,7 @@ export const COLORS = [
 
 export const LANG_COLORS = []
 export const COLOR_MAP = {}
-for (let i = 0; i < LANG_DOMAIN.length; i++) {
+for (let i = 0; i < LANG_DOMAIN.length; i = i + 1) {
   LANG_COLORS.push(COLORS[i % COLORS.length])
   COLOR_MAP[LANG_DOMAIN[i]] = COLORS[i % COLORS.length]
 }

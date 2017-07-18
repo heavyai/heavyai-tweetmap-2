@@ -27,39 +27,47 @@ class LeftNav extends React.Component {
 
     return (
       <div className="nav" id="sideNav" >
+        {/* Close Nav */}
         <MediaQuery query="(max-width: 992px)">
           <a id="close" onClick={this.props.closeNav}>
             &times;
           </a>
         </MediaQuery>
 
+        {/* Search Location */}
         <NavItem
           body={this.props.search ? searchPopover : null}
           className={this.props.search ? "searchPopover" : null}
-          clicked={() => {
-            this.props.toggle()
-          }}
+          clicked={() => { this.props.toggle() }}
           description="Search Location"
           icon="location"
         />
 
+        {/* Share */}
         <NavItem
-          description="Zoom Out"
-          icon="globe"
           clicked={() => {
             this.props.dispatch(zoomOut())
             this.props.closeNav()
           }}
+          description="Zoom Out"
+          icon="globe"
         />
 
+        {/* Github */}
         <NavItem
           description="See Repo"
           icon="mark-github"
           url="https://github.com/mapd/new-tweetmap"
         />
 
-        <NavItem description="About" icon="info" url="https://www.mapd.com" />
+        {/* About */}
+        <NavItem
+          description="About"
+          icon="info"
+          url="https://www.mapd.com"
+        />
 
+        {/* Share */}
         <NavItem
           clicked={() => {
             this.props.openShare()
@@ -67,7 +75,6 @@ class LeftNav extends React.Component {
           }}
           description="Share"
           icon="link"
-
         />
       </div>
     )

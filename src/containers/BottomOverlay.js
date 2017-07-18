@@ -29,7 +29,7 @@ class BottomOverlay extends React.Component {
       navigator.geolocation.getCurrentPosition(zoomToPosition)
       this.setState({loading: true})
     } else {
-      console.log("Geolocation is not supported by this browser.")
+      console.error("Geolocation is not supported by this browser.")
     }
   }
 
@@ -42,12 +42,14 @@ class BottomOverlay extends React.Component {
   }
 
   render () {
+    const spinning = this.state.loading ? " fa-spin" : ""
+
     return (
       <div id="bottomOverlay">
         <button onClick={() => this.userLocation()}>
           <i
             aria-hidden="true"
-            className={`fa fa-location-arrow fa-lg ${this.state.loading ? "fa-spin" : ""}`}
+            className={`fa fa-location-arrow fa-lg${spinning}`}
           />
         </button>
 

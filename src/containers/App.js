@@ -91,9 +91,9 @@ class App extends React.Component {
         />
         <main id="main">
           <TopOverlay
+            closeNav={() => this.closeNav()}
             toggleNav={() => this.toggleNav()}
             toggleTweets={() => this.toggleTweetBar()}
-            closeNav={() => this.closeNav()}
           />
           <map onClick={() => this.closeAll()}>
             <container>
@@ -107,9 +107,9 @@ class App extends React.Component {
         <TweetResults closeNav={() => this.closeNav()} />
 
         <Modal
+          contentLabel="Modal"
           isOpen={this.state.shareShowing}
           onRequestClose={() => this.setState({shareShowing: false})}
-          contentLabel="Modal"
           style={{
             overlay: {backgroundColor: "rgba(0, 0, 0, 0.75)"},
             content: {padding: "2.5rem"}
