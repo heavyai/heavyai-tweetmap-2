@@ -64,7 +64,7 @@ class Legend extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const {langCounts, selectedLangs} = state
+  const {langCounts, selectedLangs} = state.filters
   return {
     selected: selectedLangs,
     langCounts

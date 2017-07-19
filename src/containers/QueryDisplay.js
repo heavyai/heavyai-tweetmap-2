@@ -39,7 +39,7 @@ class QueryDisplay extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {queryTerms: state.queryTerms}
+  return {queryTerms: state.filters.queryTerms}
 }
 
 export default connect(mapStateToProps)(QueryDisplay)

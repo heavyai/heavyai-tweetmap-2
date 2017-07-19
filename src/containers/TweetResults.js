@@ -130,13 +130,7 @@ class TweetResults extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const {tweets, totalTweets, hashtags, tweetBarMode} = state
-  return {
-    tweets,
-    totalTweets,
-    hashtags,
-    tweetBarMode
-  }
+  return state.tweetBar
 }
 
 export default connect(mapStateToProps)(TweetResults)

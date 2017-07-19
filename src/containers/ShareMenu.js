@@ -79,6 +79,6 @@ class ShareMenu extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({viewUrl: state.viewUrl})
+const mapStateToProps = state => state.shareMenu
 
 export default connect(mapStateToProps)(ShareMenu)
