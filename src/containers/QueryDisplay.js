@@ -1,7 +1,6 @@
-import React from "react"
-import PropTypes from "prop-types"
 import {connect} from "react-redux"
-
+import PropTypes from "prop-types"
+import React from "react"
 import {removeFilter} from "../thunks/search"
 
 class QueryDisplay extends React.Component {
@@ -38,8 +37,6 @@ class QueryDisplay extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {queryTerms: state.filters.queryTerms}
-}
+const mapStateToProps = state => ({queryTerms: state.filters.queryTerms})
 
 export default connect(mapStateToProps)(QueryDisplay)

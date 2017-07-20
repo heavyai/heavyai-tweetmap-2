@@ -18,6 +18,22 @@ export const TOGGLE_TWEET_BAR = "TOGGLE_TWEET_BAR"
 
 export const VIEW_URL_UPDATE = "VIEW_URL_UPDATE"
 
+export const TOGGLE_NAV = "TOGGLE_NAV"
+export const CLOSE_NAV = "CLOSE_NAV"
+export const TOGGLE_SEARCH = "TOGGLE_SEARCH"
+export const CLOSE_SEARCH = "CLOSE_SEARCH"
+export const TOGGLE_SHARE = "TOGGLE_SHARE"
+export const CLOSE_SHARE = "CLOSE_SHARE"
+export const TOGGLE_TWEETBAR = "TOGGLE_TWEETBAR"
+export const CLOSE_TWEETBAR = "CLOSE_TWEETBAR"
+export const TOGGLE_LINECHART = "TOGGLE_LINECHART"
+export const CLOSE_LINECHART = "CLOSE_LINECHART"
+export const TOGGLE_CURRENT = "TOGGLE_CURRENT"
+
+export const USER_LOCATION_REQUEST = "USER_LOCATION_REQUEST"
+export const USER_LOCATION_SUCCESS = "USER_LOCATION_SUCCESS"
+export const USER_LOCATION_FAILURE = "USER_LOCATION_FAILURE"
+
 export function mapdConnectRequest () {
   return {
     type: MAPD_CONNECT_REQUEST
@@ -112,5 +128,36 @@ export function setViewUrl (url) {
   return {
     type: VIEW_URL_UPDATE,
     url
+  }
+}
+
+export const toggleNav = {type: TOGGLE_NAV}
+export const closeNav = {type: CLOSE_NAV}
+export const toggleSearch = {type: TOGGLE_SEARCH}
+export const closeSearch = {type: CLOSE_SEARCH}
+export const toggleShare = {type: TOGGLE_SHARE}
+export const closeShare = {type: CLOSE_SHARE}
+export const toggleTweetBar = {type: TOGGLE_TWEETBAR}
+export const closeTweetBar = {type: CLOSE_TWEETBAR}
+export const toggleLinechart = {type: TOGGLE_LINECHART}
+export const closeLinechart = {type: CLOSE_LINECHART}
+export const toggleCurrent = {type: TOGGLE_CURRENT}
+
+export function userLocationRequest () {
+  return {
+    type: USER_LOCATION_REQUEST
+  }
+}
+
+export function userLocationSuccess () {
+  return {
+    type: USER_LOCATION_SUCCESS
+  }
+}
+
+export function userLocationFailure (error) {
+  return {
+    type: USER_LOCATION_FAILURE,
+    error
   }
 }

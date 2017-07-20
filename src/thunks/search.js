@@ -29,7 +29,7 @@ export function addFilters (queries) {
   }
 
   return (dispatch, getState) => {
-    const {queryTerms} = getState()
+    const {queryTerms} = getState().filters
     const unique = [...new Set(queryTerms.concat(queries))]
     dispatch(filterSearch(unique))
   }
@@ -37,7 +37,7 @@ export function addFilters (queries) {
 
 export function removeFilter (query) {
   return (dispatch, getState) => {
-    const {queryTerms} = getState()
+    const {queryTerms} = getState().filters
     const queries = queryTerms.filter(queryTerm => queryTerm !== query)
     dispatch(filterSearch(queries))
   }

@@ -1,8 +1,8 @@
 import * as dc from "@mapd/mapdc"
 
+import {updateLangCounts, updateSelected} from "../actions"
 import {COLORS} from "../constants"
 import {getCf} from "../services/crossfilter"
-import {updateLangCounts, updateSelected} from "../actions"
 
 let langDim = null
 
@@ -18,17 +18,17 @@ export function createLegendChart () {
     langDim = crossfilter.dimension("lang")
     const group = langDim.group()
 
-    //  _chart lives in the chart registry, triggering redraws through dataAsync()
-    const _chart = dc.baseMixin({})
-    _chart.dimension(langDim)
-    _chart.group(group)
+    //  dummyChart lives in the chart registry, triggering redraws through dataAsync()
+    const dummyChart = dc.baseMixin({})
+    dummyChart.dimension(langDim)
+    dummyChart.group(group)
     // dummy DOM elem should take no space
-    _chart.minWidth(0)
-    _chart.minHeight(0)
+    dummyChart.minWidth(0)
+    dummyChart.minHeight(0)
     // rendering is instead done by React
-    _chart._doRender = _chart._doRedraw = () => {}
+    dummyChart._doRender = dummyChart._doRedraw = () => {}
 
-    _chart.setDataAsync((_group, callback) => {
+    dummyChart.setDataAsync((_group, callback) => {
       const numColors = COLORS.length
 
       group.reduceCount("*").topAsync(numColors).then(
@@ -49,13 +49,13 @@ export function createLegendChart () {
       )
     })
 
-    _chart.anchor("#legendDummy")
+    dummyChart.anchor("#legendDummy")
   }
 }
 
 export function selectFilter (lang) {
   return (dispatch, getState) => {
-    const {selectedLangs} = getState()
+    const {selectedLangs} = getState().filters
 
     const selected = selectedLangs.includes(lang) ? selectedLangs.filter(item => item !== lang) : [...selectedLangs, lang]
 

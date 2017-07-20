@@ -14,7 +14,6 @@ dash {
   height: 100%;
 
   nav {
-    min-width: $nav-width;
     background-color: black;
   }
 
@@ -25,7 +24,6 @@ dash {
   }
 
   .tweetResults {
-    width: 0;
     transition: 0.5s;
 
     @media (min-width: 992px) {
@@ -96,26 +94,16 @@ map {
 
   #lineChart {
     width: 100%;
-    height: $line-chart-height;
     transition: 0.3s;
-    @media (max-width: 992px) {
-      height: 0;
-    }
   }
-
-
 
   #background {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: $line-chart-height;
     background-color: $light-grey;
     opacity: 0.3;
     transition: 0.3s;
-    @media (max-width: 992px) {
-      height: 0;
-    }
   }
 }
 

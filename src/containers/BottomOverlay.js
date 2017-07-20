@@ -3,65 +3,53 @@ import LineChart from "../components/LineChart"
 import MediaQuery from "react-responsive"
 import PropTypes from "prop-types"
 import React from "react"
-import {zoomTo} from "../thunks/map"
+import {toggleLinechart} from "../actions"
+import {zoomToUserLocation} from "../thunks/map"
 
 class BottomOverlay extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired
-  }
-
-  constructor () {
-    super()
-
-    this.state = {
-      chartOn: false,
-      loading: false
-    }
-  }
-
-  userLocation () {
-    const zoomToPosition = position => {
-      this.setState({loading: false})
-      this.props.dispatch(zoomTo(position))
-    }
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(zoomToPosition)
-      this.setState({loading: true})
-    } else {
-      console.error("Geolocation is not supported by this browser.")
-    }
-  }
-
-  toggleLineChart () {
-    const height = this.state.chartOn ? "0px" : "120px"
-
-    document.getElementById("background").style.height = height
-    document.getElementById("lineChart").style.height = height
-    this.setState({chartOn: !this.state.chartOn})
+    chartOpen: PropTypes.bool.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    toggleChart: PropTypes.func.isRequired,
+    zoomToUserLocation: PropTypes.func.isRequired
   }
 
   render () {
-    const spinning = this.state.loading ? " fa-spin" : ""
+    const spinning = this.props.loading ? " fa-spin" : ""
 
     return (
       <div id="bottomOverlay">
-        <button onClick={() => this.userLocation()}>
+        {/* current location button */}
+        <button onClick={this.props.zoomToUserLocation}>
           <i
             aria-hidden="true"
             className={`fa fa-location-arrow fa-lg${spinning}`}
           />
         </button>
 
+        {/* line chart toggle button */}
         <MediaQuery query="(max-width: 992px)">
-          <button onClick={() => this.toggleLineChart()}>
+          <button onClick={this.props.toggleChart}>
             <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
           </button>
         </MediaQuery>
-        <LineChart />
+
+        {/* line chart component */}
+        <LineChart open={this.props.chartOpen} />
       </div>
     )
   }
 }
 
-export default connect()(BottomOverlay)
+const mapStateToProps = (state) => ({
+  chartOpen: state.navigation.lineChart,
+  loading: state.navigation.locationLoading
+})
+const mapDispatchToProps = (dispatch) => ({
+  toggleChart: () => { dispatch(toggleLinechart) },
+  zoomToUserLocation: () => { dispatch(zoomToUserLocation()) },
+  dispatch
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(BottomOverlay)

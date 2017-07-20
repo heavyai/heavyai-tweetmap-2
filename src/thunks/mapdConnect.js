@@ -13,7 +13,7 @@ export function mapdConnect () {
     return connect()
       .then(con => createCf(con))
       .then(
-        (cf, _con) => {
+        () => {
           dispatch(mapdConnectSuccess())
           return Promise.resolve()
         },

@@ -1,9 +1,8 @@
-import React from "react"
-import PropTypes from "prop-types"
-import {connect} from "react-redux"
-
-import LegendItem from "../components/LegendItem"
 import {COLOR_MAP, langCodes} from "../constants"
+import {connect} from "react-redux"
+import LegendItem from "../components/LegendItem"
+import PropTypes from "prop-types"
+import React from "react"
 import {selectFilter} from "../thunks/legendFilter"
 
 const langItemType = PropTypes.shape({
@@ -28,9 +27,7 @@ class Legend extends React.Component {
       <li
         className="notTitle"
         key={lang}
-        onClick={() => {
-          this.handleClick(lang)
-        }}
+        onClick={() => { this.handleClick(lang) }}
       >
         <LegendItem
           active={noneSelected || this.props.selected.includes(lang)}
