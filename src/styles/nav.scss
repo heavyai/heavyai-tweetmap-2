@@ -7,6 +7,9 @@
     height: 100%;
     position: fixed;
     z-index: 1;
+    @media (max-width: 992px) {
+      z-index: 2;
+    }
     top: 0;
     left: 0;
     background-color: #111;
@@ -43,13 +46,12 @@
       text-align: right;
       margin-right: 1rem;
       margin-top: 1rem;
-    }
-}
 
-@media (max-width: 992px) {
-  .nav {
-    z-index: 2;
-  }
+      // "x" appears only on mobile nav
+      @media (min-width: 992px) {
+        display: none;
+      }
+    }
 }
 
 .Popover {

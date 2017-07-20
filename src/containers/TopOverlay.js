@@ -1,6 +1,5 @@
 import {toggleNav, toggleTweetBar} from "../actions"
 import {connect} from "react-redux"
-import MediaQuery from "react-responsive"
 import Octicon from "react-octicon"
 import PropTypes from "prop-types"
 import React from "react"
@@ -9,25 +8,21 @@ import SearchBar from "../containers/SearchBar"
 const TopOverlay = props => (
   <div id="overlay">
     {/* nav toggle button */}
-    <a id="icon">
+    <a className="icon">
       <Octicon mega name="three-bars" onClick={props.toggleNav} />
     </a>
 
     <SearchBar />
 
-    {/* mapd logo */}
-    <MediaQuery query="(min-width: 992px)">
-      <a href="https://www.mapd.com" rel="noopener noreferrer" target="_blank">
-        <img className="logo" src="src/assets/logo.svg" />
-      </a>
-    </MediaQuery>
+    {/* Logo only on Desktop */}
+    <a href="https://www.mapd.com" rel="noopener noreferrer" target="_blank">
+      <img className="logo" src="src/assets/logo.svg" />
+    </a>
 
-    {/* tweet bar toggle button */}
-    <MediaQuery query="(max-width: 992px)">
-      <a id="icon">
-        <Octicon mega name="list-unordered" onClick={props.toggleTweetBar} />
-      </a>
-    </MediaQuery>
+    {/* Button only on Mobile */}
+    <a className="tweetBar icon">
+      <Octicon mega name="list-unordered" onClick={props.toggleTweetBar} />
+    </a>
   </div>
 )
 

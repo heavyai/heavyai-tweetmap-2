@@ -1,6 +1,5 @@
 import {connect} from "react-redux"
 import LineChart from "../components/LineChart"
-import MediaQuery from "react-responsive"
 import PropTypes from "prop-types"
 import React from "react"
 import {toggleLinechart} from "../actions"
@@ -28,14 +27,11 @@ class BottomOverlay extends React.Component {
           />
         </button>
 
-        {/* line chart toggle button */}
-        <MediaQuery query="(max-width: 992px)">
-          <button onClick={this.props.toggleChart}>
-            <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
-          </button>
-        </MediaQuery>
+        {/* Hide Linechart button only on Mobile */}
+        <button className="linechart" onClick={this.props.toggleChart}>
+          <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
+        </button>
 
-        {/* line chart component */}
         <LineChart open={this.props.chartOpen} />
       </div>
     )
