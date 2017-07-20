@@ -50,7 +50,8 @@ class TweetResults extends React.Component {
 
   renderMessages () {
     if (this.props.tweetBarMode === "hashtag") {
-      const max = this.props.hashtags[0] ? this.props.hashtags[0].count : 1
+      // Render Top Hashtags
+      const max = this.props.hashtags[0] && this.props.hashtags[0].count || 1
 
       return this.props.hashtags
         .filter(({hashtag}) => !HASHTAG_EXCLUDE.includes(hashtag))
@@ -68,6 +69,7 @@ class TweetResults extends React.Component {
           </li>
         )
     } else {
+      // Render Recent Tweets
       return this.props.tweets.map(({id, name, date, body}) =>
         <li key={id}>
           <Tweet
