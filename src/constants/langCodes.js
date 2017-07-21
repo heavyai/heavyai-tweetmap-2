@@ -2,7 +2,7 @@
  * @author Phil Teare
  * using wikipedia data
  */
-export default {
+export const langCodes = {
   ab: {
     name: "Abkhaz",
     nativeName: "аҧсуа"

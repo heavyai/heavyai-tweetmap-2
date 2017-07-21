@@ -36,7 +36,7 @@
     "id-blacklist": 0, // will add variable names to this list if abused.
     "id-length": 0, // variable naming is difficult enough without limits.
     "id-match": 0, // covered by camelCase.
-    "indent": [2, 2], // improves consistency.
+    "indent": ["error", 2, { "SwitchCase": 1 }], // improves consistency.
     "init-declarations": 2, // not assigning an initialized variable should be explicit, not a mistake.
     "jsx-quotes": 2, // improves consistency; more common to have to quote single quotes than double so double is default.
     "key-spacing": 2, // improves consistency.
@@ -246,7 +246,7 @@
     "require-yield": 2, // omission is probably a mistake.
     "semi": [2, "never"], // unnecessary due to ASI; improves consistency and readability.
     "semi-spacing": 2, // improves consistency.
-    "sort-imports": [0, {"ignoreCase": true}], // improves consistency, readability.
+    "sort-imports": [2, {"ignoreCase": true}], // improves consistency, readability.
     "sort-vars": 1, // improves consistency.
     // "space-after-function-name": 0, // removed.
     // "space-after-keywords": 0, // removed.

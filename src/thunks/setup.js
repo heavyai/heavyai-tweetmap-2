@@ -2,6 +2,7 @@ import * as dc from "@mapd/mapdc"
 import {createLegendChart, initFilters as initLangs} from "./legendFilter"
 import {createLineChart, initFilter as initTime} from "./timeFilter"
 import {createMapChart, initView as initMap} from "./map"
+import {closeLinechart} from "../actions"
 import {createCount} from "./count"
 import {createHashtagChart} from "./hashtags"
 import {createTweetChart} from "./tweets"
@@ -62,8 +63,7 @@ export function setupCharts () {
       }, 500)
 
       if (window.innerWidth < 992) {
-        document.getElementById("background").style.height = 0
-        document.getElementById("lineChart").style.height = 0
+        dispatch(closeLinechart)
       }
 
       window.addEventListener("resize", resizeListener)

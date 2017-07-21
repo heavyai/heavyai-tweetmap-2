@@ -38,7 +38,6 @@ Tweet.propTypes = {
   date: PropTypes.string.isRequired,
   handle: PropTypes.string.isRequired,
   imgLink: PropTypes.string.isRequired
-
 }
 
 export default Tweet

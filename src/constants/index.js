@@ -1,4 +1,4 @@
-export langCodes from "./langCodes"
+export {langCodes} from "./langCodes"
 export const TABLE_NAME = "tweets_nov_feb"
 export const LANG_DOMAIN = [
   "en",

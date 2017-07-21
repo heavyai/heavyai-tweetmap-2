@@ -1,18 +1,20 @@
-import React from "react"
-import PropTypes from "prop-types"
+import {closeNav} from "../actions"
 import {connect} from "react-redux"
-
 import {geocode} from "../thunks/map"
+import PropTypes from "prop-types"
+import React from "react"
 
 class SearchPopover extends React.Component {
   static propTypes = {
-    closeNav: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
   constructor () {
     super()
     this.state = {value: ""}
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount () {
@@ -20,6 +22,7 @@ class SearchPopover extends React.Component {
   }
 
   handleChange (event) {
+    // eslint-disable-next-line react/no-set-state
     this.setState({value: event.target.value})
   }
 
@@ -30,15 +33,22 @@ class SearchPopover extends React.Component {
     }
 
     this.props.dispatch(geocode(this.state.value))
+    // eslint-disable-next-line react/no-set-state
     this.setState({value: ""})
-    this.props.closeNav()
+    this.props.dispatch(closeNav)
   }
 
   render () {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form onSubmit={this.handleSubmit}>
         <div className="textBar">
-          <input onChange={this.handleChange.bind(this)} placeholder="Search Location" ref={input => { this.input = input }} type="text" value={this.state.value} />
+          <input
+            onChange={this.handleChange}
+            placeholder="Search Location"
+            ref={input => { this.input = input }}
+            type="text"
+            value={this.state.value}
+          />
         </div>
       </form>
     )

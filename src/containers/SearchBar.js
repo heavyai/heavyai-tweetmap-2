@@ -13,9 +13,13 @@ class SearchBar extends React.Component {
   constructor () {
     super()
     this.state = {value: ""}
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange (event) {
+    // eslint-disable-next-line react/no-set-state
     this.setState({value: event.target.value})
   }
 
@@ -27,20 +31,20 @@ class SearchBar extends React.Component {
 
     const queries = this.state.value.toLowerCase().split(/\s+/)
     this.props.dispatch(addFilters(queries))
-
+    // eslint-disable-next-line react/no-set-state
     this.setState({value: ""})
   }
 
   render () {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form onSubmit={this.handleSubmit}>
         <div className="textBar">
           <div>
             <Octicon name="search" />
           </div>
 
           <input
-            onChange={this.handleChange.bind(this)}
+            onChange={this.handleChange}
             placeholder="Search Tweets"
             type="text"
             value={this.state.value}
@@ -51,8 +55,6 @@ class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {queryTerms: state.queryTerms}
-}
+const mapStateToProps = state => ({queryTerms: state.filters.queryTerms})
 
 export default connect(mapStateToProps)(SearchBar)

@@ -3,10 +3,10 @@ import {getCf} from "../services/crossfilter"
 import {HASHTAG_FETCH_SIZE} from "../constants"
 import {setHashtags} from "../actions"
 
-let _chart = null
+let dummyChart = null
 
 function fetchHashtags () {
-  return _chart
+  return dummyChart
     .group()
     .topAsync(HASHTAG_FETCH_SIZE)
     .then(results => {
@@ -31,20 +31,20 @@ export function createHashtagChart () {
     const hashtagDim = crossfilter.dimension("hashtags").allowTargeted(false)
     const hashtagGroup = hashtagDim.group().reduceCount()
 
-    //  _chart lives in the chart registry, triggering redraws through dataAsync()
-    _chart = dc.baseMixin({})
-    _chart.dimension(hashtagDim)
-    _chart.group(hashtagGroup)
-    // _chart.removeList(HASHTAG_EXCLUDE);
+    //  dummyChart lives in the chart registry, triggering redraws through dataAsync()
+    dummyChart = dc.baseMixin({})
+    dummyChart.dimension(hashtagDim)
+    dummyChart.group(hashtagGroup)
+    // dummyChart.removeList(HASHTAG_EXCLUDE);
 
     // dummy DOM elem should take no space
-    _chart.minWidth(0)
-    _chart.minHeight(0)
+    dummyChart.minWidth(0)
+    dummyChart.minHeight(0)
 
     // rendering is instead done by React
-    _chart._doRender = _chart._doRedraw = () => {}
+    dummyChart._doRender = dummyChart._doRedraw = () => {}
 
-    _chart.setDataAsync((group, callback) => {
+    dummyChart.setDataAsync((group, callback) => {
       fetchHashtags().then(
         hashtags => {
           dispatch(setHashtags(hashtags))
@@ -57,6 +57,6 @@ export function createHashtagChart () {
       )
     })
 
-    _chart.anchor("#hashDummy")
+    dummyChart.anchor("#hashDummy")
   }
 }

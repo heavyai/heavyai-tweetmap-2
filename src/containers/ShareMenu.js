@@ -1,26 +1,20 @@
-import React from "react"
-import PropTypes from "prop-types"
 import {connect} from "react-redux"
-
 import {getShareUrl} from "../thunks/getShareUrl"
-
-import Switch from "rc-switch"
 import Octicon from "react-octicon"
+import PropTypes from "prop-types"
+import React from "react"
+import Switch from "rc-switch"
+import {toggleCurrent} from "../actions"
 
 const baseUrl = window.location.origin + window.location.pathname
 
 class ShareMenu extends React.Component {
   static propTypes = {
+    currentView: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
+    toggleCurrent: PropTypes.func.isRequired,
     viewUrl: PropTypes.string.isRequired
   };
-
-  constructor () {
-    super()
-    this.state = {
-      share: true
-    }
-  }
 
   componentWillMount () {
     this.props.dispatch(getShareUrl())
@@ -36,7 +30,7 @@ class ShareMenu extends React.Component {
   }
 
   render () {
-    const url = this.state.share ? this.props.viewUrl : baseUrl
+    const url = this.props.currentView ? this.props.viewUrl : baseUrl
 
     const fbShare = `https://www.facebook.com/share.php?u=${url}`
     const twitterShare = `https://twitter.com/intent/tweet?text=Explore%20millions%20of%20tweets%20with%20MapD%27s%20GPU-powered%20interactive%20Tweetmap%20${
@@ -48,8 +42,8 @@ class ShareMenu extends React.Component {
         <div className="switch">
           <p>Share with current filters:</p>
           <Switch
-            checked={this.state.share}
-            onChange={() => { this.setState({share: !this.state.share}) }}
+            checked={this.props.currentView}
+            onChange={this.props.toggleCurrent}
           />
         </div>
 
@@ -79,6 +73,10 @@ class ShareMenu extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({viewUrl: state.viewUrl})
+const mapStateToProps = state => state.shareMenu
+const mapDispatchToProps = dispatch => ({
+  toggleCurrent: () => { dispatch(toggleCurrent) },
+  dispatch
+})
 
-export default connect(mapStateToProps)(ShareMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(ShareMenu)

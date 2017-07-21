@@ -4,7 +4,7 @@ const _ = require("lodash")
 
 export function getShareUrl () {
   return (dispatch, getState) => {
-    const state = getState()
+    const state = getState().shareMenu
     const shareState = _.pick(state, [
       "mapCenter",
       "mapZoom",

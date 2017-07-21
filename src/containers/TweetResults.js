@@ -1,3 +1,4 @@
+import {closeNav, setTweetBar} from "../actions"
 import {addFilters} from "../thunks/search"
 import {connect} from "react-redux"
 import Hashtag from "../components/Hashtag"
@@ -7,9 +8,7 @@ import {loadMoreTweets} from "../thunks/tweets"
 import PropTypes from "prop-types"
 import QueryDisplay from "./QueryDisplay.js"
 import React from "react"
-import {setTweetBar} from "../actions"
 import Tweet from "../components/Tweet"
-
 
 const blankImg = "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
 const month = [
@@ -27,6 +26,11 @@ const month = [
   "Dec"
 ]
 
+const hashtagType = PropTypes.shape({
+  hashtag: PropTypes.string,
+  count: PropTypes.number
+})
+
 const tweetType = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,
@@ -36,16 +40,15 @@ const tweetType = PropTypes.shape({
 
 class TweetResults extends React.Component {
   static propTypes = {
-    closeNav: PropTypes.func,
-    dispatch: PropTypes.func.isRequired,
-    hashtags: PropTypes.array,
+    closeNav: PropTypes.func.isRequired,
+    filterHashtag: PropTypes.func.isRequired,
+    hashtags: PropTypes.arrayOf(hashtagType).isRequired,
+    loadMore: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    toggleTweetBar: PropTypes.func.isRequired,
     totalTweets: PropTypes.number.isRequired,
-    tweetBarMode: PropTypes.string,
+    tweetBarMode: PropTypes.string.isRequired,
     tweets: PropTypes.arrayOf(tweetType).isRequired
-  };
-
-  loadTweets () {
-    this.props.dispatch(loadMoreTweets())
   }
 
   renderMessages () {
@@ -57,8 +60,8 @@ class TweetResults extends React.Component {
         .filter(({hashtag}) => !HASHTAG_EXCLUDE.includes(hashtag))
         .map(({hashtag, count}) =>
           <li key={hashtag} onClick={() => {
-            this.props.dispatch(addFilters(hashtag))
-            this.props.dispatch(setTweetBar("tweet"))
+            this.props.filterHashtag(hashtag)
+            this.props.toggleTweetBar("tweet")()
           }}
           >
             <Hashtag
@@ -87,23 +90,27 @@ class TweetResults extends React.Component {
     const totalTweets = this.props.totalTweets
     const listTweets = this.props.tweets.length
     const isHashtag = this.props.tweetBarMode === "hashtag"
-
-    const tweetBarMode = (mode) => () => this.props.dispatch(setTweetBar(mode))
+    const width = this.props.open ? "17em" : 0
 
     return (
-      <div className="tweetResults" id="tweetResults" onClick={() => this.props.closeNav()}>
+      <div
+        className="tweetResults"
+        id="tweetResults"
+        onClick={this.props.closeNav}
+        style={{width: window.innerWidth < 992 ? width : null}}
+      >
         <div className="tweetTitle">
           <div className="buttonGroup">
             <button
               className={isHashtag ? "well" : null}
-              onClick={tweetBarMode("hashtag")}
+              onClick={this.props.toggleTweetBar("hashtag")}
             >
               Hashtags
             </button>
 
             <button
               className={isHashtag ? null : "well"}
-              onClick={tweetBarMode("tweet")}
+              onClick={this.props.toggleTweetBar("tweet")}
             >
               Tweets
             </button>
@@ -116,7 +123,7 @@ class TweetResults extends React.Component {
           children={this.renderMessages()}
           hasMore={(!isHashtag) && listTweets < totalTweets}
           holderType="ul"
-          loadMore={this.loadTweets.bind(this)}
+          loadMore={this.props.loadMore}
         />
 
         <div className="tweetFooter" style={{display: isHashtag ? "none" : "inline"}}>
@@ -131,14 +138,16 @@ class TweetResults extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {tweets, totalTweets, hashtags, tweetBarMode} = state
-  return {
-    tweets,
-    totalTweets,
-    hashtags,
-    tweetBarMode
-  }
-}
+const mapStateToProps = state => Object.assign(
+  {open: state.navigation.tweetBar},
+  state.tweetBar
+)
 
-export default connect(mapStateToProps)(TweetResults)
+const mapDispatchToProps = (dispatch) => ({
+  closeNav: () => { dispatch(closeNav) },
+  filterHashtag: (hashtag) => { dispatch(addFilters(hashtag)) },
+  loadMore: () => { dispatch(loadMoreTweets()) },
+  toggleTweetBar: (mode) => () => { dispatch(setTweetBar(mode)) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TweetResults)

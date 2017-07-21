@@ -1,10 +1,15 @@
 import * as dc from "@mapd/mapdc"
+import {LANG_COLORS, LANG_DOMAIN} from "../constants"
+import fetchJs from "fetch-js"
 import {getCf} from "../services/crossfilter"
 import {getConnection} from "../services/connector"
-import {moveMap} from "../actions"
-import {LANG_COLORS, LANG_DOMAIN} from "../constants"
+import {
+  moveMap,
+  userLocationFailure,
+  userLocationRequest,
+  userLocationSuccess
+} from "../actions"
 
-import fetchJs from "fetch-js"
 
 const _ = require("lodash")
 
@@ -108,6 +113,7 @@ export function createMapChart () {
         map.on("mousemove", pointMapChart.hidePopup)
         map.on("mousemove", debouncedPopup)
 
+        /* update state at the end of each move, recording where we are */
         map.on("moveend", () => {
           dispatch(moveMap(map.getZoom(), map.getCenter()))
         })
@@ -123,7 +129,7 @@ export function geocode (placeName) {
   return () => {
     geocoder.geocode({address: placeName}, (data, status) => {
       if (status !== window.google.maps.GeocoderStatus.OK) {
-        return null
+        return
       }
       const viewport = data[0].geometry.viewport
       const sw = viewport.getSouthWest()
@@ -150,6 +156,23 @@ export function zoomTo (position) {
       center: [position.coords.longitude, position.coords.latitude],
       zoom: 17,
       speed: 2
+    })
+  }
+}
+
+export function zoomToUserLocation () {
+  return dispatch => {
+    dispatch(userLocationRequest())
+
+    if (!navigator.geolocation) {
+      dispatch(userLocationFailure("Browser does not support geolocation"))
+    }
+
+    navigator.geolocation.getCurrentPosition(pos => {
+      dispatch(zoomTo(pos))
+      dispatch(userLocationSuccess())
+    }, err => {
+      dispatch(userLocationFailure(err.message))
     })
   }
 }

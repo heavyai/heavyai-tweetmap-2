@@ -3,10 +3,10 @@ import {appendTweets, setTweets} from "../actions"
 import {getCf} from "../services/crossfilter"
 import {TWEET_FETCH_SIZE} from "../constants"
 
-let _chart = null
+let dummyChart = null
 
 function fetchTweets (offset) {
-  return _chart
+  return dummyChart
     .dimension()
     .order("tweet_time")
     .topAsync(TWEET_FETCH_SIZE, offset)
@@ -35,19 +35,19 @@ export function createTweetChart () {
       .dimension(null)
       .projectOn(["sender_name", "tweet_time", "tweet_id", "tweet_text"])
 
-    //  _chart lives in the chart registry, triggering redraws through dataAsync()
-    _chart = dc.baseMixin({})
-    _chart.dimension(tweetDim)
-    _chart.group(() => 0)
+    //  dummyChart lives in the chart registry, triggering redraws through dataAsync()
+    dummyChart = dc.baseMixin({})
+    dummyChart.dimension(tweetDim)
+    dummyChart.group(() => 0)
 
     // dummy DOM elem should take no space
-    _chart.minWidth(0)
-    _chart.minHeight(0)
+    dummyChart.minWidth(0)
+    dummyChart.minHeight(0)
 
     // rendering is instead done by React
-    _chart._doRender = _chart._doRedraw = () => {}
+    dummyChart._doRender = dummyChart._doRedraw = () => {}
 
-    _chart.setDataAsync((group, callback) => {
+    dummyChart.setDataAsync((group, callback) => {
       fetchTweets(0).then(
         tweets => {
           dispatch(setTweets(tweets))
@@ -60,17 +60,18 @@ export function createTweetChart () {
       )
     })
 
-    _chart.anchor("#tweetDummy")
+    dummyChart.anchor("#tweetDummy")
   }
 }
 
 export function loadMoreTweets () {
   return (dispatch, getState) => {
-    if (!_chart) {
+    if (!dummyChart) {
       return
     }
 
-    const offset = getState().tweets.length
+    const state = getState().tweetBar
+    const offset = state.tweets.length
     fetchTweets(offset).then(tweets => {
       dispatch(appendTweets(tweets))
     }, console.error)

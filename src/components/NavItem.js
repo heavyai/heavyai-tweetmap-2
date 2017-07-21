@@ -5,7 +5,7 @@ import React from "react"
 
 class NavItem extends React.Component {
   static propTypes = {
-    body: PropTypes.object,
+    body: PropTypes.node,
     className: PropTypes.string,
     clicked: PropTypes.func,
     description: PropTypes.string.isRequired,
@@ -18,12 +18,32 @@ class NavItem extends React.Component {
     this.state = {
       popover: false
     }
+
+    this.openPopover = this.openPopover.bind(this)
+    this.closePopover = this.closePopover.bind(this)
+  }
+
+  openPopover () {
+    if (window.innerWidth < 992) { return }
+    // eslint-disable-next-line react/no-set-state
+    this.setState({popover: true})
+  }
+
+  closePopover () {
+    // eslint-disable-next-line react/no-set-state
+    this.setState({popover: false})
   }
 
   render () {
     const handleClick = () => {
-      this.setState({popover: true})
-      this.props.clicked()
+      if (this.props.description === "Search Location") {
+        // eslint-disable-next-line react/no-set-state
+        this.setState({popover: true})
+      }
+
+      if (this.props.clicked) {
+        this.props.clicked()
+      }
     }
 
     const isMobile = window.innerWidth < 992
@@ -32,8 +52,9 @@ class NavItem extends React.Component {
       <a
         href={this.props.url}
         onClick={handleClick}
-        onMouseEnter={isMobile ? null : () => this.setState({popover: true})}
-        onMouseLeave={() => this.setState({popover: false})}
+        onMouseEnter={this.openPopover}
+        onMouseLeave={this.closePopover}
+        rel="noopener noreferrer"
         target="_blank"
       >
         <Popover
