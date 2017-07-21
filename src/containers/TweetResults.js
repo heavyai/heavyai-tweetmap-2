@@ -38,6 +38,8 @@ const tweetType = PropTypes.shape({
   body: PropTypes.string
 })
 
+const format = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
 class TweetResults extends React.Component {
   static propTypes = {
     closeNav: PropTypes.func.isRequired,
@@ -126,12 +128,13 @@ class TweetResults extends React.Component {
           loadMore={this.props.loadMore}
         />
 
-        <div className="tweetFooter" style={{display: isHashtag ? "none" : "inline"}}>
-          <p>
-            Showing {this.props.tweets.length} of{" "}
-            <span className="tweetCount" />
-          </p>
-        </div>
+        {!isHashtag &&
+          <div className="tweetFooter">
+            <p>
+              Showing {this.props.tweets.length} of {format(this.props.totalTweets)}
+            </p>
+          </div>
+        }
         <div id="tweetDummy" />
       </div>
     )
