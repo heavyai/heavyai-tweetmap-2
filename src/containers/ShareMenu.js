@@ -14,7 +14,12 @@ class ShareMenu extends React.Component {
     dispatch: PropTypes.func.isRequired,
     toggleCurrent: PropTypes.func.isRequired,
     viewUrl: PropTypes.string.isRequired
-  };
+  }
+
+  constructor () {
+    super()
+    this.copyLink = this.copyLink.bind(this)
+  }
 
   componentWillMount () {
     this.props.dispatch(getShareUrl())
@@ -55,7 +60,7 @@ class ShareMenu extends React.Component {
             type="text"
             value={url}
           />
-          <button onClick={() => this.copyLink()}>
+          <button onClick={this.copyLink}>
             <Octicon name="clippy" />
           </button>
         </div>

@@ -214,7 +214,7 @@
     "react/jsx-indent-props": [2, 2], // improves consistency, readability.
     "react/jsx-key": 2, // avoid warning.
     "react/jsx-max-props-per-line": 0, // concise code gives reader more context.
-    "react/jsx-no-bind": 2, // performance issue, happens on every render. #TODO enable this rule.
+    "react/jsx-no-bind": [2, {ignoreRefs: true}], // performance issue, happens on every render. #TODO enable this rule.
     "react/jsx-no-duplicate-props": 2, // usually mistakes.
     "react/jsx-no-literals": 0, // prevents unexpected behavior.
     "react/jsx-no-target-blank": 2, // prevents security vulnerability.

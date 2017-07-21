@@ -1,14 +1,15 @@
+/* eslint-disable no-magic-numbers */
 import * as dc from "@mapd/mapdc"
 import {LANG_COLORS, LANG_DOMAIN} from "../constants"
-import fetchJs from "fetch-js"
-import {getCf} from "../services/crossfilter"
-import {getConnection} from "../services/connector"
 import {
   moveMap,
   userLocationFailure,
   userLocationRequest,
   userLocationSuccess
 } from "../actions"
+import fetchJs from "fetch-js"
+import {getCf} from "../services/crossfilter"
+import {getConnection} from "../services/connector"
 
 
 const _ = require("lodash")

@@ -1,3 +1,4 @@
+import {IS_MOBILE} from "../constants"
 import Octicon from "react-octicon"
 import Popover from "react-popover"
 import PropTypes from "prop-types"
@@ -24,7 +25,7 @@ class NavItem extends React.Component {
   }
 
   openPopover () {
-    if (window.innerWidth < 992) { return }
+    if (IS_MOBILE) { return }
     // eslint-disable-next-line react/no-set-state
     this.setState({popover: true})
   }
@@ -46,8 +47,6 @@ class NavItem extends React.Component {
       }
     }
 
-    const isMobile = window.innerWidth < 992
-
     return (
       <a
         href={this.props.url}
@@ -65,7 +64,7 @@ class NavItem extends React.Component {
         >
           <p>
             <Octicon mega name={this.props.icon} />
-            {isMobile ? this.props.description : null}
+            {IS_MOBILE ? this.props.description : null}
           </p>
         </Popover>
       </a>

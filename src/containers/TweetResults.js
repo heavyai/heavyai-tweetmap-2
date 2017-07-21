@@ -1,8 +1,8 @@
 import {closeNav, setTweetBar} from "../actions"
+import {HASHTAG_EXCLUDE, IS_MOBILE} from "../constants"
 import {addFilters} from "../thunks/search"
 import {connect} from "react-redux"
 import Hashtag from "../components/Hashtag"
-import {HASHTAG_EXCLUDE} from "../constants"
 import InfiniteScroll from "redux-infinite-scroll"
 import {loadMoreTweets} from "../thunks/tweets"
 import PropTypes from "prop-types"
@@ -97,7 +97,7 @@ class TweetResults extends React.Component {
         className="tweetResults"
         id="tweetResults"
         onClick={this.props.closeNav}
-        style={{width: window.innerWidth < 992 ? width : null}}
+        style={{width: IS_MOBILE ? width : null}}
       >
         <div className="tweetTitle">
           <div className="buttonGroup">

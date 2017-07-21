@@ -5,37 +5,35 @@ import React from "react"
 import {toggleLinechart} from "../actions"
 import {zoomToUserLocation} from "../thunks/map"
 
-class BottomOverlay extends React.Component {
-  static propTypes = {
-    chartOpen: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    toggleChart: PropTypes.func.isRequired,
-    zoomToUserLocation: PropTypes.func.isRequired
-  }
+const BottomOverlay = (props) => {
+  const spinning = props.loading ? " fa-spin" : ""
 
-  render () {
-    const spinning = this.props.loading ? " fa-spin" : ""
+  return (
+    <div id="bottomOverlay">
+      {/* current location button */}
+      <button onClick={props.zoomToUserLocation}>
+        <i
+          aria-hidden="true"
+          className={`fa fa-location-arrow fa-lg${spinning}`}
+        />
+      </button>
 
-    return (
-      <div id="bottomOverlay">
-        {/* current location button */}
-        <button onClick={this.props.zoomToUserLocation}>
-          <i
-            aria-hidden="true"
-            className={`fa fa-location-arrow fa-lg${spinning}`}
-          />
-        </button>
+      {/* Hide Linechart button only on Mobile */}
+      <button className="linechart" onClick={props.toggleChart}>
+        <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
+      </button>
 
-        {/* Hide Linechart button only on Mobile */}
-        <button className="linechart" onClick={this.props.toggleChart}>
-          <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
-        </button>
+      <LineChart open={props.chartOpen} />
+    </div>
+  )
+}
 
-        <LineChart open={this.props.chartOpen} />
-      </div>
-    )
-  }
+BottomOverlay.propTypes = {
+  chartOpen: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  toggleChart: PropTypes.func.isRequired,
+  zoomToUserLocation: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({

@@ -40,6 +40,7 @@ export function createLineChart () {
         const timeChartGroup = timeChartDimension.group().reduceCount("*")
 
         const [w, h] = getChartSize()
+        const numTicks = 5
         lineChart = dc
           .lineChart(".lineChart")
           .width(w)
@@ -62,7 +63,7 @@ export function createLineChart () {
               .domain([timeChartBounds.minimum, timeChartBounds.maximum])
           )
           .yAxis()
-          .ticks(5)
+          .ticks(numTicks)
 
         lineChart.xAxis().orient("top")
 

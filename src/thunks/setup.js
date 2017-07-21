@@ -7,6 +7,7 @@ import {createCount} from "./count"
 import {createHashtagChart} from "./hashtags"
 import {createTweetChart} from "./tweets"
 import {initFilters as initQueries} from "./search"
+import {IS_MOBILE} from "../constants"
 import {mapdConnect} from "./mapdConnect"
 
 const _ = require("lodash")
@@ -49,6 +50,7 @@ export function setupCharts () {
       // attach resize listener
       const [[mapChart, mapSizeFunc], [lineChart, lineSizeFunc]] = charts
 
+      const debounceTime = 500
       const resizeListener = _.debounce(() => {
         const [mapW, mapH] = mapSizeFunc()
         const [lineW, lineH] = lineSizeFunc()
@@ -60,9 +62,9 @@ export function setupCharts () {
         mapChart.width(mapW).height(mapH).render()
 
         dc.redrawAllAsync()
-      }, 500)
+      }, debounceTime)
 
-      if (window.innerWidth < 992) {
+      if (IS_MOBILE) {
         dispatch(closeLinechart)
       }
 

@@ -26,6 +26,7 @@ export function getShareUrl () {
       body: data
     })
       .then(res => {
+        // eslint-disable-next-line no-magic-numbers
         if (res.status !== 200) {
           /* if failed use unshorted url */
           return Promise.resolve(fullViewUrl)
