@@ -1,6 +1,5 @@
 import {closeNav, toggleSearch, toggleShare} from "../actions"
 import {connect} from "react-redux"
-import MediaQuery from "react-responsive"
 import NavItem from "../components/NavItem"
 import PropTypes from "prop-types"
 import React from "react"
@@ -14,12 +13,10 @@ const LeftNav = (props) => {
 
   return (
     <div className="nav" id="sideNav" style={{width}} >
-      {/* Close Nav */}
-      <MediaQuery query="(max-width: 992px)">
-        <a id="close" onClick={props.closeNav}>
-          &times;
-        </a>
-      </MediaQuery>
+      {/* Close Nav (only on mobile) */}
+      <a id="close" onClick={props.closeNav}>
+        &times;
+      </a>
 
       {/* Search Location */}
       <NavItem

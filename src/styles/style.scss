@@ -90,6 +90,12 @@ map {
 
       pointer-events: all;
     }
+
+    @media (min-width: 992px) {
+      .linechart{
+        display: none;
+      }
+    }
   }
 
   #lineChart {
