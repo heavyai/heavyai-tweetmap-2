@@ -22,16 +22,27 @@ const urlify = (tweetText) => {
   return {__html: tweetText}
 }
 
-const Tweet = props =>
-  <div className="tweetItem">
-    <img className="tweetImage" src={props.imgLink} />
-    <div className="tweetBlock">
-      <p style={{color: "grey"}}>
-        {props.handle} · {props.date}
-      </p>
-      <p dangerouslySetInnerHTML={urlify(props.body)} />
+const defaultSrc = (ev) => {
+  ev.target.src = "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+}
+
+const Tweet = (props) => {
+  return (
+    <div className="tweetItem">
+      <img
+        className="tweetImage"
+        src={props.imgLink}
+        onError={defaultSrc}
+      />
+      <div className="tweetBlock">
+        <p style={{color: "grey"}}>
+          {props.handle} · {props.date}
+        </p>
+        <p dangerouslySetInnerHTML={urlify(props.body)} />
+      </div>
     </div>
-  </div>
+  )
+}
 
 Tweet.propTypes = {
   body: PropTypes.string.isRequired,

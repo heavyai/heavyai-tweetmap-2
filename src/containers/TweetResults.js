@@ -10,7 +10,6 @@ import QueryDisplay from "./QueryDisplay.js"
 import React from "react"
 import Tweet from "../components/Tweet"
 
-const blankImg = "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
 const month = [
   "Jan",
   "Feb",
@@ -81,7 +80,7 @@ class TweetResults extends React.Component {
             body={body}
             date={`${month[date.getMonth()]} ${String(date.getDate())}`}
             handle={`@${name}`}
-            imgLink={blankImg}
+            imgLink={`https://twitter.com/${name}/profile_image?size=original`}
           />
         </li>
       )
