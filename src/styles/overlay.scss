@@ -1,5 +1,6 @@
 @import "variables";
 
+// mobile top bar
 @media (max-width: 992px) {
   #overlay {
     padding: 0.8em;
@@ -85,12 +86,12 @@
       width: 10px;
     }
   }
-}
+  
+  a {
+    color: white;
+  }
 
-a {
-  color: white;
-}
-
-a:hover {
-  color: $light-grey;
+  a:hover {
+    color: $light-grey;
+  }
 }
