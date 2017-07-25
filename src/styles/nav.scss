@@ -86,15 +86,28 @@
   }
 }
 
-.ReactModal__Overlay {
+.modalOverlay {
   z-index: 5;
-  background-color: black;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
-.ReactModal__Content {
-  margin: auto;
+.modalContent {
   max-width: 500px;
   height: 250px;
+
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: #fff;
+  border-radius: 4px;
+  outline: none;
+  padding: 2.5rem;
 
   h1 {
     margin: 0;
