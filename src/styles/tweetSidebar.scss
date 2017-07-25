@@ -32,7 +32,7 @@
       background: white;
     }
 
-    @media (min-width: 992px) {
+    @media (min-device-width: 992px) {
       button:hover {
         background: $light-blue;
       }
@@ -101,7 +101,7 @@
 
   }
 
-  @media (min-width: 992px) {
+  @media (min-device-width: 992px) {
     li :hover {
       background-color: $light-blue;
     }
@@ -140,7 +140,7 @@
         text-decoration: none;
       }
 
-      @media (min-width: 992px) {
+      @media (min-device-width: 992px) {
         a:hover {
           text-decoration: underline;
         }
@@ -175,5 +175,11 @@
     p {
       line-height: $bottom-bar-height;
     }
+  }
+}
+
+@media (max-device-width: 992px) {
+  .tweetResults.closed {
+    width: 0;
   }
 }

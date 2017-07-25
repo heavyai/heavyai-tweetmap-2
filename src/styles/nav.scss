@@ -4,18 +4,20 @@
 .nav {
     display: flex;
     flex-direction: column;
+    width: 4.75em;
     height: 100%;
     position: fixed;
     z-index: 1;
-    @media (max-width: 992px) {
+    @media (max-device-width: 992px) {
       z-index: 2;
+      width: 15em;
     }
     top: 0;
     left: 0;
     background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
-    @media (min-width: 992px) {
+    @media (min-device-width: 992px) {
       padding-top: 5em;
       text-align: center;
       transition: 0.1s;
@@ -35,12 +37,12 @@
     .mega-octicon {
       color: white;
       display: inline-block;
-      @media (max-width: 992px) {
+      @media (max-device-width: 992px) {
         margin-left: 1em; margin-right: 0.5em;
       }
     }
 
-    @media (min-width: 992px) {
+    @media (min-device-width: 992px) {
       a:hover .mega-octicon {
         color: $light-grey;
       }
@@ -53,10 +55,14 @@
       margin-top: 1rem;
 
       // "x" appears only on mobile nav
-      @media (min-width: 992px) {
+      @media (min-device-width: 992px) {
         display: none;
       }
     }
+}
+
+.nav.closed {
+  width: 0;
 }
 
 .Popover {

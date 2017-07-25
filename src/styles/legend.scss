@@ -28,7 +28,7 @@
     margin-left: 0.8em;
   }
 
-  @media (min-width: 992px) {
+  @media (min-device-width: 992px) {
     li :hover {
       background-color: $light-grey;
     }
@@ -86,7 +86,7 @@
 
     background: linear-gradient(90deg, transparent, grey);
 
-    @media (min-width: 992px) {
+    @media (min-device-width: 992px) {
       background: linear-gradient(90deg, transparent, $light-grey);
     }
 

@@ -52,14 +52,12 @@ class App extends React.Component {
   }
 
   render () {
-    const tweetBarWidth = this.props.tweetBarOpen ? "17em" : "0em"
-
     return (
       <dash>
         <LeftNav />
 
         {/* margin shifts div left in mobile site */}
-        <main id="main" style={{marginLeft: `-${tweetBarWidth}`}} >
+        <main className={this.props.tweetBarOpen ? "shifted" : null} id="main" >
           <TopOverlay />
 
           <map onClick={this.closeAll}>

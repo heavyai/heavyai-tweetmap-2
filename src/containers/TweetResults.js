@@ -91,14 +91,12 @@ class TweetResults extends React.Component {
     const totalTweets = this.props.totalTweets
     const listTweets = this.props.tweets.length
     const isHashtag = this.props.tweetBarMode === "hashtag"
-    const width = this.props.open ? "17em" : 0
 
     return (
       <div
-        className="tweetResults"
+        className={"tweetResults" + (this.props.open ? "" : " closed")}
         id="tweetResults"
         onClick={this.props.closeNav}
-        style={{width: IS_MOBILE ? width : null}}
       >
         <div className="tweetTitle">
           <div className="buttonGroup">

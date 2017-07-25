@@ -42,7 +42,7 @@ export function createLineChart () {
         const [w, h] = getChartSize()
         const numTicks = 5
         lineChart = dc
-          .lineChart(".lineChart")
+          .lineChart("#lineChart")
           .width(w)
           .height(h)
           .margins({top: 16, right: 48, bottom: 0, left: 64})

@@ -18,15 +18,21 @@ dash {
   }
 
   main {
-    flex-grow: 11;
+    flex-grow: 9;
     height: 100%;
     transition: 0.5s;
+  }
+
+  main.shifted {
+    margin-left: -17em;
   }
 
   .tweetResults {
     transition: 0.5s;
 
-    @media (min-width: 992px) {
+    width: 17em;
+
+    @media (min-device-width: 992px) {
       flex-grow: 1;
       width: $sidebar-min-width;
     }
@@ -91,7 +97,7 @@ map {
       pointer-events: all;
     }
 
-    @media (min-width: 992px) {
+    @media (min-device-width: 992px) {
       .linechart{
         display: none;
       }
@@ -100,16 +106,27 @@ map {
 
   #lineChart {
     width: 100%;
-    transition: 0.3s;
+    height: $line-chart-height;
+
   }
 
   #background {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: $line-chart-height;
     background-color: $light-grey;
     opacity: 0.3;
     transition: 0.3s;
+  }
+
+  #lineGroup {
+    height: $line-chart-height;
+    transition: 0.3s;
+  }
+
+  .closed {
+    height: 0 !important;
   }
 }
 
@@ -146,7 +163,7 @@ a.mapbox-maplogo {
   left: 1em;
   bottom: 2em;
 
-  @media (min-width: 992px) {
+  @media (min-device-width: 992px) {
     bottom: 24px + $line-chart-height;
   }
 }
@@ -155,7 +172,7 @@ div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   white-space: nowrap;
   background: transparent;
 
-  @media (min-width: 992px) {
+  @media (min-device-width: 992px) {
     bottom: 4px + $line-chart-height;
   }
 }
