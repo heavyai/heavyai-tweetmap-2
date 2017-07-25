@@ -27,6 +27,12 @@
       color: white;
     }
 
+    @media (min-device-width: 992px) {
+      .description {
+        display: none;
+      }
+    }
+
     a {
       text-decoration: none;
       margin-top: 2em;
@@ -68,6 +74,10 @@
 .Popover {
   position: relative;
   z-index: 3;
+
+  @media (max-device-width: 992px) {
+    display: none !important;
+  }
 }
 
 .Popover-body {
@@ -87,7 +97,7 @@
   height: 30px;
 
   input {
-    font-size: 0.8em;
+    font-size: 1em;
     margin-right: 1em;
   }
 }

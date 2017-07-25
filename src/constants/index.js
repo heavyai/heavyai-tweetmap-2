@@ -97,5 +97,3 @@ export const HASHTAG_EXCLUDE = [
 export const HASHTAG_FETCH_SIZE = 60
 export const TWEET_FETCH_SIZE = 25
 export const PERCENTAGE_MAX = 100
-const MOBILE_WIDTH = 992
-export const IS_MOBILE = screen.width < MOBILE_WIDTH

@@ -1,6 +1,5 @@
 import {closeNav, toggleSearch, toggleShare} from "../actions"
 import {connect} from "react-redux"
-import {IS_MOBILE} from "../constants"
 import NavItem from "../components/NavItem"
 import PropTypes from "prop-types"
 import React from "react"
@@ -9,8 +8,6 @@ import {zoomOut} from "../thunks/map"
 
 const LeftNav = (props) => {
   const searchPopover = <SearchPopover />
-  const openWidth = IS_MOBILE ? "15em" : "4.75em"
-  const width = props.open ? openWidth : 0
 
   return (
     <div className={"nav" + (props.open ? "" : " closed")} >

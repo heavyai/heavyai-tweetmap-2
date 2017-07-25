@@ -7,7 +7,6 @@ import {createCount} from "./count"
 import {createHashtagChart} from "./hashtags"
 import {createTweetChart} from "./tweets"
 import {initFilters as initQueries} from "./search"
-import {IS_MOBILE} from "../constants"
 import {mapdConnect} from "./mapdConnect"
 
 const _ = require("lodash")
@@ -64,7 +63,8 @@ export function setupCharts () {
         dc.redrawAllAsync()
       }, debounceTime)
 
-      if (IS_MOBILE) {
+      const mobileWidth = 992
+      if (screen.width < mobileWidth) {
         dispatch(closeLinechart)
       }
 
