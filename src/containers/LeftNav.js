@@ -13,9 +13,9 @@ const LeftNav = (props) => {
   const width = props.open ? openWidth : 0
 
   return (
-    <div className={"nav" + (props.open ? "" : " closed")} id="sideNav" >
+    <div className={"nav" + (props.open ? "" : " closed")} >
       {/* Close Nav (only on mobile) */}
-      <a id="close" onClick={props.closeNav}>
+      <a className="close" onClick={props.closeNav}>
         &times;
       </a>
 

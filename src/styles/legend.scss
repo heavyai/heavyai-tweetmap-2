@@ -1,6 +1,6 @@
 @import "variables";
 
-#legend {
+.legend {
   background-color: white;
   position: relative;
 
@@ -58,7 +58,7 @@
       height: 100%;
     }
 
-    .whited {
+    div.whitedOut {
       background-color: white;
       opacity: 0.7;
       z-index: 1;
@@ -72,12 +72,11 @@
     }
 
     p {
-      font-size: 0.9em;
       margin: 5px;
     }
   }
 
-  #fade {
+  .fade {
     position: absolute;
     right: 0;
 

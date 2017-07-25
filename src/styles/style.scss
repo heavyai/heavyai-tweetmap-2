@@ -49,7 +49,7 @@ main {
     width: 100%;
   }
 
-  #legend {
+  .legend {
     width: 100%;
     height: $bottom-bar-height;
   }
@@ -74,7 +74,7 @@ map {
     z-index: 0;
   }
 
-  #bottomOverlay {
+  .bottomOverlay {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -110,7 +110,7 @@ map {
 
   }
 
-  #background {
+  .background {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -120,7 +120,7 @@ map {
     transition: 0.3s;
   }
 
-  #lineGroup {
+  .lineGroup {
     height: $line-chart-height;
     transition: 0.3s;
   }
@@ -135,7 +135,7 @@ h1 {
   margin: 1rem;
 }
 
-.grey {
+.greyText {
   color: grey;
 }
 

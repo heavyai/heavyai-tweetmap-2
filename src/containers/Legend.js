@@ -38,7 +38,7 @@ class Legend extends React.Component {
     )
 
     return (
-      <div id="legend">
+      <div className="legend">
         <ul>
           {/* first list item is title */}
           <li className="title">
@@ -53,7 +53,7 @@ class Legend extends React.Component {
           {items}
           <div id="legendDummy" />
         </ul>
-        <div id="fade" />
+        <div className="fade" />
       </div>
     )
   }

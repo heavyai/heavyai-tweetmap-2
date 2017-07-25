@@ -2,7 +2,7 @@
 
 // mobile top bar
 @media (max-device-width: 992px) {
-  #overlay {
+  .overlay {
     padding: 0.8em;
     border-bottom-style: solid;
     border-bottom-color: white;
@@ -18,7 +18,7 @@
   }
 }
 
-#overlay {
+.overlay {
   position: absolute;
   left: 0; right: 0;
   z-index: 1;

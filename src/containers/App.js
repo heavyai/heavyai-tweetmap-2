@@ -57,7 +57,7 @@ class App extends React.Component {
         <LeftNav />
 
         {/* margin shifts div left in mobile site */}
-        <main className={this.props.tweetBarOpen ? "shifted" : null} id="main" >
+        <main className={this.props.tweetBarOpen ? "shifted" : null} >
           <TopOverlay />
 
           <map onClick={this.closeAll}>

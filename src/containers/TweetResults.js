@@ -95,7 +95,6 @@ class TweetResults extends React.Component {
     return (
       <div
         className={"tweetResults" + (this.props.open ? "" : " closed")}
-        id="tweetResults"
         onClick={this.props.closeNav}
       >
         <div className="tweetTitle">

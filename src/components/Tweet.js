@@ -35,7 +35,7 @@ const Tweet = (props) => {
         onError={defaultSrc}
       />
       <div className="tweetBlock">
-        <p className="grey">
+        <p className="greyText">
           {props.handle} · {props.date}
         </p>
         <p dangerouslySetInnerHTML={urlify(props.body)} />
