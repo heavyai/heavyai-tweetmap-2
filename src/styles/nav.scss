@@ -2,165 +2,67 @@
 
 /* The left navigation menu */
 .nav {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  width: 15em;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+
+  p {
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    margin-top: 2em;
+    white-space: nowrap;
+    color: white;
+  }
+
+  .mega-octicon {
+    color: white;
+    display: inline-block;
+    margin-left: 1em; margin-right: 0.5em;
+  }
+
+  a.close {
+    font-size: 2em;
+    text-align: right;
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-device-width: $mobile-breakpoint) {
     width: 4.75em;
-    height: 100%;
-    position: fixed;
     z-index: 1;
-    @media (max-device-width: 992px) {
-      z-index: 2;
-      width: 15em;
-    }
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    @media (min-device-width: 992px) {
-      padding-top: 5em;
-      text-align: center;
-      transition: 0.1s;
-    }
+    padding-top: 5em;
+    text-align: center;
+    transition: 0.1s;
 
-    p {
-      color: white;
-    }
-
-    @media (min-device-width: 992px) {
-      .description {
-        display: none;
-      }
-    }
-
-    a {
-      text-decoration: none;
-      margin-top: 2em;
-      white-space: nowrap;
-      color: white;
+    .description {
+      display: none;
     }
 
     .mega-octicon {
-      color: white;
-      display: inline-block;
-      @media (max-device-width: 992px) {
-        margin-left: 1em; margin-right: 0.5em;
-      }
+      margin-left: 0; margin-right: 0;
     }
 
-    @media (min-device-width: 992px) {
-      a:hover .mega-octicon {
-        color: $light-grey;
-      }
+    a:hover .mega-octicon {
+      color: $light-grey;
     }
 
     a.close {
-      font-size: 2em;
-      text-align: right;
-      margin-right: 1rem;
-      margin-top: 1rem;
-
-      // "x" appears only on mobile nav
-      @media (min-device-width: 992px) {
-        display: none;
-      }
+      display: none;
     }
+  }
 }
 
 .nav.closed {
   width: 0;
-}
-
-.Popover {
-  position: relative;
-  z-index: 3;
-
-  @media (max-device-width: 992px) {
-    display: none !important;
-  }
-}
-
-.Popover-body {
-  display: inline-flex;
-  flex-direction: column;
-  padding: 0.8rem;
-  background: hsl(0, 0%, 27%);
-  color: white;
-  border-radius: 0.3rem;
-}
-
-.Popover-tipShape {
-  fill: hsl(0, 0%, 27%);
-}
-
-.searchPopover .textBar {
-  height: 30px;
-
-  input {
-    font-size: 1em;
-    margin-right: 1em;
-  }
-}
-
-.modalOverlay {
-  z-index: 5;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
-.modalContent {
-  max-width: 500px;
-  height: 250px;
-
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: #fff;
-  border-radius: 4px;
-  outline: none;
-  padding: 2.5rem;
-
-  h1 {
-    margin: 0;
-  }
-
-  .textBar {
-    border-right-style: none;
-    height: 32px;
-    max-width: 432px;
-
-    margin-top: 2.5rem;
-
-    button {
-      padding-left: 1.5em; padding-right: 2em;
-      border-color: $light-grey;
-      background-color: white;
-      border-width: 1px;
-      border-top-right-radius: 100px; border-bottom-right-radius: 100px;
-      outline: none;
-    }
-  }
-
-  .socialBar {
-    margin-top: 2em;
-    .icon {
-      margin-right: 0.8em;
-    }
-  }
-}
-
-.switch {
-  position: absolute;
-  top: 2.8rem;
-  right: 2.5rem;
-
-  p {
-    display: inline-block;
-    margin-right: 1em;
-  }
 }

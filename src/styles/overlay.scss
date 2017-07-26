@@ -1,69 +1,26 @@
 @import "variables";
 
-// mobile top bar
-@media (max-device-width: 992px) {
-  .overlay {
-    padding: 0.8em;
-    border-bottom-style: solid;
-    border-bottom-color: white;
-    border-bottom-width: 1px;
-  }
-
-  form {
-    width: 100%;
-  }
-
-  a.icon {
-    margin: 0.25em;
-  }
-}
-
 .overlay {
+  padding: 0.8em;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  border-bottom-width: 1px;
   position: absolute;
   left: 0; right: 0;
   z-index: 1;
-
   display: flex;
 
-  @media (min-device-width: 992px) {
-    form {
-      margin-top: 4vh;
-    }
-
-    a.icon {
-      display: inline-block;
-      margin-top: 30px;
-      margin-left: 25px;
-    }
-
-    a.tweetBar {
-      display: none;
-    }
-
-    .textBar {
-      max-width: $search-width;
-    }
-  }
-
   form {
+    width: 100%;
     display: inline-block;
     flex: 1;
     flex-basis: 0;
     margin-left: 25px; margin-right: 25px;
-
     text-align: center;
   }
 
   .logo {
-    width: 104px;
-    height: (281 / 308) * 104px;
-
-    margin-top: 30px;
-    margin-right: 25px;
-
-    @media (max-device-width: 992px) {
-      display: none;
-    }
+    display: none;
   }
 
   .textBar {
@@ -93,5 +50,40 @@
 
   a:hover {
     color: $light-grey;
+  }
+
+  a.icon {
+    margin: 0.25em;
+  }
+
+  @media (min-device-width: $mobile-breakpoint) {
+    padding: 0;
+    border-bottom-style: none;
+
+    form {
+      margin-top: 4vh;
+    }
+
+    a.icon {
+      display: inline-block;
+      margin-top: 30px;
+      margin-left: 25px;
+    }
+
+    a.tweetBar {
+      display: none;
+    }
+
+    .textBar {
+      max-width: $search-width;
+    }
+
+    .logo {
+      display: inherit;
+      width: 104px;
+      height: (281 / 308) * 104px;
+      margin-top: 30px;
+      margin-right: 25px;
+    }
   }
 }

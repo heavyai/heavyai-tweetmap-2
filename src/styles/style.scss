@@ -29,13 +29,7 @@ dash {
 
   .tweetResults {
     transition: 0.5s;
-
     width: 17em;
-
-    @media (min-device-width: 992px) {
-      flex-grow: 1;
-      width: $sidebar-min-width;
-    }
   }
 }
 
@@ -95,12 +89,6 @@ map {
       outline: none;
 
       pointer-events: all;
-    }
-
-    @media (min-device-width: 992px) {
-      .linechart{
-        display: none;
-      }
     }
   }
 
@@ -162,17 +150,28 @@ h1 {
 a.mapbox-maplogo {
   left: 1em;
   bottom: 2em;
-
-  @media (min-device-width: 992px) {
-    bottom: 24px + $line-chart-height;
-  }
 }
 div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   left: 1em;
   white-space: nowrap;
   background: transparent;
+}
 
-  @media (min-device-width: 992px) {
+@media (min-device-width: $mobile-breakpoint) {
+  .tweetResults {
+    flex-grow: 1;
+    width: $sidebar-min-width;
+  }
+
+  button.linechart {
+    display: none;
+  }
+
+  a.mapbox-maplogo {
+    bottom: 24px + $line-chart-height;
+  }
+
+  div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
     bottom: 4px + $line-chart-height;
   }
 }
