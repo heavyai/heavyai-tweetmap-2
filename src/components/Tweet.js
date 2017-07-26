@@ -28,14 +28,14 @@ const defaultSrc = (ev) => {
 
 const Tweet = (props) => {
   return (
-    <div className="tweetItem">
+    <div className="tweetItem tweet">
       <img
         className="tweetImage"
         src={props.imgLink}
         onError={defaultSrc}
       />
       <div className="tweetBlock">
-        <p style={{color: "grey"}}>
+        <p className="greyText">
           {props.handle} · {props.date}
         </p>
         <p dangerouslySetInnerHTML={urlify(props.body)} />

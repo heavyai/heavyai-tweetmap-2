@@ -32,12 +32,6 @@
       background: white;
     }
 
-    @media (min-width: 992px) {
-      button:hover {
-        background: $light-blue;
-      }
-    }
-
     button.well {
       background-color: #f5f5f5;
       -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -55,22 +49,98 @@
     }
   }
 
+  .queryDisplay {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: $light-grey;
+    padding: 0.25rem;
+
+    .queryPill {
+      height: $pill-height;
+      width: auto;
+      background-color: $light-grey;
+      border-radius: $pill-height/2;
+
+      margin: 0.25rem;
+      padding-left: 0.6rem; padding-right: 0.6rem;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      line-height: $pill-height;
+
+      .delete {
+        font-size: 1em;
+        color: grey;
+      }
+    }
+
+    .queryPill:hover {
+      background-color: #1DA1F2;
+      color: white;
+
+      .delete {
+        font-size: 1em;
+        color: $light-grey;
+      }
+    }
+  }
+
   ul {
     flex: 1;
     list-style-type: none;
     overflow-y: auto;
     overflow-x: hidden;
 
-    li {
-      border-bottom-style: solid;
-      border-bottom-width: 1px;
-      border-color: $light-grey;
+  }
+
+  .tweetItem {
+    display: flex;
+    padding: 1rem;
+    line-height: 1.4em;
+
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: $light-grey;
+  }
+
+  .tweet {
+    flex-direction: row;
+
+    .tweetImage {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      margin-right: 0.8rem;
     }
 
-    @media (min-width: 992px) {
-      li :hover {
-        background-color: $light-blue;
+    .tweetBlock {
+      flex: 1;
+
+      p {
+        word-wrap: break-word;
       }
+
+      a {
+        color: #0084B3;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .hashtag {
+    flex-direction: column;
+
+    .bar {
+      height: 6px;
+      background-color: #27aeef;
+      border-radius: 100px;
+      margin-top: 0.5em; margin-bottom: 0.5em;
+      pointer-events: none;
+    }
+
+    .bold {
+      font-weight: bold;
+      color: #27aeef;
     }
   }
 
@@ -85,97 +155,24 @@
       line-height: $bottom-bar-height;
     }
   }
-}
 
-.tweetItem {
-  display: flex;
-  flex-direction: row;
-  padding: 1rem;
-  font-size: 0.9em;
-  line-height: 1.4em;
-
-  .tweetImage {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin-right: 0.8rem;
-  }
-
-  .tweetBlock {
-    flex: 1;
-
-    p {
-      word-wrap: break-word;
+  @media (min-device-width: $mobile-breakpoint) {
+    button:hover {
+      background: $light-blue;
     }
 
-    p .hashtag {
-      white-space: nowrap;
+    li :hover {
+      background-color: $light-blue;
     }
 
-    a {
-      color: #0084B3;
-      text-decoration: none;
+    a:hover {
+      text-decoration: underline;
     }
-
-    @media (min-width: 992px) {
-      a:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .bar {
-    height: 6px;
-    background-color: #27aeef;
-    border-radius: 100px;
-    margin-top: 0.5em; margin-bottom: 0.5em;
-    pointer-events: none;
-  }
-
-  .bold {
-    font-weight: bold;
-    color: #27aeef;
-  }
-
-  .grey {
-    color: grey;
   }
 }
 
-#queryDisplay {
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-color: $light-grey;
-  padding: 0.25rem;
-
-  .queryPill {
-    height: $pill-height;
-    width: auto;
-    background-color: $light-grey;
-    border-radius: $pill-height/2;
-
-    margin: 0.25rem;
-    padding-left: 0.6rem; padding-right: 0.6rem;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    line-height: $pill-height;
-
-    font-size: 0.9em;
-
-    .delete {
-      font-size: 1em;
-      color: grey;
-    }
-  }
-
-  .queryPill:hover {
-    background-color: #1DA1F2;
-    color: white;
-
-    .delete {
-      font-size: 1em;
-      color: $light-grey;
-    }
+@media (max-device-width: $mobile-breakpoint) {
+  .tweetResults.closed {
+    width: 0;
   }
 }

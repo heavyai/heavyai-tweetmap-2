@@ -2,131 +2,67 @@
 
 /* The left navigation menu */
 .nav {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    position: fixed;
-    z-index: 1;
-    @media (max-width: 992px) {
-      z-index: 2;
-    }
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    @media (min-width: 992px) {
-      padding-top: 5em;
-      text-align: center;
-      transition: 0.1s;
-    }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  width: 15em;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
 
-    a {
-      text-decoration: none;
-      margin-top: 2em;
-      white-space: nowrap;
+  p {
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    margin-top: 2em;
+    white-space: nowrap;
+    color: white;
+  }
+
+  .mega-octicon {
+    color: white;
+    display: inline-block;
+    margin-left: 1em; margin-right: 0.5em;
+  }
+
+  a.close {
+    font-size: 2em;
+    text-align: right;
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-device-width: $mobile-breakpoint) {
+    width: 4.75em;
+    z-index: 1;
+    padding-top: 5em;
+    text-align: center;
+    transition: 0.1s;
+
+    .description {
+      display: none;
     }
 
     .mega-octicon {
-      color: white;
-      display: inline-block;
-      @media (max-width: 992px) {
-        margin-left: 1em; margin-right: 0.5em;
-      }
+      margin-left: 0; margin-right: 0;
     }
 
-    @media (min-width: 992px) {
-      a:hover .mega-octicon {
-        color: $light-grey;
-      }
+    a:hover .mega-octicon {
+      color: $light-grey;
     }
 
-    #close {
-      font-size: 2em;
-      text-align: right;
-      margin-right: 1rem;
-      margin-top: 1rem;
-
-      // "x" appears only on mobile nav
-      @media (min-width: 992px) {
-        display: none;
-      }
-    }
-}
-
-.Popover {
-  position: relative;
-  z-index: 3;
-}
-
-.Popover-body {
-  display: inline-flex;
-  flex-direction: column;
-  padding: 0.8rem;
-  background: hsl(0, 0%, 27%);
-  color: white;
-  border-radius: 0.3rem;
-}
-
-.Popover-tipShape {
-  fill: hsl(0, 0%, 27%);
-}
-
-.searchPopover .textBar {
-  height: 30px;
-
-  input {
-    font-size: 0.8em;
-    margin-right: 1em;
-  }
-}
-
-.ReactModal__Overlay {
-  z-index: 5;
-  background-color: black;
-}
-
-.ReactModal__Content {
-  margin: auto;
-  max-width: 500px;
-  height: 250px;
-
-  h1 {
-    margin: 0;
-  }
-
-  .textBar {
-    border-right-style: none;
-    height: 32px;
-    max-width: 432px;
-
-    margin-top: 2.5rem;
-
-    button {
-      padding-left: 1.5em; padding-right: 2em;
-      border-color: $light-grey;
-      background-color: white;
-      border-width: 1px;
-      border-top-right-radius: 100px; border-bottom-right-radius: 100px;
-      outline: none;
-    }
-  }
-
-  .socialBar {
-    margin-top: 2em;
-    .icon {
-      margin-right: 0.8em;
+    a.close {
+      display: none;
     }
   }
 }
 
-.switch {
-  position: absolute;
-  top: 2.8rem;
-  right: 2.5rem;
-
-  p {
-    display: inline-block;
-    margin-right: 1em;
-  }
+.nav.closed {
+  width: 0;
 }

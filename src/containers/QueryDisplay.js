@@ -30,7 +30,7 @@ class QueryDisplay extends React.Component {
     }
 
     return (
-      <div id="queryDisplay">
+      <div className="queryDisplay">
         {queries}
       </div>
     )

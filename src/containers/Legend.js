@@ -25,7 +25,6 @@ class Legend extends React.Component {
     const noneSelected = this.props.selected.length === 0
     const items = this.props.langCounts.map(({lang, count}) =>
       <li
-        className="notTitle"
         key={lang}
         onClick={() => { this.handleClick(lang) }}
       >
@@ -39,10 +38,10 @@ class Legend extends React.Component {
     )
 
     return (
-      <div id="legend">
+      <div className="legend">
         <ul>
           {/* first list item is title */}
-          <li style={{marginLeft: "0.8em"}}>
+          <li className="title">
             <LegendItem
               active
               justTitle
@@ -54,7 +53,7 @@ class Legend extends React.Component {
           {items}
           <div id="legendDummy" />
         </ul>
-        <div id="fade" />
+        <div className="fade" />
       </div>
     )
   }

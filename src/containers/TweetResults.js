@@ -1,8 +1,8 @@
 import {closeNav, setTweetBar} from "../actions"
-import {HASHTAG_EXCLUDE, IS_MOBILE} from "../constants"
 import {addFilters} from "../thunks/search"
 import {connect} from "react-redux"
 import Hashtag from "../components/Hashtag"
+import {HASHTAG_EXCLUDE} from "../constants"
 import InfiniteScroll from "redux-infinite-scroll"
 import {loadMoreTweets} from "../thunks/tweets"
 import PropTypes from "prop-types"
@@ -91,14 +91,11 @@ class TweetResults extends React.Component {
     const totalTweets = this.props.totalTweets
     const listTweets = this.props.tweets.length
     const isHashtag = this.props.tweetBarMode === "hashtag"
-    const width = this.props.open ? "17em" : 0
 
     return (
       <div
-        className="tweetResults"
-        id="tweetResults"
+        className={"tweetResults" + (this.props.open ? "" : " closed")}
         onClick={this.props.closeNav}
-        style={{width: IS_MOBILE ? width : null}}
       >
         <div className="tweetTitle">
           <div className="buttonGroup">

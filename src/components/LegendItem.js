@@ -8,12 +8,12 @@ const LegendItem = props =>
       <p>
         {props.title}
       </p>
-      <p style={{color: "grey"}}>
+      <p className="greyText">
         {props.sub}
       </p>
     </div>
 
-    {props.active ? null : <div className="greyed" />}
+    {props.active ? null : <div className="whitedOut" />}
   </div>
 
 LegendItem.propTypes = {

@@ -18,18 +18,18 @@ dash {
   }
 
   main {
-    flex-grow: 11;
+    flex-grow: 9;
     height: 100%;
     transition: 0.5s;
   }
 
+  main.shifted {
+    margin-left: -17em;
+  }
+
   .tweetResults {
     transition: 0.5s;
-
-    @media (min-width: 992px) {
-      flex-grow: 1;
-      width: $sidebar-min-width;
-    }
+    width: 17em;
   }
 }
 
@@ -43,7 +43,7 @@ main {
     width: 100%;
   }
 
-  #legend {
+  .legend {
     width: 100%;
     height: $bottom-bar-height;
   }
@@ -68,7 +68,7 @@ map {
     z-index: 0;
   }
 
-  #bottomOverlay {
+  .bottomOverlay {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -90,32 +90,41 @@ map {
 
       pointer-events: all;
     }
-
-    @media (min-width: 992px) {
-      .linechart{
-        display: none;
-      }
-    }
   }
 
   #lineChart {
     width: 100%;
-    transition: 0.3s;
+    height: $line-chart-height;
+
   }
 
-  #background {
+  .background {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: $line-chart-height;
     background-color: $light-grey;
     opacity: 0.3;
     transition: 0.3s;
+  }
+
+  .lineGroup {
+    height: $line-chart-height;
+    transition: 0.3s;
+  }
+
+  .closed {
+    height: 0 !important;
   }
 }
 
 h1 {
   font-size: 1.5em;
   margin: 1rem;
+}
+
+.greyText {
+  color: grey;
 }
 
 .textBar {
@@ -141,17 +150,28 @@ h1 {
 a.mapbox-maplogo {
   left: 1em;
   bottom: 2em;
-
-  @media (min-width: 992px) {
-    bottom: 24px + $line-chart-height;
-  }
 }
 div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   left: 1em;
   white-space: nowrap;
   background: transparent;
+}
 
-  @media (min-width: 992px) {
+@media (min-device-width: $mobile-breakpoint) {
+  .tweetResults {
+    flex-grow: 1;
+    width: $sidebar-min-width;
+  }
+
+  button.linechart {
+    display: none;
+  }
+
+  a.mapbox-maplogo {
+    bottom: 24px + $line-chart-height;
+  }
+
+  div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
     bottom: 4px + $line-chart-height;
   }
 }

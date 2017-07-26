@@ -52,14 +52,12 @@ class App extends React.Component {
   }
 
   render () {
-    const tweetBarWidth = this.props.tweetBarOpen ? "17em" : "0em"
-
     return (
       <dash>
         <LeftNav />
 
         {/* margin shifts div left in mobile site */}
-        <main id="main" style={{marginLeft: `-${tweetBarWidth}`}} >
+        <main className={this.props.tweetBarOpen ? "shifted" : null} >
           <TopOverlay />
 
           <map onClick={this.closeAll}>
@@ -78,10 +76,8 @@ class App extends React.Component {
           contentLabel="Modal"
           isOpen={this.props.shareOpen}
           onRequestClose={this.props.closeShare}
-          style={{
-            overlay: {backgroundColor: "rgba(0, 0, 0, 0.75)"},
-            content: {padding: "2.5rem"}
-          }}
+          className="modalContent"
+          overlayClassName="modalOverlay"
         >
           <ShareMenu />
         </Modal>

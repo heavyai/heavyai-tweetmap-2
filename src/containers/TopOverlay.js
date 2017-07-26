@@ -6,7 +6,7 @@ import React from "react"
 import SearchBar from "../containers/SearchBar"
 
 const TopOverlay = props => (
-  <div id="overlay">
+  <div className="overlay">
     {/* nav toggle button */}
     <a className="icon">
       <Octicon mega name="three-bars" onClick={props.toggleNav} />

@@ -9,7 +9,7 @@ const BottomOverlay = (props) => {
   const spinning = props.loading ? " fa-spin" : ""
 
   return (
-    <div id="bottomOverlay">
+    <div className="bottomOverlay">
       {/* current location button */}
       <button onClick={props.zoomToUserLocation}>
         <i

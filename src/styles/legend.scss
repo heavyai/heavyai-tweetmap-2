@@ -1,17 +1,14 @@
 @import "variables";
 
-#legend {
+.legend {
   background-color: white;
   position: relative;
-
 
   ul {
     position: absolute;
     width: 100%;
-
     top: 0;
     left: 0;
-
     list-style-type: none;
     display: flex;
     flex-direction: row;
@@ -19,25 +16,22 @@
     overflow-x: auto;
   }
 
-
   li {
     height: $bottom-bar-height
   }
 
-  @media (min-width: 992px) {
-    .notTitle :hover {
-      background-color: $light-grey;
-    }
+  .title {
+    margin-left: 0.8em;
   }
-}
 
-.legendItem {
-  min-width: 70px;
-  height: $bottom-bar-height;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  position: relative;
+  .legendItem {
+    min-width: 70px;
+    height: $bottom-bar-height;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
 
   .legendLabel {
     width: 10px;
@@ -51,7 +45,7 @@
     height: 100%;
   }
 
-  .greyed {
+  div.whitedOut {
     background-color: white;
     opacity: 0.7;
     z-index: 1;
@@ -65,23 +59,29 @@
   }
 
   p {
-    font-size: 0.9em;
     margin: 5px;
   }
-}
 
-#fade {
-  position: absolute;
-  right: 0;
-
-  width: 4em;
-  height: 100%;
-
-  background: linear-gradient(90deg, transparent, grey);
-
-  @media (min-width: 992px) {
-    background: linear-gradient(90deg, transparent, $light-grey);
+  .fade {
+    position: absolute;
+    right: 0;
+    width: 4em;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, grey);
+    pointer-events: none;
   }
 
-  pointer-events: none;
+  @media (min-device-width: $mobile-breakpoint) {
+    li :hover {
+      background-color: $light-grey;
+    }
+
+    li.title :hover {
+      background-color: white;
+    }
+
+    .fade {
+      background: linear-gradient(90deg, transparent, $light-grey);
+    }
+  }
 }
