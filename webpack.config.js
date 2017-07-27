@@ -12,7 +12,6 @@ module.exports = {
   entry: {
     app: [
       "babel-polyfill",
-      "./src/styles/index",
       "./src/index"
     ]
   },

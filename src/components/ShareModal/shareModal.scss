@@ -1,0 +1,61 @@
+@import "../app/variables";
+
+.modalOverlay {
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modalContent {
+  max-width: 500px;
+  height: 250px;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: #fff;
+  border-radius: 4px;
+  outline: none;
+  padding: 2.5rem;
+
+  h1 {
+    margin: 0;
+  }
+
+  .textBar {
+    border-right-style: none;
+    height: 32px;
+    max-width: 432px;
+    margin-top: 2.5rem;
+
+    button {
+      padding-left: 1.5em; padding-right: 2em;
+      border-color: $light-grey;
+      background-color: white;
+      border-width: 1px;
+      border-top-right-radius: 100px; border-bottom-right-radius: 100px;
+      outline: none;
+    }
+  }
+
+  .socialBar {
+    margin-top: 2em;
+    .icon {
+      margin-right: 0.8em;
+    }
+  }
+
+  .switch {
+    position: absolute;
+    top: 2.8rem;
+    right: 2.5rem;
+
+    p {
+      display: inline-block;
+      margin-right: 1em;
+    }
+  }
+}

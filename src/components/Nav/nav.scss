@@ -1,0 +1,68 @@
+@import "../app/variables";
+
+/* The left navigation menu */
+.nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  width: 15em;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+
+  p {
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    margin-top: 2em;
+    white-space: nowrap;
+    color: white;
+  }
+
+  .mega-octicon {
+    color: white;
+    display: inline-block;
+    margin-left: 1em; margin-right: 0.5em;
+  }
+
+  a.close {
+    font-size: 2em;
+    text-align: right;
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-device-width: $mobile-breakpoint) {
+    width: 4.75em;
+    z-index: 1;
+    padding-top: 5em;
+    text-align: center;
+    transition: 0.1s;
+
+    .description {
+      display: none;
+    }
+
+    .mega-octicon {
+      margin-left: 0; margin-right: 0;
+    }
+
+    a:hover .mega-octicon {
+      color: $light-grey;
+    }
+
+    a.close {
+      display: none;
+    }
+  }
+}
+
+.nav.closed {
+  width: 0;
+}
