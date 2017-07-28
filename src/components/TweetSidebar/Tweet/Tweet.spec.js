@@ -1,12 +1,12 @@
 import React from "react"
 import {expect} from "chai"
-import {shallow, render} from "enzyme"
+import {render} from "enzyme"
 import Tweet from "./Tweet"
 
 
 describe("<Tweet />", () => {
   it("renders two divs", () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <Tweet
         body="Hello, @world! #blessed"
         date="2 April 2001"
