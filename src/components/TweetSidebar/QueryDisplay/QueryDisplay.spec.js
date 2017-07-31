@@ -1,9 +1,8 @@
 import React from "react"
 import chai, {expect} from "chai"
-import spies from 'chai-spies';
+import spies from 'chai-spies'
 import {shallow, render} from "enzyme"
 import {QueryDisplay} from "./QueryDisplay"
-
 chai.use(spies)
 
 describe("<QueryDisplay />", () => {
