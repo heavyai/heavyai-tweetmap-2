@@ -1,36 +1,31 @@
-import React from "react"
+/* eslint-disable no-unused-expressions */
 import chai, {expect} from "chai"
-import spies from 'chai-spies'
-import {shallow, render} from "enzyme"
+import {render, shallow} from "enzyme"
 import {QueryDisplay} from "./QueryDisplay"
+import React from "react"
+import spies from "chai-spies"
 chai.use(spies)
 
 describe("<QueryDisplay />", () => {
-  it("renders individual queries", () => {
-    const wrapper = render(
-      <QueryDisplay
-        dispatch={() => {}}
-        queryTerms={["one", "two", "three"]}
-      />)
-    expect(wrapper.find("div.queryPill")).to.have.length(3)
-  })
+  const noop = () => {}
 
   it("returns null when there are no queries", () => {
     const wrapper = shallow(
       <QueryDisplay
-        dispatch={() => {}}
+        dispatch={noop}
         queryTerms={[]}
       />)
     expect(wrapper.equals(null)).to.be.true
   })
 
   it("renders individual queries", () => {
+    const queries = ["one", "two", "three"]
     const wrapper = render(
       <QueryDisplay
-        dispatch={() => {}}
-        queryTerms={["one", "two", "three"]}
+        dispatch={noop}
+        queryTerms={queries}
       />)
-    expect(wrapper.find(".queryPill")).to.have.length(3)
+    expect(wrapper.find(".queryPill")).to.have.length(queries.length)
   })
 
   it("dispatches thunk on click", () => {

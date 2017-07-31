@@ -1,6 +1,3 @@
-import * as dc from "@mapd/mapdc"
-import {getCf} from "../../services/crossfilter"
-
 export const QUERIES_UPDATE = "QUERIES_UPDATE"
 
 export function updateQueryTerms (queries) {
@@ -13,7 +10,7 @@ export function updateQueryTerms (queries) {
 let searchDim = null
 
 function filterSearch (queries) {
-  return (dispatch) => {
+  return (dispatch, getState, {dc, getCf}) => {
     if (!searchDim) {
       searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
     }
@@ -51,9 +48,8 @@ export function removeFilter (query) {
 }
 
 export function initFilters (queries) {
-  searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
-
-  return dispatch => {
+  return (dispatch, getState, {getCf}) => {
+    searchDim = getCf().dimension("tweet_tokens").setDrillDownFilter(true)
     if (queries.length !== 0) {
       searchDim.filterMulti(queries)
       dispatch(updateQueryTerms(queries))

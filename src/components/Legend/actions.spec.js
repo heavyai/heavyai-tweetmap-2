@@ -1,5 +1,5 @@
-import {expect} from "chai"
 import * as actions from "./actions"
+import {expect} from "chai"
 
 describe("Legend Actions", () => {
   describe("Update Language Counts", () => {

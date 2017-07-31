@@ -1,4 +1,3 @@
-import * as dc from "@mapd/mapdc"
 import {
   closeLinechart,
   createCount,
@@ -10,12 +9,10 @@ import {
 import {createHashtagChart, createTweetChart} from "../TweetSidebar/actions"
 import {createLegendChart, initFilters as initLangs} from "../Legend/actions"
 import _ from "lodash"
-import {connect} from "../../services/connector"
-import {createCf} from "../../services/crossfilter"
 import {initFilters as initQueries} from "../TopOverlay/actions"
 
 export function mapdConnect () {
-  return () => connect()
+  return (dispatch, getState, {connect, createCf}) => connect()
     .then(con => createCf(con))
     .then(
       () => Promise.resolve(),
@@ -29,7 +26,7 @@ let charts = []
   SET UP ALL CHARTS
 */
 export function setupCharts () {
-  return dispatch => dispatch(mapdConnect())
+  return (dispatch, getState, {dc}) => dispatch(mapdConnect())
     .then(() =>
       // run chart init thunks
       Promise.all([

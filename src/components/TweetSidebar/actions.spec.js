@@ -1,5 +1,5 @@
-import {expect} from "chai"
 import * as actions from "./actions"
+import {expect} from "chai"
 
 describe("Tweet Sidebar Actions", () => {
   describe("Set Tweets", () => {

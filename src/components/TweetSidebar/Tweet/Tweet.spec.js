@@ -1,5 +1,5 @@
-import React from "react"
 import {expect} from "chai"
+import React from "react"
 import {render} from "enzyme"
 import Tweet from "./Tweet"
 
@@ -53,6 +53,7 @@ describe("<Tweet />", () => {
         handle="@MapD"
         imgLink="derp"
       />)
-    expect(wrapper.find("a")).to.have.length(3)
+    const numLinks = 3
+    expect(wrapper.find("a")).to.have.length(numLinks)
   })
 })

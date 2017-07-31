@@ -8,7 +8,10 @@ import "./components/Nav/nav.scss"
 import "./components/Nav/popover.scss"
 import "./components/ShareModal/shareModal.scss"
 
+import * as dc from "@mapd/mapdc"
 import {applyMiddleware, createStore} from "redux"
+import {connect, getConnection} from "./services/connector"
+import {createCf, getCf} from "./services/crossfilter"
 import App from "./components/App/App"
 import {Provider} from "react-redux"
 import React from "react"
@@ -24,7 +27,18 @@ require("mapbox-gl/dist/mapbox-gl.css")
 require("@mapd/mapdc/mapdc.css")
 require("@mapd/mapdc/scss/chart.scss")
 
-const store = createStore(reducer, applyMiddleware(thunk))
+const api = {
+  dc,
+  connect,
+  createCf,
+  getCf,
+  getConnection
+}
+
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk.withExtraArgument(api))
+)
 
 ReactDOM.render(
   <Provider store={store}>
