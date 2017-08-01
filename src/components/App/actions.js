@@ -12,12 +12,9 @@ import _ from "lodash"
 import {initFilters as initQueries} from "../TopOverlay/actions"
 
 export function mapdConnect () {
-  return (dispatch, getState, {connect, createCf}) => connect()
-    .then(con => createCf(con))
-    .then(
-      () => Promise.resolve(),
-      err => Promise.reject(err)
-    )
+  return (dispatch, getState, {connect, createCf}) => {
+    return connect().then(con => createCf(con))
+  }
 }
 
 let charts = []

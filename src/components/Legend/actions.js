@@ -1,6 +1,4 @@
-import * as dc from "@mapd/mapdc"
 import {COLORS} from "../../constants"
-import {getCf} from "../../services/crossfilter"
 
 export const LANG_COUNTS_UPDATE = "LANG_COUNTS_UPDATE"
 export const SELECTED_LANG_UPDATE = "SELECTED_LANG_UPDATE"
@@ -28,7 +26,7 @@ let langDim = null
   updating props/state
 */
 export function createLegendChart () {
-  return dispatch => {
+  return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
     langDim = crossfilter.dimension("lang")
     const group = langDim.group()
@@ -69,7 +67,7 @@ export function createLegendChart () {
 }
 
 export function selectFilter (lang) {
-  return (dispatch, getState) => {
+  return (dispatch, getState, {dc}) => {
     const {selectedLangs} = getState().legend
 
     const selected = selectedLangs.includes(lang) ? selectedLangs.filter(item => item !== lang) : [...selectedLangs, lang]
