@@ -42,7 +42,7 @@ describe("Tweet Sidebar Actions", () => {
     it("should return an action that includes the new mode", () => {
       const setting = "tweet"
       expect(actions.setSidebarMode(setting)).to.deep.equal({
-        type: "TOGGLE_SIDEBAR_MODE",
+        type: "SET_SIDEBAR_MODE",
         setting
       })
     })

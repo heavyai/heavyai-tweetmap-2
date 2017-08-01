@@ -5,7 +5,7 @@ import {
   TOGGLE_SEARCH
 } from "./actions"
 
-const initialState = {
+export const initialState = {
   navOpen: false,
   locSearchOpen: false
 }

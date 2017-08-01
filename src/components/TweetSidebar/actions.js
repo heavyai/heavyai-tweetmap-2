@@ -3,7 +3,7 @@ import {HASHTAG_FETCH_SIZE, TWEET_FETCH_SIZE} from "../../constants"
 export const TWEETS_APPEND = "TWEETS_APPEND"
 export const TWEETS_SET = "TWEETS_SET"
 export const HASHTAGS_SET = "HASHTAGS_SET"
-export const TOGGLE_SIDEBAR_MODE = "TOGGLE_SIDEBAR_MODE"
+export const SET_SIDEBAR_MODE = "SET_SIDEBAR_MODE"
 export const TOGGLE_TWEETBAR = "TOGGLE_TWEETBAR"
 export const CLOSE_TWEETBAR = "CLOSE_TWEETBAR"
 
@@ -31,7 +31,7 @@ export function setHashtags (hashtags) {
 
 export function setSidebarMode (setting) {
   return {
-    type: TOGGLE_SIDEBAR_MODE,
+    type: SET_SIDEBAR_MODE,
     setting
   }
 }

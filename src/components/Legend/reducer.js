@@ -3,7 +3,7 @@ import {
   SELECTED_LANG_UPDATE
 } from "./actions"
 
-const initialState = {
+export const initialState = {
   selectedLangs: [],
   langCounts: []
 }

@@ -1,6 +1,6 @@
 import {QUERIES_UPDATE} from "./actions"
 
-const initialState = {
+export const initialState = {
   queryTerms: []
 }
 
