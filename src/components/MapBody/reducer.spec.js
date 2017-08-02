@@ -14,7 +14,7 @@ describe("Map Body Reducer", () => {
     expect(newState.mapZoom).to.equal(zoom)
   })
   it("should handle FILTER_TIME action type", () => {
-    const times = [Date("Jan 1 2017"),Date("Jan 2 2017")]
+    const times = [new Date("Jan 1 2017"), new Date("Jan 2 2017")]
     const newState = reducer(initialState, actions.filterTime(times))
     expect(newState.timeBounds).to.deep.equal(times)
   })

@@ -15,7 +15,7 @@ describe("Map Body Actions", () => {
   })
   describe("Filter Time", () => {
     it("should return an action that includes the updated time range", () => {
-      const times = [Date("Jan 1 2017"), Date("Jan 2 2017")]
+      const times = [new Date("Jan 1 2017"), new Date("Jan 2 2017")]
       expect(actions.filterTime(times)).to.deep.equal({
         type: "FILTER_TIME",
         times
