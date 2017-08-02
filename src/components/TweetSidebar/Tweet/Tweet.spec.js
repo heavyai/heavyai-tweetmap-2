@@ -3,7 +3,6 @@ import React from "react"
 import {render} from "enzyme"
 import Tweet from "./Tweet"
 
-
 describe("<Tweet />", () => {
   it("renders two divs", () => {
     const wrapper = render(
