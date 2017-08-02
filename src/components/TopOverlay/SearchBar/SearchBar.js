@@ -4,10 +4,9 @@ import Octicon from "react-octicon"
 import PropTypes from "prop-types"
 import React from "react"
 
-class SearchBar extends React.Component {
+export class SearchBar extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    queryTerms: PropTypes.arrayOf(PropTypes.string).isRequired
+    dispatch: PropTypes.func.isRequired
   };
 
   constructor () {
@@ -55,6 +54,4 @@ class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => state.topOverlay
-
-export default connect(mapStateToProps)(SearchBar)
+export default connect()(SearchBar)

@@ -1,9 +1,10 @@
 import * as actions from "./actions"
-import {expect} from "chai"
 import reducer, {initialState} from "./reducer"
+import {expect} from "chai"
 
 describe("Legend Reducer", () => {
-  it('should initialize the correct state', () => {
+  it("should initialize the correct state", () => {
+    // eslint-disable-next-line no-undefined
     expect(reducer(undefined, {})).to.deep.equal(initialState)
   })
   it("should handle LANG_COUNTS_UPDATE action type", () => {

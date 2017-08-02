@@ -1,13 +1,15 @@
 import {expect} from "chai"
+import LegendItem from "./LegendItem"
 import React from "react"
 import {shallow} from "enzyme"
-import LegendItem from "./LegendItem"
+
+/* eslint-disable no-unused-expressions */
 
 describe("<LegendItem />", () => {
   it("renders a basic legend item", () => {
     const wrapper = shallow(
       <LegendItem
-        active={true}
+        active
         color="blue"
         sub="9000"
         title="en"
@@ -20,7 +22,6 @@ describe("<LegendItem />", () => {
   it("whites out inactive items", () => {
     const wrapper = shallow(
       <LegendItem
-        active={false}
         color="blue"
         sub="9000"
         title="en"
@@ -30,8 +31,8 @@ describe("<LegendItem />", () => {
   it("displays no dot for titles", () => {
     const wrapper = shallow(
       <LegendItem
-        active={true}
-        justTitle={true}
+        active
+        justTitle
         sub="9000"
         title="en"
       />)

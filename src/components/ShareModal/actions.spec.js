@@ -4,6 +4,8 @@ import fetchMock from "fetch-mock"
 import spies from "chai-spies"
 chai.use(spies)
 
+/* eslint-disable no-unused-expressions */
+
 describe("Share Modal Actions", () => {
   describe("Open Share", () => {
     it("should be a open share action", () => {
@@ -33,7 +35,7 @@ describe("Share Modal Actions", () => {
     const dispatch = chai.spy()
     const getState = () => ({
       mapBody: {
-        mapCenter: [10, 12],
+        mapCenter: [0, 0],
         mapZoom: 4,
         timeBounds: [new Date("Jan 1 2017"), new Date("Jan 2 2017")]
       },
@@ -44,21 +46,21 @@ describe("Share Modal Actions", () => {
         selectedLangs: ["en", "es"]
       }
     })
-    const fullUrl = "nullblank#eyJtYXBDZW50ZXIiOlsxMCwxMl0sIm1hcFpvb20iOjQsInRpbWVCb3VuZHMiOlsiMjAxNy0wMS0wMVQwODowMDowMC4wMDBaIiwiMjAxNy0wMS0wMlQwODowMDowMC4wMDBaIl0sInF1ZXJ5VGVybXMiOlsibWFwZCIsImxpZ2h0bmluZ2Zhc3QiXSwic2VsZWN0ZWRMYW5ncyI6WyJlbiIsImVzIl19"
+    const fullUrl = "nullblank#eyJtYXBDZW50ZXIiOlswLDBdLCJtYXBab29tIjo0LCJ0aW1lQm91bmRzIjpbIjIwMTctMDEtMDFUMDg6MDA6MDAuMDAwWiIsIjIwMTctMDEtMDJUMDg6MDA6MDAuMDAwWiJdLCJxdWVyeVRlcm1zIjpbIm1hcGQiLCJsaWdodG5pbmdmYXN0Il0sInNlbGVjdGVkTGFuZ3MiOlsiZW4iLCJlcyJdfQ=="
 
     afterEach(() => {
-      fetchMock.restore();
+      fetchMock.restore()
     })
 
     it("should dispatch a set view url action", () => {
-      fetchMock.post('*', {status: 404})
+      fetchMock.post("*", {status: 404})
       return actions.getShareUrl()(dispatch, getState).then(() => {
-        expect(dispatch).to.have.been.called
+        expect(dispatch).to.have.been.called()
       })
     })
 
     it("should use shortened url", () => {
-      fetchMock.post('*', {
+      fetchMock.post("*", {
         status: 200,
         body: "shortened"
       })
@@ -71,7 +73,7 @@ describe("Share Modal Actions", () => {
     })
 
     it("should set view url to full url on api failure", () => {
-      fetchMock.post('*', {status: 404})
+      fetchMock.post("*", {status: 404})
 
       return actions.getShareUrl()(dispatch, getState).then(() => {
         expect(dispatch).to.have.been.called.with({

@@ -44,8 +44,6 @@ export function getShareUrl () {
         }
         return res.text()
       })
-      .then(text => {
-        return dispatch(setViewUrl(text))
-      })
+      .then(text => dispatch(setViewUrl(text)))
   }
 }

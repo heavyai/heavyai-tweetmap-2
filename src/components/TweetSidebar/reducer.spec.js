@@ -1,9 +1,12 @@
 import * as actions from "./actions"
-import {expect} from "chai"
 import reducer, {initialState} from "./reducer"
+import {expect} from "chai"
+
+/* eslint-disable no-unused-expressions */
 
 describe("Share Modal Reducer", () => {
-  it('should initialize the correct state', () => {
+  it("should initialize the correct state", () => {
+    // eslint-disable-next-line no-undefined
     expect(reducer(undefined, {})).to.deep.equal(initialState)
   })
   it("should handle TOGGLE_TWEETBAR action type", () => {

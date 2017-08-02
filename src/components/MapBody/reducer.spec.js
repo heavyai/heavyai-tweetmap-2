@@ -1,9 +1,12 @@
 import * as actions from "./actions"
-import {expect} from "chai"
 import reducer, {initialState} from "./reducer"
+import {expect} from "chai"
+
+/* eslint-disable no-unused-expressions */
 
 describe("Map Body Reducer", () => {
-  it('should initialize the correct state', () => {
+  it("should initialize the correct state", () => {
+    // eslint-disable-next-line no-undefined
     expect(reducer(undefined, {})).to.deep.equal(initialState)
   })
   it("should handle MOVE_MAP action type", () => {
@@ -42,7 +45,7 @@ describe("Map Body Reducer", () => {
   it("should handle user location failure actions", () => {
     const requested = reducer(initialState, actions.userLocationRequest)
     expect(requested.geoLoading).to.be.true
-    const failed = reducer(requested, actions.userLocationFailure("oops" ))
+    const failed = reducer(requested, actions.userLocationFailure("oops"))
     expect(failed.geoLoading).to.be.false
   })
 })

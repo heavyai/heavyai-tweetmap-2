@@ -1,10 +1,11 @@
-/* eslint-disable no-unused-expressions */
 import chai, {expect} from "chai"
 import {render, shallow} from "enzyme"
 import {QueryDisplay} from "./QueryDisplay"
 import React from "react"
 import spies from "chai-spies"
 chai.use(spies)
+
+/* eslint-disable no-unused-expressions */
 
 describe("<QueryDisplay />", () => {
   const noop = () => {}

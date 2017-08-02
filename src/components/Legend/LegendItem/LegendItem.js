@@ -3,7 +3,10 @@ import React from "react"
 
 const LegendItem = props =>
   <div className="legendItem">
-    {!props.justTitle && <div className="legendLabel" style={{backgroundColor: props.color}} />}
+    {!props.justTitle &&
+      <div className="legendLabel" style={{backgroundColor: props.color}} />
+    }
+
     <div className="legendBlock">
       <p>
         {props.title}
