@@ -95,6 +95,10 @@ map {
   }
 }
 
+h1 {
+  font-size: 1.5em;
+}
+
 @media (min-device-width: $mobile-breakpoint) {
   .tweetResults {
     flex-grow: 1;

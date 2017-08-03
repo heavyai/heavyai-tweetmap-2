@@ -3,10 +3,7 @@
 .modalOverlay {
   z-index: 5;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
 }
 
@@ -22,7 +19,7 @@
   padding: 2.5rem;
 
   h1 {
-    margin: 0;
+    display: none;
   }
 
   .textBar {
@@ -56,6 +53,15 @@
     p {
       display: inline-block;
       margin-right: 1em;
+    }
+  }
+}
+
+@media (min-device-width: $mobile-breakpoint) {
+  .modalContent {
+    h1 {
+      display: inline;
+      margin: 0;
     }
   }
 }
