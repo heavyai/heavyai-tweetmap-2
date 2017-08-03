@@ -311,14 +311,13 @@ export function createCount () {
       .countWidget(".tweetCount")
       .dimension(crossfilter)
       .group(countGroup)
+      .countLabel("tweets")
 
-    // hijack _doRender
+    // hijack _doRender to also dispatch tweet count
+    const doRender = dataCount._doRender
     dataCount._doRender = val => {
-      const selected = dataCount.formatNumber()(val)
-      dataCount.root().text(selected)
-
       dispatch(updateCount(val))
-      return dataCount
+      return doRender(val)
     }
   }
 }

@@ -1,3 +1,4 @@
+import "./styles.scss"
 import BottomOverlay from "./BottomOverlay/BottomOverlay"
 import {closeNav} from "../Nav/actions"
 import {closeSidebar} from "../TweetSidebar/actions"

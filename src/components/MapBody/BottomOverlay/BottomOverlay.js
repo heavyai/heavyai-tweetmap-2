@@ -1,3 +1,4 @@
+import "./styles.scss"
 import {toggleLinechart, zoomToUserLocation} from "../actions"
 import {connect} from "react-redux"
 import LineChart from "./LineChart/LineChart"
@@ -21,6 +22,9 @@ const BottomOverlay = (props) => {
       <button className="linechart" onClick={props.toggleChart}>
         <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
       </button>
+
+      {/* Count Widget */}
+      <h1><span className="tweetCount" /></h1>
 
       <LineChart open={props.chartOpen} />
     </div>

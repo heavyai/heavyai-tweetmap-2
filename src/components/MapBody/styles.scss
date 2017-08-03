@@ -1,0 +1,21 @@
+@import "../App/variables";
+
+a.mapbox-maplogo {
+  left: 1em;
+  bottom: 2em;
+}
+div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+  left: 1em;
+  white-space: nowrap;
+  background: transparent;
+}
+
+@media (min-device-width: $mobile-breakpoint) {
+  a.mapbox-maplogo {
+    bottom: 24px + $line-chart-height;
+  }
+
+  div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    bottom: 4px + $line-chart-height;
+  }
+}

@@ -1,0 +1,67 @@
+@import "../../App/variables";
+
+.bottomOverlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+
+  button {
+    background-color: white;
+    width: 4em;
+    height: 4em;
+    border-radius: 2em;
+    border-style: none;
+    margin-right: 1em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    outline: none;
+    pointer-events: all;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .background {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: $line-chart-height;
+    background-color: $light-grey;
+    opacity: 0.3;
+    transition: 0.3s;
+  }
+
+  .lineGroup {
+    height: $line-chart-height;
+    transition: 0.3s;
+  }
+
+  .closed {
+    height: 0 !important;
+  }
+}
+
+@media (min-device-width: $mobile-breakpoint) {
+  .bottomOverlay {
+    button.linechart {
+      display: none;
+    }
+
+    h1 {
+      display: inline;
+      color: grey;
+      font-size: 1.5em;
+      margin-right: 1em;
+      margin-bottom: 1em;
+      margin-left: auto;
+    }
+
+    .count-selected {
+      color: white;
+    }
+  }
+}
