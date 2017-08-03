@@ -1,3 +1,4 @@
+import "./styles.scss"
 import {COLOR_MAP, langCodes} from "../../constants"
 import {connect} from "react-redux"
 import LegendItem from "./LegendItem/LegendItem"

@@ -1,3 +1,4 @@
+import "./styles.scss"
 import {loadMoreTweets, setSidebarMode} from "./actions"
 import {addFilters} from "../TopOverlay/actions"
 import {closeNav} from "../Nav/actions"

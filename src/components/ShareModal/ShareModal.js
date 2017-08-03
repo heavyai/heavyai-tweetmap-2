@@ -1,3 +1,5 @@
+import "rc-switch/assets/index.css"
+import "./styles.scss"
 import {getShareUrl, toggleMode} from "./actions"
 import {connect} from "react-redux"
 import Octicon from "react-octicon"

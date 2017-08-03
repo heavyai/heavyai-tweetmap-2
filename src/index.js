@@ -1,13 +1,4 @@
-import "rc-switch/assets/index.css"
-import "./components/App/reset.scss"
-import "./components/App/style.scss"
-import "./components/TweetSidebar/tweetSidebar.scss"
-import "./components/Legend/legend.scss"
-import "./components/TopOverlay/topOverlay.scss"
-import "./components/Nav/nav.scss"
-import "./components/Nav/popover.scss"
-import "./components/ShareModal/shareModal.scss"
-
+import "./reset.scss"
 import * as dc from "@mapd/mapdc"
 import {applyMiddleware, createStore} from "redux"
 import {connect, getConnection} from "./services/connector"
@@ -16,7 +7,7 @@ import App from "./components/App/App"
 import {Provider} from "react-redux"
 import React from "react"
 import ReactDOM from "react-dom"
-import reducer from "./components/App/rootReducer"
+import reducer from "./rootReducer"
 import thunk from "redux-thunk"
 
 // needed for mapbox

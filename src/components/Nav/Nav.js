@@ -1,3 +1,5 @@
+import "./styles.scss"
+import "./popover.scss"
 import {closeNav, toggleSearch} from "./actions"
 import {connect} from "react-redux"
 import NavItem from "./NavItem/NavItem"

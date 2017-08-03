@@ -1,3 +1,4 @@
+import "./styles.scss"
 import {closeShare} from "../ShareModal/actions"
 import {connect} from "react-redux"
 import MapBody from "../MapBody/MapBody"

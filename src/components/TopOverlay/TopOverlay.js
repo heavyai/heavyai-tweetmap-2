@@ -1,3 +1,4 @@
+import "./styles.scss"
 import {connect} from "react-redux"
 import Octicon from "react-octicon"
 import PropTypes from "prop-types"
