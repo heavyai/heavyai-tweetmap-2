@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "MapD Tweetmap Demo",
   "repository": "https://github.com/mapd/new-tweetmap",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "webpack-dev-server",
     "lint": "eslint src",
