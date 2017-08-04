@@ -94,37 +94,9 @@
   }
 
   .tweetItem {
-    display: flex;
-    padding: 1rem;
-    line-height: 1.4em;
-
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-color: $light-grey;
-  }
-
-  .tweet {
-    flex-direction: row;
-
-    .tweetImage {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      margin-right: 0.8rem;
-    }
-
-    .tweetBlock {
-      flex: 1;
-
-      p {
-        word-wrap: break-word;
-      }
-
-      a {
-        color: #0084B3;
-        text-decoration: none;
-      }
-    }
   }
 
   .hashtag {
@@ -167,6 +139,36 @@
 
     a:hover {
       text-decoration: underline;
+    }
+  }
+}
+
+.tweetItem {
+  display: flex;
+  padding: 1rem;
+  line-height: 1.4em;
+}
+
+.tweet {
+  flex-direction: row;
+
+  .tweetImage {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 0.8rem;
+  }
+
+  .tweetBlock {
+    flex: 1;
+
+    p {
+      word-wrap: break-word;
+    }
+
+    a {
+      color: #0084B3;
+      text-decoration: none;
     }
   }
 }

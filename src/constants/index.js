@@ -97,3 +97,18 @@ export const HASHTAG_EXCLUDE = [
 export const HASHTAG_FETCH_SIZE = 60
 export const TWEET_FETCH_SIZE = 25
 export const PERCENTAGE_MAX = 100
+
+export const MONTH = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+]

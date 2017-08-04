@@ -4,27 +4,12 @@ import {addFilters} from "../TopOverlay/actions"
 import {closeNav} from "../Nav/actions"
 import {connect} from "react-redux"
 import Hashtag from "./Hashtag/Hashtag"
-import {HASHTAG_EXCLUDE} from "../../constants"
+import {HASHTAG_EXCLUDE, MONTH} from "../../constants"
 import InfiniteScroll from "redux-infinite-scroll"
 import PropTypes from "prop-types"
 import QueryDisplay from "./QueryDisplay/QueryDisplay.js"
 import React from "react"
 import Tweet from "./Tweet/Tweet"
-
-const month = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec"
-]
 
 const hashtagType = PropTypes.shape({
   hashtag: PropTypes.string,
@@ -79,9 +64,9 @@ class TweetSidebar extends React.Component {
         <li key={id}>
           <Tweet
             body={body}
-            date={`${month[date.getMonth()]} ${String(date.getDate())}`}
+            date={`${MONTH[date.getMonth()]} ${String(date.getDate())}`}
             handle={`@${name}`}
-            imgLink={`https://twitter.com/${name}/profile_image?size=original`}
+            imgLink={`https://avatars.io/twitter/${name}`}
           />
         </li>
       )

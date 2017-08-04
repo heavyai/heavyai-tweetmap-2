@@ -1,7 +1,8 @@
 /* eslint-disable no-magic-numbers */
-import {LANG_COLORS, LANG_DOMAIN} from "../../constants"
+import {LANG_COLORS, LANG_DOMAIN, MONTH} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
+import React from "react"
 
 export const MOVE_MAP = "MOVE_MAP"
 export const FILTER_TIME = "FILTER_TIME"
@@ -106,6 +107,16 @@ export function createMapChart () {
       .mapUpdateInterval(750)
       .mapStyle("mapbox://styles/mapbox/dark-v9")
 
+    function renderPopupHTML (data, columnOrder, columnMap) {
+      if (arguments.length === 0) { return true }
+
+      const {sender_name, tweet_text, tweet_time} = data
+      const imgSrc = `https://avatars.io/twitter/${sender_name}`
+      const date = `${MONTH[tweet_time.getMonth()]} ${String(tweet_time.getDate())}`
+      const info = `${sender_name} · ${date}`
+      return `<div class="tweetItem tweet"><img class="tweetImage" src="${imgSrc}"><div class="tweetBlock"><p class="greyText">${info}</p><p>${tweet_text}</p></div></div>`
+    }
+
     const pointLayer = dc
       .rasterLayer("points")
       .dimension(pointMapDim)
@@ -122,14 +133,9 @@ export function createMapChart () {
       .fillColorAttr("color")
       .defaultFillColor("#80DEEA")
       .fillColorScale(window.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
-      .popupColumns([
-        "tweet_text",
-        "sender_name",
-        "tweet_time",
-        "lang",
-        "origin",
-        "followers"
-      ])
+      .popupColumns(["tweet_text", "sender_name", "tweet_time"])
+
+    pointLayer.popupFunction = (renderPopupHTML)
 
     return pointMapChart
       .pushLayer("points", pointLayer)
