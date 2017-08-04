@@ -15,7 +15,7 @@ class Legend extends React.Component {
     dispatch: PropTypes.func.isRequired,
     langCounts: PropTypes.arrayOf(langItemType).isRequired,
     selected: PropTypes.arrayOf(PropTypes.string).isRequired
-  };
+  }
 
   handleClick (lang) {
     this.props.dispatch(selectFilter(lang))

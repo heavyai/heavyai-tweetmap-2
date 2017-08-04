@@ -188,7 +188,7 @@
     "one-var": [2, "never"], // grouped statement types are more consistent and readable.
     "one-var-declaration-per-line": 0, // superceded by one-var.
     "operator-assignment": [2, "never"], // better to be explicit about what is happening than relying on shorthand.
-    "operator-linebreak": [2, "none"], // if the statement is too long, it can probably be refactored.
+    "operator-linebreak": [2, "after"], // if the statement is too long, it can probably be refactored.
     "padded-blocks": [0, "never"], // concise code gives reader more context.
     "prefer-arrow-callback": 2, // increases readability and consistency.
     "prefer-const": 2, // better to be explicit about what is expected to change.
@@ -276,7 +276,8 @@
   "env": {
     "es6": true,
     "browser": true,
-    "node": true
+    "node": true,
+    "jasmine": true
   },
   "plugins": ["react"],
   "parser": "babel-eslint",

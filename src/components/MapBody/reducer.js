@@ -9,7 +9,7 @@ import {
   USER_LOCATION_SUCCESS
 } from "./actions"
 
-const initialState = {
+export const initialState = {
   mapCenter: [0, 0],
   mapZoom: 1,
   timeBounds: null,

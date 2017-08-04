@@ -5,7 +5,7 @@ import {
   VIEW_URL_UPDATE
 } from "./actions"
 
-const initialState = {
+export const initialState = {
   modalOpen: false,
   applyFilters: true,
   viewUrl: "#"

@@ -32,7 +32,7 @@ export function getShareUrl () {
     data.append("data", fullViewUrl)
 
     /* mapd api for shortening mapd urls */
-    fetch("http://external-apis.mapd.com/shorten", {
+    return fetch("http://external-apis.mapd.com/shorten", {
       method: "POST",
       body: data
     })
@@ -42,15 +42,8 @@ export function getShareUrl () {
           /* if failed use unshorted url */
           return Promise.resolve(fullViewUrl)
         }
-
         return res.text()
       })
-      .then(text => {
-        dispatch(setViewUrl(text))
-      },
-      err => {
-        console.error(err)
-      }
-      )
+      .then(text => dispatch(setViewUrl(text)))
   }
 }

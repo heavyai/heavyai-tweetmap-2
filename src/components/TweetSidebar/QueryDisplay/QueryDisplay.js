@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import {removeFilter} from "../../TopOverlay/actions"
 
-class QueryDisplay extends React.Component {
+export class QueryDisplay extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     queryTerms: PropTypes.arrayOf(PropTypes.string).isRequired

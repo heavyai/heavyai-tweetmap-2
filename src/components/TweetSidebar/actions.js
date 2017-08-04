@@ -1,11 +1,9 @@
-import * as dc from "@mapd/mapdc"
 import {HASHTAG_FETCH_SIZE, TWEET_FETCH_SIZE} from "../../constants"
-import {getCf} from "../../services/crossfilter"
 
 export const TWEETS_APPEND = "TWEETS_APPEND"
 export const TWEETS_SET = "TWEETS_SET"
 export const HASHTAGS_SET = "HASHTAGS_SET"
-export const TOGGLE_SIDEBAR_MODE = "TOGGLE_SIDEBAR_MODE"
+export const SET_SIDEBAR_MODE = "SET_SIDEBAR_MODE"
 export const TOGGLE_TWEETBAR = "TOGGLE_TWEETBAR"
 export const CLOSE_TWEETBAR = "CLOSE_TWEETBAR"
 
@@ -33,7 +31,7 @@ export function setHashtags (hashtags) {
 
 export function setSidebarMode (setting) {
   return {
-    type: TOGGLE_SIDEBAR_MODE,
+    type: SET_SIDEBAR_MODE,
     setting
   }
 }
@@ -67,7 +65,7 @@ function fetchTweets (offset) {
   triggered by updating props/state
 */
 export function createTweetChart () {
-  return (dispatch) => {
+  return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
     const tweetDim = crossfilter
       .dimension(null)
@@ -139,7 +137,7 @@ function fetchHashtags () {
   triggered by updating props/state
 */
 export function createHashtagChart () {
-  return dispatch => {
+  return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
     const hashtagDim = crossfilter.dimension("hashtags").allowTargeted(false)
     const hashtagGroup = hashtagDim.group().reduceCount()

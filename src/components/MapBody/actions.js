@@ -1,10 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import * as dc from "@mapd/mapdc"
 import {LANG_COLORS, LANG_DOMAIN} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
-import {getCf} from "../../services/crossfilter"
-import {getConnection} from "../../services/connector"
 
 export const MOVE_MAP = "MOVE_MAP"
 export const FILTER_TIME = "FILTER_TIME"
@@ -77,7 +74,7 @@ const initGeocoder = () => new Promise((resolve, reject) => {
   BACKEND RENDERED POINT MAP
 */
 export function createMapChart () {
-  return dispatch => {
+  return (dispatch, getState, {dc, getCf, getConnection}) => {
     const crossfilter = getCf()
     const connection = getConnection()
 
@@ -225,7 +222,7 @@ export function zoomToUserLocation () {
   LINE CHART
 */
 export function createLineChart () {
-  return dispatch => {
+  return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
     const parent = document.getElementById("mapChart")
 
@@ -306,7 +303,7 @@ export function initFilter (filter) {
   DC COUNT
 */
 export function createCount () {
-  return dispatch => {
+  return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
 
     const countGroup = crossfilter.groupAll()

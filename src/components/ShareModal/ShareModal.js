@@ -7,11 +7,10 @@ import Switch from "rc-switch"
 
 const baseUrl = window.location.origin + window.location.pathname
 
-class ShareMenu extends React.Component {
+export class ShareModal extends React.Component {
   static propTypes = {
     applyFilters: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
-    modalOpen: PropTypes.bool.isRequired,
     toggleMode: PropTypes.func.isRequired,
     viewUrl: PropTypes.string.isRequired
   }
@@ -84,4 +83,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShareMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(ShareModal)

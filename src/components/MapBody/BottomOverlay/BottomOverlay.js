@@ -29,7 +29,6 @@ const BottomOverlay = (props) => {
 
 BottomOverlay.propTypes = {
   chartOpen: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   toggleChart: PropTypes.func.isRequired,
   zoomToUserLocation: PropTypes.func.isRequired
@@ -41,8 +40,7 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   toggleChart: () => { dispatch(toggleLinechart) },
-  zoomToUserLocation: () => { dispatch(zoomToUserLocation()) },
-  dispatch
+  zoomToUserLocation: () => { dispatch(zoomToUserLocation()) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BottomOverlay)
