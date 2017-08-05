@@ -114,7 +114,7 @@ export function createMapChart () {
       const imgSrc = `https://avatars.io/twitter/${sender_name}`
       const date = `${MONTH[tweet_time.getMonth()]} ${String(tweet_time.getDate())}`
       const info = `${sender_name} · ${date}`
-      return `<div class="tweetItem tweet"><img class="tweetImage" src="${imgSrc}"><div class="tweetBlock"><p class="greyText">${info}</p><p>${tweet_text}</p></div></div>`
+      return `<div class="tweetItem tweet"><img class="tweetImage" src="${imgSrc}" onerror="this.onerror=null;this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';"><div class="tweetBlock"><p class="greyText">${info}</p><p>${tweet_text}</p></div></div>`
     }
 
     const pointLayer = dc
@@ -135,7 +135,7 @@ export function createMapChart () {
       .fillColorScale(window.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
       .popupColumns(["tweet_text", "sender_name", "tweet_time"])
 
-    pointLayer.popupFunction = (renderPopupHTML)
+    pointLayer.popupFunction = renderPopupHTML
 
     return pointMapChart
       .pushLayer("points", pointLayer)
