@@ -11,9 +11,9 @@
     "test:unit": "mocha --require ./testHelper.js src/**/*.spec.js"
   },
   "dependencies": {
-    "@mapd/connector": "ssh://git@github.com/mapd/mapd-connector.git#develop",
-    "@mapd/crossfilter": "ssh://git@github.com/mapd/mapd-crossfilter.git#master",
-    "@mapd/mapdc": "ssh://git@github.com/mapd/mapd-charting.git#master",
+    "@mapd/connector": "https://github.com/mapd/mapd-connector.git#develop",
+    "@mapd/crossfilter": "https://github.com/mapd/mapd-crossfilter.git",
+    "@mapd/mapdc": "https://github.com/mapd/mapd-charting.git",
     "babel-polyfill": "^6.23.0",
     "enzyme": "^2.9.1",
     "fetch-js": "^1.0.3",
