@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '6'
+sudo: required
+before_install:
+- npm install -g node-gyp
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+notifications:
+  email: false
+  slack:
+    secure: fOjQyz0i+vu5pxVQabYg3bXG2swgZcSyWHAtP7eTS5AfxPObujkjWT1ZluqEESb7XRYk/zrsWUJyMhaD59xfiAqXY+e4PbuuutD0myfW89+ow+/Wwv1LsehJd/1a+umqVh6TsHUvUvJh6MoBKkhtV/EJxFJ82dHH3oiZozapTYB1WRg4pyuWG42J5eT9dego0RhkJykqZMmSU2+otPwVG6V0S/oZfvXjadtaqoKxADfGwxpktaRxiZbhaX4/B8Ee+Nn/wixpkjBJSauX/QC8b8fjIYIt0f0XnZdCXbx8e0EENh4jTIbYpaUF9B2CBtIJGA6YNBMTNwTqfTOkPvDA8vtLbKsDL4FeAPjNsb7qyaiSQrtlk9I3R61XHwe78wCb8X0vE+IUuNwGfluNv7U2F2ubi/nqeo6u8vAhxWxt/Ogcpg5x7h8YqMEMq/0otQ+NKmggCES5lM4UNkX5LIWATod6agWBjef+KIvRtVcs59BUPEnXkFChuAg8IAu/FXJ+b5CciQJtUvgCmcZ54QeffS06sDG5fo5Yq0q265S99vWBRWg9nYy3WB+Y/1V5w3nNUf0xvpPScuivG6CReWerU+9KxeBoKPNYharLjY39/siWHNrLDFiBVsB807KhPx/3DVua3RWZ859qZAZl1XU/vd2Yy2U6y+3cOVV/1B9tLyg=
