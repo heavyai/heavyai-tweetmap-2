@@ -46,10 +46,13 @@ class TweetSidebar extends React.Component {
       return this.props.hashtags
         .filter(({hashtag}) => !HASHTAG_EXCLUDE.includes(hashtag))
         .map(({hashtag, count}) =>
-          <li key={hashtag} onClick={() => {
-            this.props.filterHashtag(hashtag)
-            this.props.toggleTweetBar("tweet")()
-          }}
+          <li
+            className="pointer"
+            key={hashtag}
+            onClick={() => {
+              this.props.filterHashtag(hashtag)
+              this.props.toggleTweetBar("tweet")()
+            }}
           >
             <Hashtag
               barLength={count / max}
