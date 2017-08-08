@@ -23,14 +23,15 @@ const MapBody = (props) => {
         <container>
           <MapChart />
           <BottomOverlay />
-          <div
-            className="popupHighlight"
-            style={{
-              backgroundColor: props.highlight.color,
-              top: props.highlight.y,
-              left: props.highlight.x
-            }}
-          />
+          {props.highlight &&
+            <div
+              className="popupHighlight"
+              style={{
+                backgroundColor: props.highlight.color,
+                top: props.highlight.y,
+                left: props.highlight.x
+              }}
+            />}
         </container>
       </map>
 

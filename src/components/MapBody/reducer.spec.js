@@ -50,10 +50,6 @@ describe("Map Body Reducer", () => {
   })
   it("should handle HIDE_HIGHLIGHT action type", () => {
     const hidden = reducer(initialState, actions.hideHighlight)
-    expect(hidden.highlight).to.deep.equal({
-      x: "-100px",
-      y: "-100px",
-      color: "white"
-    })
+    expect(hidden.highlight).to.equal.null
   })
 })
