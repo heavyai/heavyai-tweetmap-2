@@ -2,9 +2,10 @@
 import {LANG_COLORS, LANG_DOMAIN, MONTH} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
-import React from "react"
 
 export const MOVE_MAP = "MOVE_MAP"
+export const SHOW_HIGHLIGHT = "SHOW_HIGHLIGHT"
+export const HIDE_HIGHLIGHT = "HIDE_HIGHLIGHT"
 export const FILTER_TIME = "FILTER_TIME"
 export const TWEET_COUNT_UPDATE = "TWEET_COUNT_UPDATE"
 
@@ -53,6 +54,12 @@ export function userLocationFailure (error) {
 let geocoder = null
 let pointMapChart = null
 let lineChart = null
+
+const degrees2meters = (lon, lat) => {
+  const x = Math.floor(lon * 20037508.34 / 180)
+  const y = Math.floor(Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180) * 20037508.34 / 180)
+  return {x, y}
+}
 
 window.mapApiLoaded = () => {
   geocoder = new window.google.maps.Geocoder()
@@ -107,7 +114,7 @@ export function createMapChart () {
       .mapUpdateInterval(750)
       .mapStyle("mapbox://styles/mapbox/dark-v9")
 
-    function renderPopupHTML (data, columnOrder, columnMap) {
+    function renderPopupHTML (data) {
       if (arguments.length === 0) { return true }
 
       const {sender_name, tweet_text, tweet_time} = data
@@ -167,6 +174,25 @@ export function createMapChart () {
       .then(() => [pointMapChart, getChartSize])
   }
 }
+
+export function showHighlight (lat, lon, color) {
+  const googCoords = degrees2meters(lat, lon)
+
+  pointMapChart.x().range([0, pointMapChart.width() - 1])
+  pointMapChart.y().range([0, pointMapChart.height() - 1])
+
+  const x = pointMapChart.x()(googCoords.x) - 14
+  const y = pointMapChart.height() - pointMapChart.y()(googCoords.y) - 14
+
+  return {
+    type: SHOW_HIGHLIGHT,
+    x: `${x}px`,
+    y: `${y}px`,
+    color
+  }
+}
+
+export const hideHighlight = {type: HIDE_HIGHLIGHT}
 
 export function geocode (placeName) {
   return () => {

@@ -1,7 +1,9 @@
 import {
   CLOSE_LINECHART,
   FILTER_TIME,
+  HIDE_HIGHLIGHT,
   MOVE_MAP,
+  SHOW_HIGHLIGHT,
   TOGGLE_LINECHART,
   TWEET_COUNT_UPDATE,
   USER_LOCATION_FAILURE,
@@ -15,7 +17,8 @@ export const initialState = {
   timeBounds: null,
   tweetCount: 0,
   lineChartOpen: true,
-  geoLoading: false
+  geoLoading: false,
+  highlight: {x: "-100px", y: "-100px", color: "white"}
 }
 
 export default function reducer (state = initialState, action) {
@@ -36,6 +39,10 @@ export default function reducer (state = initialState, action) {
       return {...state, geoLoading: false}
     case USER_LOCATION_FAILURE:
       return {...state, geoLoading: false}
+    case SHOW_HIGHLIGHT:
+      return {...state, highlight: {x: action.x, y: action.y, color: action.color}}
+    case HIDE_HIGHLIGHT:
+      return {...state, highlight: {x: "-100px", y: "-100px", color: "white"}}
     default:
       return state
   }

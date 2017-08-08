@@ -23,6 +23,14 @@ const MapBody = (props) => {
         <container>
           <MapChart />
           <BottomOverlay />
+          <div
+            className="popupHighlight"
+            style={{
+              backgroundColor: props.highlight.color,
+              top: props.highlight.y,
+              left: props.highlight.x
+            }}
+          />
         </container>
       </map>
 
@@ -34,11 +42,17 @@ const MapBody = (props) => {
 MapBody.propTypes = {
   closeNav: PropTypes.func.isRequired,
   closeSidebar: PropTypes.func.isRequired,
+  highlight: PropTypes.shape({
+    color: PropTypes.string,
+    x: PropTypes.string,
+    y: PropTypes.string
+  }),
   sidebarOpen: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  sidebarOpen: state.tweetSidebar.sidebarOpen
+  sidebarOpen: state.tweetSidebar.sidebarOpen,
+  highlight: state.mapBody.highlight
 })
 
 const mapDispatchToProps = (dispatch) => ({
