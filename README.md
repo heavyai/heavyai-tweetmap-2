@@ -1,5 +1,5 @@
 # MapD Tweetmap
-This is MapD's Tweetmap demo. Use it as an example for building custom visualization with our open source libraries:
+This is MapD's Tweetmap demo. Use it as an example for building custom visualizations with our open source libraries:
 * [MapD Charting](https://github.com/mapd/mapd-charting)
 * [MapD CrossFilter](https://github.com/mapd/mapd-crossfilter)
 * [MapD Connector](https://github.com/mapd/mapd-connector)
@@ -16,7 +16,7 @@ npm start
 # Testing
 ```
 npm run lint
-npm run test:unit
+npm run test
 ```
 # Contributing
 Interested in contributing? We'd love for you to help! Check out [Contributing.MD](.github/CONTRIBUTING.md)

@@ -135,7 +135,7 @@ export function createMapChart () {
       .fillColorScale(window.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
       .popupColumns(["tweet_text", "sender_name", "tweet_time"])
 
-    pointLayer.popupFunction = (renderPopupHTML)
+    pointLayer.popupFunction = renderPopupHTML
 
     return pointMapChart
       .pushLayer("points", pointLayer)
