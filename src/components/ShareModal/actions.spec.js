@@ -37,7 +37,7 @@ describe("Share Modal Actions", () => {
       mapBody: {
         mapCenter: [0, 0],
         mapZoom: 4,
-        timeBounds: [new Date("Jan 1 2017"), new Date("Jan 2 2017")]
+        timeBounds: [new Date(10), new Date(100)]
       },
       topOverlay: {
         queryTerms: ["mapd", "lightningfast"]
@@ -46,7 +46,18 @@ describe("Share Modal Actions", () => {
         selectedLangs: ["en", "es"]
       }
     })
-    const fullUrl = "nullblank#eyJtYXBDZW50ZXIiOlswLDBdLCJtYXBab29tIjo0LCJ0aW1lQm91bmRzIjpbIjIwMTctMDEtMDFUMDg6MDA6MDAuMDAwWiIsIjIwMTctMDEtMDJUMDg6MDA6MDAuMDAwWiJdLCJxdWVyeVRlcm1zIjpbIm1hcGQiLCJsaWdodG5pbmdmYXN0Il0sInNlbGVjdGVkTGFuZ3MiOlsiZW4iLCJlcyJdfQ=="
+    const state = getState()
+    const shareState = {
+      mapCenter: state.mapBody.mapCenter,
+      mapZoom: state.mapBody.mapZoom,
+      timeBounds: state.mapBody.timeBounds,
+      queryTerms: state.topOverlay.queryTerms,
+      selectedLangs: state.legend.selectedLangs
+    }
+
+    const stateString = JSON.stringify(shareState)
+    const baseUrl = window.location.origin + window.location.pathname
+    const fullViewUrl = `${baseUrl}#${btoa(stateString)}`
 
     afterEach(() => {
       fetchMock.restore()
@@ -78,7 +89,7 @@ describe("Share Modal Actions", () => {
       return actions.getShareUrl()(dispatch, getState).then(() => {
         expect(dispatch).to.have.been.called.with({
           type: "VIEW_URL_UPDATE",
-          url: fullUrl
+          url: fullViewUrl
         })
       })
     })
