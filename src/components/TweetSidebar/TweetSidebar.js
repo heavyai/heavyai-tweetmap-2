@@ -1,10 +1,11 @@
 import "./styles.scss"
+import {HASHTAG_EXCLUDE, MONTH} from "../../constants"
+import {hideHighlight, showHighlight} from "../MapBody/actions"
 import {loadMoreTweets, setSidebarMode} from "./actions"
 import {addFilters} from "../TopOverlay/actions"
 import {closeNav} from "../Nav/actions"
 import {connect} from "react-redux"
 import Hashtag from "./Hashtag/Hashtag"
-import {HASHTAG_EXCLUDE, MONTH} from "../../constants"
 import InfiniteScroll from "redux-infinite-scroll"
 import PropTypes from "prop-types"
 import QueryDisplay from "./QueryDisplay/QueryDisplay.js"
@@ -20,7 +21,12 @@ const tweetType = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,
   date: PropTypes.instanceOf(Date),
-  body: PropTypes.string
+  body: PropTypes.string,
+  highlight: PropTypes.shape({
+    x: PropTypes.string,
+    y: PropTypes.string,
+    color: PropTypes.string
+  })
 })
 
 const format = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -30,7 +36,9 @@ class TweetSidebar extends React.Component {
     closeNav: PropTypes.func.isRequired,
     filterHashtag: PropTypes.func.isRequired,
     hashtags: PropTypes.arrayOf(hashtagType).isRequired,
+    hideHighlight: PropTypes.func.isRequired,
     loadMore: PropTypes.func.isRequired,
+    showHighlight: PropTypes.func.isRequired,
     sidebarMode: PropTypes.string.isRequired,
     sidebarOpen: PropTypes.bool.isRequired,
     toggleTweetBar: PropTypes.func.isRequired,
@@ -46,10 +54,13 @@ class TweetSidebar extends React.Component {
       return this.props.hashtags
         .filter(({hashtag}) => !HASHTAG_EXCLUDE.includes(hashtag))
         .map(({hashtag, count}) =>
-          <li key={hashtag} onClick={() => {
-            this.props.filterHashtag(hashtag)
-            this.props.toggleTweetBar("tweet")()
-          }}
+          <li
+            className="pointer"
+            key={hashtag}
+            onClick={() => {
+              this.props.filterHashtag(hashtag)
+              this.props.toggleTweetBar("tweet")()
+            }}
           >
             <Hashtag
               barLength={count / max}
@@ -60,8 +71,12 @@ class TweetSidebar extends React.Component {
         )
     } else {
       // Render Recent Tweets
-      return this.props.tweets.map(({id, name, date, body}) =>
-        <li key={id}>
+      return this.props.tweets.map(({id, name, date, body, lon, lat, color}) =>
+        <li
+          key={id}
+          onMouseEnter={this.props.showHighlight(lon, lat, color)}
+          onMouseLeave={this.props.hideHighlight}
+        >
           <Tweet
             body={body}
             date={`${MONTH[date.getMonth()]} ${String(date.getDate())}`}
@@ -132,7 +147,9 @@ const mapDispatchToProps = (dispatch) => ({
   closeNav: () => { dispatch(closeNav) },
   filterHashtag: (hashtag) => { dispatch(addFilters(hashtag)) },
   loadMore: () => { dispatch(loadMoreTweets()) },
-  toggleTweetBar: (mode) => () => { dispatch(setSidebarMode(mode)) }
+  toggleTweetBar: (mode) => () => { dispatch(setSidebarMode(mode)) },
+  showHighlight: (lon, lat, color) => () => { dispatch(showHighlight(lon, lat, color)) },
+  hideHighlight: () => { dispatch(hideHighlight) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TweetSidebar)

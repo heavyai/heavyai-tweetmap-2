@@ -48,4 +48,8 @@ describe("Map Body Reducer", () => {
     const failed = reducer(requested, actions.userLocationFailure("oops"))
     expect(failed.geoLoading).to.be.false
   })
+  it("should handle HIDE_HIGHLIGHT action type", () => {
+    const hidden = reducer(initialState, actions.hideHighlight)
+    expect(hidden.highlight).to.equal.null
+  })
 })

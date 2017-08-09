@@ -60,4 +60,9 @@ describe("Map Body Actions", () => {
       })
     })
   })
+  describe("Hide Highlight", () => {
+    it("should be a hide highlight action", () => {
+      expect(actions.hideHighlight.type).to.equal("HIDE_HIGHLIGHT")
+    })
+  })
 })

@@ -10,6 +10,14 @@ div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   background: transparent;
 }
 
+.popupHighlight {
+  height: $highlight-size;
+  width: $highlight-size;
+  position: absolute;
+  border-radius: $highlight-size;
+  border: 3px solid white;
+}
+
 @media (min-device-width: $mobile-breakpoint) {
   a.mapbox-maplogo {
     bottom: 24px + $line-chart-height;

@@ -26,6 +26,7 @@ class Legend extends React.Component {
     const noneSelected = this.props.selected.length === 0
     const items = this.props.langCounts.map(({lang, count}) =>
       <li
+        className="pointer"
         key={lang}
         onClick={() => { this.handleClick(lang) }}
       >
