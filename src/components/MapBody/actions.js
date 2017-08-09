@@ -329,6 +329,12 @@ export function createLineChart () {
           const dates = filter.map(d3.time.format("%m/%e/%Y"))
           d3.select(".resize.w text").text(dates[0])
           d3.select(".resize.e text").text(dates[1])
+
+          const rotate = d3.select(".extent").attr("width") < 80 ?
+            "rotate(90deg) translate(45px, 4px)" :
+            "rotate(0) translate(0, 0)"
+
+          d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
         })
 
         return Promise.resolve([lineChart, getChartSize])
