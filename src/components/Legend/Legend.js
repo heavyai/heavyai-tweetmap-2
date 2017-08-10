@@ -18,8 +18,18 @@ class Legend extends React.Component {
     selected: PropTypes.arrayOf(PropTypes.string).isRequired
   }
 
+  constructor () {
+    super()
+    this.state = {value: 'language'}
+    this.handleChange = this.handleChange.bind(this)
+  }
+
   handleClick (lang) {
     this.props.dispatch(selectFilter(lang))
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
   }
 
   render () {
@@ -42,14 +52,12 @@ class Legend extends React.Component {
     return (
       <div className="legend">
         <ul>
-          {/* first list item is title */}
+          {/* title */}
           <li className="title">
-            <LegendItem
-              active
-              justTitle
-              sub=""
-              title="Languages"
-            />
+            <select value={this.state.value} onChange={this.handleChange}>
+              <option value="device">Device</option>
+              <option value="language">Language</option>
+            </select>
           </li>
 
           {items}

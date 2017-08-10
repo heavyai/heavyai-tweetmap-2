@@ -20,10 +20,6 @@
     height: $bottom-bar-height
   }
 
-  .title {
-    margin-left: 0.8em;
-  }
-
   .legendItem {
     min-width: 70px;
     height: $bottom-bar-height;
@@ -71,13 +67,33 @@
     pointer-events: none;
   }
 
+  .title {
+    margin-right: 0.2em;
+  }
+
+  select {
+    -webkit-appearance:none;
+    border: none;
+    outline: none;
+    background-color: white;
+    font-size: 1em;
+    width: 7.2em;
+    height: 100%;
+    background: url(../../assets/br_down.png) no-repeat;
+    background-position: 95% 16px;
+    padding-left: 0.8em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    border-radius: 0;
+  }
+
+  i {
+    margin-top: 4px;
+  }
+
   @media (min-device-width: $mobile-breakpoint) {
     li :hover {
       background-color: $light-grey;
-    }
-
-    li.title :hover {
-      background-color: white;
     }
 
     .fade {
