@@ -5,6 +5,7 @@ import spies from "chai-spies"
 chai.use(spies)
 
 /* eslint-disable no-unused-expressions */
+/* eslint-disable no-magic-numbers */
 
 describe("Share Modal Actions", () => {
   describe("Open Share", () => {
