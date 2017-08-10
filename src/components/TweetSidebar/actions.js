@@ -44,7 +44,6 @@ let dummyTweetChart = null
 function fetchTweets (offset) {
   return dummyTweetChart
     .dimension()
-    .order("tweet_time")
     .topAsync(TWEET_FETCH_SIZE, offset)
     .then(results => {
       const tweets = results.map(obj => ({
