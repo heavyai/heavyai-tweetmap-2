@@ -1,19 +1,19 @@
 import {
-  LANG_COUNTS_UPDATE,
-  SELECTED_LANG_UPDATE
+  LEGEND_COUNTS_UPDATE,
+  SELECTED_UPDATE
 } from "./actions"
 
 export const initialState = {
-  selectedLangs: [],
-  langCounts: []
+  selected: [],
+  legendCounts: []
 }
 
 export default function reducer (state = initialState, action) {
   switch (action.type) {
-    case LANG_COUNTS_UPDATE:
-      return {...state, langCounts: action.langCounts}
-    case SELECTED_LANG_UPDATE:
-      return {...state, selectedLangs: action.selected}
+    case LEGEND_COUNTS_UPDATE:
+      return {...state, legendCounts: action.legendCounts}
+    case SELECTED_UPDATE:
+      return {...state, selected: action.selected}
     default:
       return state
   }

@@ -28,14 +28,4 @@ describe("<LegendItem />", () => {
       />)
     expect(wrapper.contains(<div className="whitedOut" />)).to.be.true
   })
-  it("displays no dot for titles", () => {
-    const wrapper = shallow(
-      <LegendItem
-        active
-        justTitle
-        sub="9000"
-        title="en"
-      />)
-    expect(wrapper.containsMatchingElement(<div className="legendLabel" />)).to.be.false
-  })
 })
