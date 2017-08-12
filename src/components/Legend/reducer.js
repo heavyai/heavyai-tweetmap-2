@@ -1,11 +1,13 @@
 import {
   LEGEND_COUNTS_UPDATE,
+  MODE_UPDATE,
   SELECTED_UPDATE
 } from "./actions"
 
 export const initialState = {
   selected: [],
-  legendCounts: []
+  legendCounts: [],
+  mode: "lang"
 }
 
 export default function reducer (state = initialState, action) {
@@ -14,6 +16,8 @@ export default function reducer (state = initialState, action) {
       return {...state, legendCounts: action.legendCounts}
     case SELECTED_UPDATE:
       return {...state, selected: action.selected}
+    case MODE_UPDATE:
+      return {...state, mode: action.mode}
     default:
       return state
   }

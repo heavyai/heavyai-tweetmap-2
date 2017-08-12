@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import {LANG_COLORS, LANG_DOMAIN, MONTH} from "../../constants"
+import {LANG_COLORS, LANG_DOMAIN, MONTH, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
 
@@ -53,6 +53,7 @@ export function userLocationFailure (error) {
 
 let geocoder = null
 let pointMapChart = null
+let pointLayer = null
 let lineChart = null
 
 const degrees2meters = (lon, lat) => {
@@ -124,7 +125,7 @@ export function createMapChart () {
       return `<div class="tweetItem tweet"><img class="tweetImage" src="${imgSrc}" onerror="this.onerror=null;this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';"><div class="tweetBlock"><p class="greyText">${info}</p><p>${tweet_text}</p></div></div>`
     }
 
-    const pointLayer = dc
+    pointLayer = dc
       .rasterLayer("points")
       .dimension(pointMapDim)
       .group(pointMapDim)
@@ -247,6 +248,27 @@ export function zoomToUserLocation () {
     }, err => {
       dispatch(userLocationFailure(err.message))
     })
+  }
+}
+
+export function changeDimension (dim) {
+  return (dispatch, getState, {getCf}) => {
+    const isLang = getState().legend.mode === "lang"
+    const domain = isLang ? LANG_DOMAIN : SOURCE_DOMAIN
+    const range = isLang ? LANG_COLORS : SOURCE_COLORS
+    const crossfilter = getCf()
+    const pointMapDim = crossfilter
+      .dimension(null)
+      .projectOn([
+        "conv_4326_900913_x(lon) as x",
+        "conv_4326_900913_y(lat) as y",
+        `${dim} as color`
+      ])
+    pointLayer
+      .dimension(pointMapDim)
+      .group(pointMapDim)
+      .fillColorAttr("color")
+      .fillColorScale(window.d3.scale.ordinal().domain(domain).range(range))
   }
 }
 

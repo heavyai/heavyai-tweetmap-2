@@ -2,6 +2,7 @@ import {COLORS} from "../../constants"
 
 export const LEGEND_COUNTS_UPDATE = "LEGEND_COUNTS_UPDATE"
 export const SELECTED_UPDATE = "SELECTED_UPDATE"
+export const MODE_UPDATE = "MODE_UPDATE"
 
 export function updateLegendCounts (legendCounts) {
   return {
@@ -14,6 +15,13 @@ export function updateSelected (selected) {
   return {
     type: SELECTED_UPDATE,
     selected
+  }
+}
+
+export function updateMode (mode) {
+  return {
+    type: MODE_UPDATE,
+    mode
   }
 }
 

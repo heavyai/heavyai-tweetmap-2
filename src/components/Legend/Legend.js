@@ -1,46 +1,33 @@
 import "./styles.scss"
-import {changeDimension, selectFilter} from "./actions"
+import {changeDimension as changeLegendDim, selectFilter, updateMode} from "./actions"
 import {LANG_COLOR_MAP, langCodes, SOURCE_COLOR_MAP} from "../../constants"
+import {changeDimension as changeMapDim} from "../MapBody/actions"
 import {connect} from "react-redux"
 import LegendItem from "./LegendItem/LegendItem"
 import PropTypes from "prop-types"
 import React from "react"
 
-const langItemType = PropTypes.shape({
-  lang: PropTypes.string,
+const legendCountType = PropTypes.shape({
+  title: PropTypes.string,
   count: PropTypes.number
 })
 
 class Legend extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    legendCounts: PropTypes.arrayOf(langItemType).isRequired,
-    selected: PropTypes.arrayOf(PropTypes.string).isRequired
-  }
-
-  constructor () {
-    super()
-    this.state = {value: "lang"}
-    this.handleChange = this.handleChange.bind(this)
-  }
-
-  handleClick (title) {
-    this.props.dispatch(selectFilter(title))
-  }
-
-  handleChange (event) {
-    const value = event.target.value
-    this.setState({value})
-    this.props.dispatch(changeDimension(value))
+    legendCounts: PropTypes.arrayOf(legendCountType).isRequired,
+    mode: PropTypes.string.isRequired,
+    modeUpdate: PropTypes.func.isRequired,
+    selected: PropTypes.arrayOf(PropTypes.string).isRequired,
+    selectFilter: PropTypes.func.isRequired
   }
 
   render () {
     const noneSelected = this.props.selected.length === 0
-    const colorMap = this.state.value === "lang" ?
+    const colorMap = this.props.mode === "lang" ?
       LANG_COLOR_MAP :
       SOURCE_COLOR_MAP
 
-    const titleize = this.state.value === "lang" ?
+    const titleize = this.props.mode === "lang" ?
       lang => langCodes[lang].name :
       source => (source === "ios" ?
         "iOS" :
@@ -50,7 +37,7 @@ class Legend extends React.Component {
       <li
         className="pointer"
         key={title}
-        onClick={() => { this.handleClick(title) }}
+        onClick={this.props.selectFilter(title)}
       >
         <LegendItem
           active={noneSelected || this.props.selected.includes(title)}
@@ -66,7 +53,7 @@ class Legend extends React.Component {
         <ul>
           {/* title */}
           <li className="title">
-            <select onChange={this.handleChange} value={this.state.value}>
+            <select onChange={this.props.modeUpdate} value={this.props.mode}>
               <option value="origin">Device</option>
               <option value="lang">Language</option>
             </select>
@@ -81,12 +68,15 @@ class Legend extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {legendCounts, selected} = state.legend
-  return {
-    selected,
-    legendCounts
-  }
-}
+const mapStateToProps = state => state.legend
+const mapDispatchToProps = dispatch => ({
+  modeUpdate: event => {
+    const value = event.target.value
+    dispatch(updateMode(value))
+    dispatch(changeLegendDim(value))
+    dispatch(changeMapDim(value))
+  },
+  selectFilter: title => () => dispatch(selectFilter(title))
+})
 
-export default connect(mapStateToProps)(Legend)
+export default connect(mapStateToProps, mapDispatchToProps)(Legend)
