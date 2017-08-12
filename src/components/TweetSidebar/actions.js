@@ -1,4 +1,4 @@
-import {HASHTAG_FETCH_SIZE, LANG_COLOR_MAP, TWEET_FETCH_SIZE} from "../../constants"
+import {HASHTAG_FETCH_SIZE, TWEET_FETCH_SIZE} from "../../constants"
 
 export const TWEETS_APPEND = "TWEETS_APPEND"
 export const TWEETS_SET = "TWEETS_SET"
@@ -53,7 +53,8 @@ function fetchTweets (offset) {
         body: obj.tweet_text,
         lon: obj.lon,
         lat: obj.lat,
-        color: LANG_COLOR_MAP[obj.lang]
+        lang: obj.lang,
+        origin: obj.origin
       }))
 
       return Promise.resolve(tweets)
