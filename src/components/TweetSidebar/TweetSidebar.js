@@ -37,6 +37,7 @@ class TweetSidebar extends React.Component {
     filterHashtag: PropTypes.func.isRequired,
     hashtags: PropTypes.arrayOf(hashtagType).isRequired,
     hideHighlight: PropTypes.func.isRequired,
+    legendMode: PropTypes.string,
     loadMore: PropTypes.func.isRequired,
     showHighlight: PropTypes.func.isRequired,
     sidebarMode: PropTypes.string.isRequired,

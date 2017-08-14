@@ -15,7 +15,7 @@ describe("Legend Actions", () => {
     it("should return an action that includes a new list of selected languages", () => {
       const selected = ["en", "es"]
       expect(actions.updateSelected(selected)).to.deep.equal({
-        type: "SELECTED_UPDATE",
+        type: "SELECTED_LEGEND_UPDATE",
         selected
       })
     })

@@ -1,7 +1,7 @@
 import {COLORS} from "../../constants"
 
 export const LEGEND_COUNTS_UPDATE = "LEGEND_COUNTS_UPDATE"
-export const SELECTED_UPDATE = "SELECTED_UPDATE"
+export const SELECTED_LEGEND_UPDATE = "SELECTED_LEGEND_UPDATE"
 export const MODE_UPDATE = "MODE_UPDATE"
 
 export function updateLegendCounts (legendCounts) {
@@ -13,7 +13,7 @@ export function updateLegendCounts (legendCounts) {
 
 export function updateSelected (selected) {
   return {
-    type: SELECTED_UPDATE,
+    type: SELECTED_LEGEND_UPDATE,
     selected
   }
 }
@@ -58,7 +58,7 @@ export function createLegendChart () {
         results => {
           // rename keys
           const legendCounts = results.map(obj => ({
-            title: obj.key0,
+            item: obj.key0,
             count: obj.val
           }))
 
@@ -76,13 +76,13 @@ export function createLegendChart () {
   }
 }
 
-export function selectFilter (title) {
+export function selectFilter (item) {
   return (dispatch, getState, {dc}) => {
     const {selected} = getState().legend
 
-    const update = selected.includes(title) ?
-      selected.filter(item => item !== title) :
-      [...selected, title]
+    const update = selected.includes(item) ?
+      selected.filter(i => i !== item) :
+      [...selected, item]
 
     if (update.length === 0) {
       dimension.filterAll()
@@ -96,11 +96,11 @@ export function selectFilter (title) {
 }
 
 // setup in case tweetmap is setup with shared filters
-export function initFilters (title) {
+export function initFilters (item) {
   return dispatch => {
-    if (title.length !== 0) {
-      dimension.filterMulti(title)
-      dispatch(updateSelected(title))
+    if (item.length !== 0) {
+      dimension.filterMulti(item)
+      dispatch(updateSelected(item))
     }
   }
 }

@@ -132,7 +132,7 @@ export function createMapChart () {
       .cap(5000000)
       .sampling(true)
       .dynamicSize(
-        window.d3.scale.sqrt().domain([20000, 0]).range([1.0, 7.0]).clamp(true)
+        dc.d3.scale.sqrt().domain([20000, 0]).range([1.0, 7.0]).clamp(true)
       )
       .xAttr("x")
       .yAttr("y")
@@ -140,7 +140,7 @@ export function createMapChart () {
       .yDim(yDim)
       .fillColorAttr("color")
       .defaultFillColor("#80DEEA")
-      .fillColorScale(window.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
+      .fillColorScale(dc.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
       .popupColumns(["tweet_text", "sender_name", "tweet_time"])
 
     pointLayer.popupFunction = renderPopupHTML
@@ -268,7 +268,7 @@ export function changeDimension (dim) {
       .dimension(pointMapDim)
       .group(pointMapDim)
       .fillColorAttr("color")
-      .fillColorScale(window.d3.scale.ordinal().domain(domain).range(range))
+      .fillColorScale(dc.d3.scale.ordinal().domain(domain).range(range))
   }
 }
 
@@ -327,7 +327,7 @@ export function createLineChart () {
 
         lineChart
           .x(
-            window.d3.time.scale
+            dc.d3.time.scale
               .utc()
               .domain([timeChartBounds.minimum, timeChartBounds.maximum])
           )
@@ -338,25 +338,25 @@ export function createLineChart () {
 
         lineChart.on("postRender", () => {
           // append slider label elements
-          d3.select(".resize.w").append("rect").attr("class", "labelRect")
-          d3.select(".resize.e").append("rect").attr("class", "labelRect")
-          d3.select(".resize.w").append("text").attr("class", "labelDate")
-          d3.select(".resize.e").append("text").attr("class", "labelDate")
+          dc.d3.select(".resize.w").append("rect").attr("class", "labelRect")
+          dc.d3.select(".resize.e").append("rect").attr("class", "labelRect")
+          dc.d3.select(".resize.w").append("text").attr("class", "labelDate")
+          dc.d3.select(".resize.e").append("text").attr("class", "labelDate")
         })
 
         lineChart.on("filtered", (_, filter) => {
           if (typeof filter !== "object") { return }
           dispatch(filterTime(filter))
 
-          const dates = filter.map(d3.time.format("%m/%e/%Y"))
-          d3.select(".resize.w text").text(dates[0])
-          d3.select(".resize.e text").text(dates[1])
+          const dates = filter.map(dc.d3.time.format("%m/%e/%Y"))
+          dc.d3.select(".resize.w text").text(dates[0])
+          dc.d3.select(".resize.e text").text(dates[1])
 
-          const rotate = d3.select(".extent").attr("width") < 80 ?
+          const rotate = dc.d3.select(".extent").attr("width") < 80 ?
             "rotate(90deg) translate(45px, 4px)" :
             "rotate(0) translate(0, 0)"
 
-          d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
+          dc.d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
         })
 
         return Promise.resolve([lineChart, getChartSize])

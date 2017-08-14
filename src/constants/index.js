@@ -73,16 +73,16 @@ export const COLORS = [
 ]
 
 export const LANG_COLORS = LANG_DOMAIN.map((lang, i) => COLORS[i % COLORS.length])
-export const LANG_COLOR_MAP = {}
-LANG_DOMAIN.forEach((lang, i) => {
-  LANG_COLOR_MAP[lang] = COLORS[i % COLORS.length]
-})
+export const LANG_COLOR_MAP = LANG_DOMAIN.reduce((acc, lang, i) => ({
+  ...acc,
+  [lang]: COLORS[i % COLORS.length]
+}), {})
 
 export const SOURCE_COLORS = COLORS.slice(0, SOURCE_DOMAIN.length)
-export const SOURCE_COLOR_MAP = {}
-SOURCE_DOMAIN.forEach((src, i) => {
-  SOURCE_COLOR_MAP[src] = COLORS[i % COLORS.length]
-})
+export const SOURCE_COLOR_MAP = SOURCE_DOMAIN.reduce((acc, source, i) => ({
+  ...acc,
+  [source]: COLORS[i % COLORS.length]
+}), {})
 
 export const HASHTAG_EXCLUDE = [
   "#jobs",
