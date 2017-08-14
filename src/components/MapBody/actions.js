@@ -283,7 +283,7 @@ export function createLineChart () {
     function getChartSize () {
       /* set width to match parent */
       const w = parent.parentElement.clientWidth
-      const h = 120
+      const h = 100
       return [w, h]
     }
 
@@ -348,12 +348,12 @@ export function createLineChart () {
           if (typeof filter !== "object") { return }
           dispatch(filterTime(filter))
 
-          const dates = filter.map(dc.d3.time.format("%m/%e/%Y"))
+          const dates = filter.map(d3.time.format("%m/%d/%y"))
           dc.d3.select(".resize.w text").text(dates[0])
           dc.d3.select(".resize.e text").text(dates[1])
 
-          const rotate = dc.d3.select(".extent").attr("width") < 80 ?
-            "rotate(90deg) translate(45px, 4px)" :
+          const rotate = d3.select(".extent").attr("width") < 80 ?
+            "rotate(90deg) translate(40px, 4px)" :
             "rotate(0) translate(0, 0)"
 
           dc.d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
