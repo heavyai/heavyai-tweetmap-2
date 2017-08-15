@@ -1,5 +1,5 @@
 import "./styles.scss"
-import {HASHTAG_EXCLUDE, MONTH} from "../../constants"
+import {HASHTAG_EXCLUDE, LANG_COLOR_MAP, MONTH, SOURCE_COLOR_MAP} from "../../constants"
 import {hideHighlight, showHighlight} from "../MapBody/actions"
 import {loadMoreTweets, setSidebarMode} from "./actions"
 import {addFilters} from "../TopOverlay/actions"
@@ -37,6 +37,7 @@ class TweetSidebar extends React.Component {
     filterHashtag: PropTypes.func.isRequired,
     hashtags: PropTypes.arrayOf(hashtagType).isRequired,
     hideHighlight: PropTypes.func.isRequired,
+    legendMode: PropTypes.string,
     loadMore: PropTypes.func.isRequired,
     showHighlight: PropTypes.func.isRequired,
     sidebarMode: PropTypes.string.isRequired,
@@ -71,20 +72,24 @@ class TweetSidebar extends React.Component {
         )
     } else {
       // Render Recent Tweets
-      return this.props.tweets.map(({id, name, date, body, lon, lat, color}) =>
-        <li
-          key={id}
-          onMouseEnter={this.props.showHighlight(lon, lat, color)}
-          onMouseLeave={this.props.hideHighlight}
-        >
-          <Tweet
-            body={body}
-            date={`${MONTH[date.getMonth()]} ${String(date.getDate())}`}
-            handle={`@${name}`}
-            imgLink={`https://avatars.io/twitter/${name}`}
-          />
-        </li>
-      )
+      return this.props.tweets.map(({id, name, date, body, lon, lat, lang, origin}) => {
+        const color = this.props.legendMode === "lang" ?
+          LANG_COLOR_MAP[lang] :
+          SOURCE_COLOR_MAP[origin]
+        return (
+          <li
+            key={id}
+            onMouseEnter={this.props.showHighlight(lon, lat, color)}
+            onMouseLeave={this.props.hideHighlight}
+          >
+            <Tweet
+              body={body}
+              date={`${MONTH[date.getMonth()]} ${String(date.getDate())}`}
+              handle={`@${name}`}
+              imgLink={`https://avatars.io/twitter/${name}`}
+            />
+          </li>)
+      })
     }
   }
 
@@ -139,7 +144,7 @@ class TweetSidebar extends React.Component {
 }
 
 const mapStateToProps = state => Object.assign(
-  {tweetCount: state.mapBody.tweetCount},
+  {tweetCount: state.mapBody.tweetCount, legendMode: state.legend.mode},
   state.tweetSidebar
 )
 

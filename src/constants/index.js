@@ -1,5 +1,9 @@
 export {langCodes} from "./langCodes"
 export const TABLE_NAME = "tweets_nov_feb"
+export const HASHTAG_FETCH_SIZE = 60
+export const TWEET_FETCH_SIZE = 25
+export const PERCENTAGE_MAX = 100
+
 export const LANG_DOMAIN = [
   "en",
   "pt",
@@ -43,6 +47,17 @@ export const LANG_DOMAIN = [
   "hr"
 ]
 
+export const SOURCE_DOMAIN = [
+  "android",
+  "ios",
+  "instagram",
+  "foursquare",
+  "path",
+  "other",
+  "blackberry",
+  "windows"
+]
+
 export const COLORS = [
   "#27aeef",
   "#ea5545",
@@ -57,12 +72,17 @@ export const COLORS = [
   "#7c4dff"
 ]
 
-export const LANG_COLORS = []
-export const COLOR_MAP = {}
-for (let i = 0; i < LANG_DOMAIN.length; i = i + 1) {
-  LANG_COLORS.push(COLORS[i % COLORS.length])
-  COLOR_MAP[LANG_DOMAIN[i]] = COLORS[i % COLORS.length]
-}
+export const LANG_COLORS = LANG_DOMAIN.map((lang, i) => COLORS[i % COLORS.length])
+export const LANG_COLOR_MAP = LANG_DOMAIN.reduce((acc, lang, i) => ({
+  ...acc,
+  [lang]: COLORS[i % COLORS.length]
+}), {})
+
+export const SOURCE_COLORS = COLORS.slice(0, SOURCE_DOMAIN.length)
+export const SOURCE_COLOR_MAP = SOURCE_DOMAIN.reduce((acc, source, i) => ({
+  ...acc,
+  [source]: COLORS[i % COLORS.length]
+}), {})
 
 export const HASHTAG_EXCLUDE = [
   "#jobs",
@@ -93,10 +113,6 @@ export const HASHTAG_EXCLUDE = [
   "#veterans",
   "#cosmetology"
 ]
-
-export const HASHTAG_FETCH_SIZE = 60
-export const TWEET_FETCH_SIZE = 25
-export const PERCENTAGE_MAX = 100
 
 export const MONTH = [
   "Jan",

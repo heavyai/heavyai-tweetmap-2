@@ -1,72 +1,80 @@
 import "./styles.scss"
-import {COLOR_MAP, langCodes} from "../../constants"
+import {changeDimension as changeLegendDim, selectFilter, updateMode} from "./actions"
+import {LANG_COLOR_MAP, langCodes, SOURCE_COLOR_MAP} from "../../constants"
+import {changeDimension as changeMapDim} from "../MapBody/actions"
 import {connect} from "react-redux"
 import LegendItem from "./LegendItem/LegendItem"
 import PropTypes from "prop-types"
 import React from "react"
-import {selectFilter} from "./actions"
 
-const langItemType = PropTypes.shape({
-  lang: PropTypes.string,
+const Legend = (props) => {
+  const noneSelected = props.selected.length === 0
+  const colorMap = props.mode === "lang" ?
+    LANG_COLOR_MAP :
+    SOURCE_COLOR_MAP
+
+  const capitalize = source => source.charAt(0).toUpperCase() + source.slice(1)
+
+  const titleize = props.mode === "lang" ?
+    lang => langCodes[lang].name :
+    source => (source === "ios" ? "iOS" : capitalize(source))
+
+  const items = props.legendCounts.map(({item, count}) =>
+    <li
+      className="pointer"
+      key={item}
+      onClick={props.selectFilter(item)}
+    >
+      <LegendItem
+        active={noneSelected || props.selected.includes(item)}
+        color={colorMap[item]}
+        sub={String(count)}
+        title={titleize(item)}
+      />
+    </li>
+  )
+
+  return (
+    <div className="legend">
+      <ul>
+        {/* legend title label */}
+        <li className="title">
+          <select onChange={props.modeUpdate} value={props.mode}>
+            <option value="origin">Source</option>
+            <option value="lang">Language</option>
+          </select>
+        </li>
+
+        {items}
+        <div id="legendDummy" />
+      </ul>
+      <div className="fade" />
+    </div>
+  )
+}
+
+const legendCountType = PropTypes.shape({
+  item: PropTypes.string,
   count: PropTypes.number
 })
 
-class Legend extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    langCounts: PropTypes.arrayOf(langItemType).isRequired,
-    selected: PropTypes.arrayOf(PropTypes.string).isRequired
-  }
-
-  handleClick (lang) {
-    this.props.dispatch(selectFilter(lang))
-  }
-
-  render () {
-    const noneSelected = this.props.selected.length === 0
-    const items = this.props.langCounts.map(({lang, count}) =>
-      <li
-        className="pointer"
-        key={lang}
-        onClick={() => { this.handleClick(lang) }}
-      >
-        <LegendItem
-          active={noneSelected || this.props.selected.includes(lang)}
-          color={COLOR_MAP[lang]}
-          sub={String(count)}
-          title={langCodes[lang].name}
-        />
-      </li>
-    )
-
-    return (
-      <div className="legend">
-        <ul>
-          {/* first list item is title */}
-          <li className="title">
-            <LegendItem
-              active
-              justTitle
-              sub=""
-              title="Languages"
-            />
-          </li>
-
-          {items}
-          <div id="legendDummy" />
-        </ul>
-        <div className="fade" />
-      </div>
-    )
-  }
+Legend.propTypes = {
+  legendCounts: PropTypes.arrayOf(legendCountType).isRequired,
+  mode: PropTypes.string.isRequired,
+  modeUpdate: PropTypes.func.isRequired,
+  selected: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectFilter: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => {
-  const {langCounts, selectedLangs} = state.legend
-  return {
-    selected: selectedLangs,
-    langCounts
-  }
-}
+const mapStateToProps = state => state.legend
+const mapDispatchToProps = dispatch => ({
+  modeUpdate: event => {
+    const value = event.target.value
+    dispatch(updateMode(value))
+    dispatch(changeLegendDim(value))
+    dispatch(changeMapDim(value))
+  },
+  selectFilter: item => () => dispatch(selectFilter(item))
+})
 
-export default connect(mapStateToProps)(Legend)
+export default connect(mapStateToProps, mapDispatchToProps)(Legend)

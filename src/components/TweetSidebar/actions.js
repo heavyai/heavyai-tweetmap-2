@@ -1,4 +1,4 @@
-import {COLOR_MAP, HASHTAG_FETCH_SIZE, TWEET_FETCH_SIZE} from "../../constants"
+import {HASHTAG_FETCH_SIZE, TWEET_FETCH_SIZE} from "../../constants"
 
 export const TWEETS_APPEND = "TWEETS_APPEND"
 export const TWEETS_SET = "TWEETS_SET"
@@ -53,7 +53,8 @@ function fetchTweets (offset) {
         body: obj.tweet_text,
         lon: obj.lon,
         lat: obj.lat,
-        color: COLOR_MAP[obj.lang]
+        lang: obj.lang,
+        origin: obj.origin
       }))
 
       return Promise.resolve(tweets)
@@ -71,7 +72,7 @@ export function createTweetChart () {
     const crossfilter = getCf()
     const tweetDim = crossfilter
       .dimension(null)
-      .projectOn(["sender_name", "tweet_time", "tweet_id", "tweet_text", "lon", "lat", "lang"])
+      .projectOn(["sender_name", "tweet_time", "tweet_id", "tweet_text", "lon", "lat", "lang", "origin"])
 
     //  dummyTweetChart lives in the chart registry, triggering redraws through dataAsync()
     dummyTweetChart = dc.baseMixin({})

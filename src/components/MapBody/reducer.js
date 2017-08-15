@@ -40,7 +40,7 @@ export default function reducer (state = initialState, action) {
     case USER_LOCATION_FAILURE:
       return {...state, geoLoading: false}
     case SHOW_HIGHLIGHT:
-      return {...state, highlight: {x: action.x, y: action.y, color: action.color}}
+      return {...state, highlight: action}
     case HIDE_HIGHLIGHT:
       return {...state, highlight: null}
     default:

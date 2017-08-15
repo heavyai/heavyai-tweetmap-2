@@ -1,23 +1,33 @@
 import {COLORS} from "../../constants"
 
-export const LANG_COUNTS_UPDATE = "LANG_COUNTS_UPDATE"
-export const SELECTED_LANG_UPDATE = "SELECTED_LANG_UPDATE"
+export const LEGEND_COUNTS_UPDATE = "LEGEND_COUNTS_UPDATE"
+export const SELECTED_LEGEND_UPDATE = "SELECTED_LEGEND_UPDATE"
+export const MODE_UPDATE = "MODE_UPDATE"
 
-export function updateLangCounts (langCounts) {
+export function updateLegendCounts (legendCounts) {
   return {
-    type: LANG_COUNTS_UPDATE,
-    langCounts
+    type: LEGEND_COUNTS_UPDATE,
+    legendCounts
   }
 }
 
 export function updateSelected (selected) {
   return {
-    type: SELECTED_LANG_UPDATE,
+    type: SELECTED_LEGEND_UPDATE,
     selected
   }
 }
 
-let langDim = null
+export function updateMode (mode) {
+  return {
+    type: MODE_UPDATE,
+    mode
+  }
+}
+
+let dummyChart = null
+let dimension = null
+let group = null
 
 /*
   LEGEND CHART SETUP
@@ -28,12 +38,12 @@ let langDim = null
 export function createLegendChart () {
   return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
-    langDim = crossfilter.dimension("lang")
-    const group = langDim.group()
+    dimension = crossfilter.dimension("lang")
+    group = dimension.group()
 
     //  dummyChart lives in the chart registry, triggering redraws through dataAsync()
-    const dummyChart = dc.baseMixin({})
-    dummyChart.dimension(langDim)
+    dummyChart = dc.baseMixin({})
+    dummyChart.dimension(dimension)
     dummyChart.group(group)
     // dummy DOM elem should take no space
     dummyChart.minWidth(0)
@@ -47,12 +57,12 @@ export function createLegendChart () {
       group.reduceCount("*").topAsync(numColors).then(
         results => {
           // rename keys
-          const langCounts = results.map(obj => ({
-            lang: obj.key0,
+          const legendCounts = results.map(obj => ({
+            item: obj.key0,
             count: obj.val
           }))
 
-          dispatch(updateLangCounts(langCounts))
+          dispatch(updateLegendCounts(legendCounts))
           callback()
         },
         error => {
@@ -66,29 +76,46 @@ export function createLegendChart () {
   }
 }
 
-export function selectFilter (lang) {
+export function selectFilter (item) {
   return (dispatch, getState, {dc}) => {
-    const {selectedLangs} = getState().legend
+    const {selected} = getState().legend
 
-    const selected = selectedLangs.includes(lang) ? selectedLangs.filter(item => item !== lang) : [...selectedLangs, lang]
+    const update = selected.includes(item) ?
+      selected.filter(i => i !== item) :
+      [...selected, item]
 
-    if (selected.length === 0) {
-      langDim.filterAll()
+    if (update.length === 0) {
+      dimension.filterAll()
     } else {
-      langDim.filterMulti(selected)
+      dimension.filterMulti(update)
     }
 
     dc.redrawAllAsync()
-    dispatch(updateSelected(selected))
+    dispatch(updateSelected(update))
   }
 }
 
 // setup in case tweetmap is setup with shared filters
-export function initFilters (langs) {
+export function initFilters (item) {
   return dispatch => {
-    if (langs.length !== 0) {
-      langDim.filterMulti(langs)
-      dispatch(updateSelected(langs))
+    if (item.length !== 0) {
+      dimension.filterMulti(item)
+      dispatch(updateSelected(item))
     }
+  }
+}
+
+export function changeDimension (dim) {
+  return (dispatch, getState, {dc, getCf}) => {
+    dimension.filterAll()
+    const crossfilter = getCf()
+    dimension = crossfilter.dimension(dim)
+    group = dimension.group()
+
+    dummyChart.dimension(dimension)
+    dummyChart.group(group)
+    dc.redrawAllAsync()
+    dispatch(updateLegendCounts([]))
+    dispatch(updateSelected([]))
   }
 }

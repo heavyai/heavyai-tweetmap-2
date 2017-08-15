@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import {LANG_COLORS, LANG_DOMAIN, MONTH} from "../../constants"
+import {LANG_COLORS, LANG_DOMAIN, MONTH, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
 
@@ -53,6 +53,7 @@ export function userLocationFailure (error) {
 
 let geocoder = null
 let pointMapChart = null
+let pointLayer = null
 let lineChart = null
 
 const degrees2meters = (lon, lat) => {
@@ -124,14 +125,14 @@ export function createMapChart () {
       return `<div class="tweetItem tweet"><img class="tweetImage" src="${imgSrc}" onerror="this.onerror=null;this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png';"><div class="tweetBlock"><p class="greyText">${info}</p><p>${tweet_text}</p></div></div>`
     }
 
-    const pointLayer = dc
+    pointLayer = dc
       .rasterLayer("points")
       .dimension(pointMapDim)
       .group(pointMapDim)
       .cap(5000000)
       .sampling(true)
       .dynamicSize(
-        window.d3.scale.sqrt().domain([20000, 0]).range([1.0, 7.0]).clamp(true)
+        dc.d3.scale.sqrt().domain([20000, 0]).range([1.0, 7.0]).clamp(true)
       )
       .xAttr("x")
       .yAttr("y")
@@ -139,7 +140,7 @@ export function createMapChart () {
       .yDim(yDim)
       .fillColorAttr("color")
       .defaultFillColor("#80DEEA")
-      .fillColorScale(window.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
+      .fillColorScale(dc.d3.scale.ordinal().domain(LANG_DOMAIN).range(LANG_COLORS))
       .popupColumns(["tweet_text", "sender_name", "tweet_time"])
 
     pointLayer.popupFunction = renderPopupHTML
@@ -250,6 +251,27 @@ export function zoomToUserLocation () {
   }
 }
 
+export function changeDimension (dim) {
+  return (dispatch, getState, {getCf}) => {
+    const isLang = getState().legend.mode === "lang"
+    const domain = isLang ? LANG_DOMAIN : SOURCE_DOMAIN
+    const range = isLang ? LANG_COLORS : SOURCE_COLORS
+    const crossfilter = getCf()
+    const pointMapDim = crossfilter
+      .dimension(null)
+      .projectOn([
+        "conv_4326_900913_x(lon) as x",
+        "conv_4326_900913_y(lat) as y",
+        `${dim} as color`
+      ])
+    pointLayer
+      .dimension(pointMapDim)
+      .group(pointMapDim)
+      .fillColorAttr("color")
+      .fillColorScale(dc.d3.scale.ordinal().domain(domain).range(range))
+  }
+}
+
 /*
   LINE CHART
 */
@@ -305,7 +327,7 @@ export function createLineChart () {
 
         lineChart
           .x(
-            window.d3.time.scale
+            dc.d3.time.scale
               .utc()
               .domain([timeChartBounds.minimum, timeChartBounds.maximum])
           )
@@ -316,25 +338,25 @@ export function createLineChart () {
 
         lineChart.on("postRender", () => {
           // append slider label elements
-          d3.select(".resize.w").append("rect").attr("class", "labelRect")
-          d3.select(".resize.e").append("rect").attr("class", "labelRect")
-          d3.select(".resize.w").append("text").attr("class", "labelDate")
-          d3.select(".resize.e").append("text").attr("class", "labelDate")
+          dc.d3.select(".resize.w").append("rect").attr("class", "labelRect")
+          dc.d3.select(".resize.e").append("rect").attr("class", "labelRect")
+          dc.d3.select(".resize.w").append("text").attr("class", "labelDate")
+          dc.d3.select(".resize.e").append("text").attr("class", "labelDate")
         })
 
         lineChart.on("filtered", (_, filter) => {
           if (typeof filter !== "object") { return }
           dispatch(filterTime(filter))
 
-          const dates = filter.map(d3.time.format("%m/%e/%Y"))
-          d3.select(".resize.w text").text(dates[0])
-          d3.select(".resize.e text").text(dates[1])
+          const dates = filter.map(dc.d3.time.format("%m/%e/%Y"))
+          dc.d3.select(".resize.w text").text(dates[0])
+          dc.d3.select(".resize.e text").text(dates[1])
 
-          const rotate = d3.select(".extent").attr("width") < 80 ?
+          const rotate = dc.d3.select(".extent").attr("width") < 80 ?
             "rotate(90deg) translate(45px, 4px)" :
             "rotate(0) translate(0, 0)"
 
-          d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
+          dc.d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
         })
 
         return Promise.resolve([lineChart, getChartSize])

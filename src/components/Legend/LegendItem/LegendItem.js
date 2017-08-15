@@ -3,9 +3,7 @@ import React from "react"
 
 const LegendItem = props =>
   <div className="legendItem">
-    {!props.justTitle &&
-      <div className="legendLabel" style={{backgroundColor: props.color}} />
-    }
+    <div className="legendLabel" style={{backgroundColor: props.color}} />
 
     <div className="legendBlock">
       <p>
@@ -21,8 +19,7 @@ const LegendItem = props =>
 
 LegendItem.propTypes = {
   active: PropTypes.bool.isRequired,
-  color: PropTypes.string,
-  justTitle: PropTypes.bool,
+  color: PropTypes.string.isRequired,
   sub: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired
 }
