@@ -6,9 +6,10 @@ const getPercent = (number) => `${String(PERCENTAGE_MAX * number)}%`
 
 const Hashtag = props =>
   <div className="tweetItem hashtag">
-    <p>
-      <span className="bold">{props.title}</span> · <span className="greyText">{props.count}</span>
-    </p>
+    <div className="title">
+      <p className="bold">{props.title}</p>
+      <p className="greyText">{"· " + props.count}</p>
+    </div>
     <div className="bar" style={{width: getPercent(props.barLength)}} />
   </div>
 
