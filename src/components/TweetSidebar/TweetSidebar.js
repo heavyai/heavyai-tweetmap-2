@@ -3,7 +3,7 @@ import {HASHTAG_EXCLUDE, LANG_COLOR_MAP, MONTH, SOURCE_COLOR_MAP} from "../../co
 import {hideHighlight, showHighlight} from "../MapBody/actions"
 import {loadMoreTweets, setSidebarMode} from "./actions"
 import {addFilters} from "../TopOverlay/actions"
-import {closeNav} from "../Nav/actions"
+import {closeNav, closeSearch} from "../Nav/actions"
 import {connect} from "react-redux"
 import Hashtag from "./Hashtag/Hashtag"
 import InfiniteScroll from "redux-infinite-scroll"
@@ -149,7 +149,10 @@ const mapStateToProps = state => Object.assign(
 )
 
 const mapDispatchToProps = (dispatch) => ({
-  closeNav: () => { dispatch(closeNav) },
+  closeNav: () => {
+    dispatch(closeNav)
+    dispatch(closeSearch)
+  },
   filterHashtag: (hashtag) => { dispatch(addFilters(hashtag)) },
   loadMore: () => { dispatch(loadMoreTweets()) },
   toggleTweetBar: (mode) => () => { dispatch(setSidebarMode(mode)) },

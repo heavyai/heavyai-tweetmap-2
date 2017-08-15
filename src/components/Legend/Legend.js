@@ -2,6 +2,8 @@ import "./styles.scss"
 import {changeDimension as changeLegendDim, selectFilter, updateMode} from "./actions"
 import {LANG_COLOR_MAP, langCodes, SOURCE_COLOR_MAP} from "../../constants"
 import {changeDimension as changeMapDim} from "../MapBody/actions"
+import {closeNav, closeSearch} from "../Nav/actions"
+import {closeSidebar} from "../TweetSidebar/actions"
 import {connect} from "react-redux"
 import LegendItem from "./LegendItem/LegendItem"
 import PropTypes from "prop-types"
@@ -35,7 +37,7 @@ const Legend = (props) => {
   )
 
   return (
-    <div className="legend">
+    <div className="legend" onClick={props.closeAll}>
       <ul>
         {/* legend title label */}
         <li className="title">
@@ -68,6 +70,11 @@ Legend.propTypes = {
 
 const mapStateToProps = state => state.legend
 const mapDispatchToProps = dispatch => ({
+  closeAll: () => {
+    dispatch(closeNav)
+    dispatch(closeSearch)
+    dispatch(closeSidebar)
+  },
   modeUpdate: event => {
     const value = event.target.value
     dispatch(updateMode(value))

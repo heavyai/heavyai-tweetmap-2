@@ -16,7 +16,7 @@ export class QueryDisplay extends React.Component {
   render () {
     const queries = this.props.queryTerms.map(query =>
       <div
-        className="queryPill"
+        className="queryPill pointer"
         key={query}
         onClick={() => { this.removeQuery(query) }}
       >

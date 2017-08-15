@@ -1,6 +1,6 @@
 import "./styles.scss"
 import BottomOverlay from "./BottomOverlay/BottomOverlay"
-import {closeNav} from "../Nav/actions"
+import {closeNav, closeSearch} from "../Nav/actions"
 import {closeSidebar} from "../TweetSidebar/actions"
 import {connect} from "react-redux"
 import Legend from "../Legend/Legend"
@@ -10,16 +10,11 @@ import React from "react"
 import TopOverlay from "../TopOverlay/TopOverlay"
 
 const MapBody = (props) => {
-  const closeAll = () => {
-    props.closeNav()
-    props.closeSidebar()
-  }
-
   return (
     <main className={props.sidebarOpen ? "shifted" : null} >
       <TopOverlay />
 
-      <map onClick={closeAll}>
+      <map onClick={props.closeAll}>
         <container>
           <MapChart />
           <BottomOverlay />
@@ -35,14 +30,13 @@ const MapBody = (props) => {
         </container>
       </map>
 
-      <Legend onClick={closeAll} />
+      <Legend />
     </main>
   )
 }
 
 MapBody.propTypes = {
-  closeNav: PropTypes.func.isRequired,
-  closeSidebar: PropTypes.func.isRequired,
+  closeAll: PropTypes.func.isRequired,
   highlight: PropTypes.shape({
     color: PropTypes.string,
     x: PropTypes.string,
@@ -57,8 +51,11 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  closeNav: () => { dispatch(closeNav) },
-  closeSidebar: () => { dispatch(closeSidebar) }
+  closeAll: () => {
+    dispatch(closeNav)
+    dispatch(closeSearch)
+    dispatch(closeSidebar)
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBody)

@@ -252,7 +252,7 @@ export function zoomToUserLocation () {
 }
 
 export function changeDimension (dim) {
-  return (dispatch, getState, {getCf}) => {
+  return (dispatch, getState, {dc, getCf}) => {
     const isLang = getState().legend.mode === "lang"
     const domain = isLang ? LANG_DOMAIN : SOURCE_DOMAIN
     const range = isLang ? LANG_COLORS : SOURCE_COLORS

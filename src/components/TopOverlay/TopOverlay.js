@@ -4,7 +4,7 @@ import Octicon from "react-octicon"
 import PropTypes from "prop-types"
 import React from "react"
 import SearchBar from "./SearchBar/SearchBar"
-import {toggleNav} from "../Nav/actions"
+import {closeNav, closeSearch, toggleNav} from "../Nav/actions"
 import {toggleSidebar} from "../TweetSidebar/actions"
 
 const TopOverlay = props => (
@@ -34,8 +34,15 @@ TopOverlay.propTypes = {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleNav: () => { dispatch(toggleNav) },
-  toggleSidebar: () => { dispatch(toggleSidebar) }
+  toggleNav: () => {
+    dispatch(closeSearch)
+    dispatch(toggleNav)
+  },
+  toggleSidebar: () => {
+    dispatch(toggleSidebar)
+    dispatch(closeSearch)
+    dispatch(closeNav)
+  }
 })
 
 export default connect(null, mapDispatchToProps)(TopOverlay)
