@@ -1,6 +1,6 @@
 import "./styles.scss"
-import BottomOverlay from "./BottomOverlay/BottomOverlay"
 import {closeNav, closeSearch} from "../Nav/actions"
+import BottomOverlay from "./BottomOverlay/BottomOverlay"
 import {closeSidebar} from "../TweetSidebar/actions"
 import {connect} from "react-redux"
 import Legend from "../Legend/Legend"
@@ -9,31 +9,29 @@ import PropTypes from "prop-types"
 import React from "react"
 import TopOverlay from "../TopOverlay/TopOverlay"
 
-const MapBody = (props) => {
-  return (
-    <main className={props.sidebarOpen ? "shifted" : null} >
-      <TopOverlay />
+const MapBody = (props) => (
+  <main className={props.sidebarOpen ? "shifted" : null} >
+    <TopOverlay />
 
-      <map onClick={props.closeAll}>
-        <container>
-          <MapChart />
-          <BottomOverlay />
-          {props.highlight &&
-            <div
-              className="popupHighlight"
-              style={{
-                backgroundColor: props.highlight.color,
-                top: props.highlight.y,
-                left: props.highlight.x
-              }}
-            />}
-        </container>
-      </map>
+    <map onClick={props.closeAll}>
+      <container>
+        <MapChart />
+        <BottomOverlay />
+        {props.highlight &&
+        <div
+          className="popupHighlight"
+          style={{
+            backgroundColor: props.highlight.color,
+            top: props.highlight.y,
+            left: props.highlight.x
+          }}
+        />}
+      </container>
+    </map>
 
-      <Legend />
-    </main>
-  )
-}
+    <Legend />
+  </main>
+)
 
 MapBody.propTypes = {
   closeAll: PropTypes.func.isRequired,

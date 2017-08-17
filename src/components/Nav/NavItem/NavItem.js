@@ -51,7 +51,6 @@ class NavItem extends React.Component {
       >
         <Popover
           body={this.props.description}
-          className={this.props.className}
           isOpen={this.state.popover}
           place="right"
         >

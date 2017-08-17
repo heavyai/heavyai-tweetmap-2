@@ -1,14 +1,13 @@
 import "./styles.scss"
+import {closeNav, closeSearch} from "../Nav/actions"
 import {HASHTAG_EXCLUDE, LANG_COLOR_MAP, MONTH, SOURCE_COLOR_MAP} from "../../constants"
 import {hideHighlight, showHighlight} from "../MapBody/actions"
 import {loadMoreTweets, setSidebarMode} from "./actions"
 import {addFilters} from "../TopOverlay/actions"
-import {closeNav, closeSearch} from "../Nav/actions"
 import {connect} from "react-redux"
 import Hashtag from "./Hashtag/Hashtag"
 import InfiniteScroll from "redux-infinite-scroll"
 import PropTypes from "prop-types"
-import QueryDisplay from "./QueryDisplay/QueryDisplay.js"
 import React from "react"
 import Tweet from "./Tweet/Tweet"
 
@@ -58,10 +57,7 @@ class TweetSidebar extends React.Component {
           <li
             className="pointer"
             key={hashtag}
-            onClick={() => {
-              this.props.filterHashtag(hashtag)
-              this.props.toggleTweetBar("tweet")()
-            }}
+            onClick={this.props.filterHashtag(hashtag)}
           >
             <Hashtag
               barLength={count / max}
@@ -121,8 +117,6 @@ class TweetSidebar extends React.Component {
           </div>
         </div>
 
-        <QueryDisplay />
-
         <InfiniteScroll
           children={this.renderMessages()}
           hasMore={(!isHashtag) && listTweets < tweetCount}
@@ -153,7 +147,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(closeNav)
     dispatch(closeSearch)
   },
-  filterHashtag: (hashtag) => { dispatch(addFilters(hashtag)) },
+  filterHashtag: (hashtag) => () => {
+    dispatch(addFilters(hashtag))
+    dispatch(setSidebarMode("tweet"))
+  },
   loadMore: () => { dispatch(loadMoreTweets()) },
   toggleTweetBar: (mode) => () => { dispatch(setSidebarMode(mode)) },
   showHighlight: (lon, lat, color) => () => { dispatch(showHighlight(lon, lat, color)) },

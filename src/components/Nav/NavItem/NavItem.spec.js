@@ -22,7 +22,7 @@ describe("<NavItem />", () => {
     const spy = chai.spy()
     const wrapper = shallow(
       <NavItem
-        clicked={spy}
+        clickListener={spy}
         description="hello"
         icon="location"
       />)

@@ -10,17 +10,13 @@ import React from "react"
 import SearchPopover from "./SearchPopover/SearchPopover"
 import {zoomOut} from "../MapBody/actions"
 
-const LeftNav = (props) => {
+const Nav = (props) => {
   const searchPopover = <SearchPopover />
-  const close = () => {
-    props.closeNav()
-    props.closeSearch()
-  }
 
   return (
     <div className={props.open ? "nav" : "nav closed"} >
       {/* Close Nav (only on mobile) */}
-      <a className="close" onClick={close}>
+      <a className="close" onClick={props.closeNav}>
         &times;
       </a>
 
@@ -69,9 +65,8 @@ const LeftNav = (props) => {
   )
 }
 
-LeftNav.propTypes = {
+Nav.propTypes = {
   closeNav: PropTypes.func.isRequired,
-  closeSearch: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   openShare: PropTypes.func.isRequired,
   search: PropTypes.bool.isRequired,
@@ -85,8 +80,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  closeNav: () => { dispatch(closeNav) },
-  closeSearch: () => { dispatch(closeSearch) },
+  closeNav: () => {
+    dispatch(closeNav)
+    dispatch(closeSearch)
+  },
   openShare: () => {
     dispatch(openShare)
     dispatch(closeNav)
@@ -97,4 +94,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftNav)
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

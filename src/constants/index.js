@@ -128,3 +128,5 @@ export const MONTH = [
   "Nov",
   "Dec"
 ]
+
+export const MAPBOX_TOKEN = "pk.eyJ1IjoibWFwZCIsImEiOiJjaWV1a3NqanYwajVsbmdtMDZzc2pneDVpIn0.cJnk8c2AxdNiRNZWtx5A9g"

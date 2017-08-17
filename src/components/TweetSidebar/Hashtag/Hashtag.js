@@ -8,7 +8,7 @@ const Hashtag = props =>
   <div className="tweetItem hashtag">
     <div className="title">
       <p className="bold">{props.title}</p>
-      <p className="greyText">{"· " + props.count}</p>
+      <p className="greyText">{`· ${props.count}`}</p>
     </div>
     <div className="bar" style={{width: getPercent(props.barLength)}} />
   </div>
