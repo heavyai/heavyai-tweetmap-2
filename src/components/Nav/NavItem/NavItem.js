@@ -5,9 +5,7 @@ import React from "react"
 
 class NavItem extends React.Component {
   static propTypes = {
-    body: PropTypes.node,
-    className: PropTypes.string,
-    clicked: PropTypes.func,
+    clickListener: PropTypes.func,
     description: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     url: PropTypes.string
@@ -35,13 +33,10 @@ class NavItem extends React.Component {
 
   render () {
     const handleClick = () => {
-      if (this.props.description === "Search Location") {
-        // eslint-disable-next-line react/no-set-state
-        this.setState({popover: true})
-      }
-
-      if (this.props.clicked) {
-        this.props.clicked()
+      // eslint-disable-next-line react/no-set-state
+      this.setState({popover: false})
+      if (this.props.clickListener) {
+        this.props.clickListener()
       }
     }
 
@@ -55,8 +50,7 @@ class NavItem extends React.Component {
         target="_blank"
       >
         <Popover
-          body={this.props.body || this.props.description}
-          className={this.props.className}
+          body={this.props.description}
           isOpen={this.state.popover}
           place="right"
         >

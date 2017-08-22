@@ -13,8 +13,8 @@ describe("<QueryDisplay />", () => {
   it("returns null when there are no queries", () => {
     const wrapper = shallow(
       <QueryDisplay
-        dispatch={noop}
         queryTerms={[]}
+        removeQuery={noop}
       />)
     expect(wrapper.equals(null)).to.be.true
   })
@@ -23,20 +23,20 @@ describe("<QueryDisplay />", () => {
     const queries = ["one", "two", "three"]
     const wrapper = render(
       <QueryDisplay
-        dispatch={noop}
         queryTerms={queries}
+        removeQuery={noop}
       />)
     expect(wrapper.find(".queryPill")).to.have.length(queries.length)
   })
 
   it("dispatches thunk on click", () => {
-    const dispatch = chai.spy()
+    const removeQuery = chai.spy()
     const wrapper = shallow(
       <QueryDisplay
-        dispatch={dispatch}
         queryTerms={["one"]}
+        removeQuery={removeQuery}
       />)
     wrapper.find(".queryPill").first().simulate("click")
-    expect(dispatch).to.have.been.called()
+    expect(removeQuery).to.have.been.called()
   })
 })

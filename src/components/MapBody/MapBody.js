@@ -1,6 +1,6 @@
 import "./styles.scss"
+import {closeNav, closeSearch} from "../Nav/actions"
 import BottomOverlay from "./BottomOverlay/BottomOverlay"
-import {closeNav} from "../Nav/actions"
 import {closeSidebar} from "../TweetSidebar/actions"
 import {connect} from "react-redux"
 import Legend from "../Legend/Legend"
@@ -9,40 +9,32 @@ import PropTypes from "prop-types"
 import React from "react"
 import TopOverlay from "../TopOverlay/TopOverlay"
 
-const MapBody = (props) => {
-  const closeAll = () => {
-    props.closeNav()
-    props.closeSidebar()
-  }
+const MapBody = (props) => (
+  <main className={props.sidebarOpen ? "shifted" : null} >
+    <TopOverlay />
 
-  return (
-    <main className={props.sidebarOpen ? "shifted" : null} >
-      <TopOverlay />
+    <map onClick={props.closeAll}>
+      <container>
+        <MapChart />
+        <BottomOverlay />
+        {props.highlight &&
+        <div
+          className="popupHighlight"
+          style={{
+            backgroundColor: props.highlight.color,
+            top: props.highlight.y,
+            left: props.highlight.x
+          }}
+        />}
+      </container>
+    </map>
 
-      <map onClick={closeAll}>
-        <container>
-          <MapChart />
-          <BottomOverlay />
-          {props.highlight &&
-            <div
-              className="popupHighlight"
-              style={{
-                backgroundColor: props.highlight.color,
-                top: props.highlight.y,
-                left: props.highlight.x
-              }}
-            />}
-        </container>
-      </map>
-
-      <Legend onClick={closeAll} />
-    </main>
-  )
-}
+    <Legend />
+  </main>
+)
 
 MapBody.propTypes = {
-  closeNav: PropTypes.func.isRequired,
-  closeSidebar: PropTypes.func.isRequired,
+  closeAll: PropTypes.func.isRequired,
   highlight: PropTypes.shape({
     color: PropTypes.string,
     x: PropTypes.string,
@@ -57,8 +49,11 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  closeNav: () => { dispatch(closeNav) },
-  closeSidebar: () => { dispatch(closeSidebar) }
+  closeAll: () => {
+    dispatch(closeNav)
+    dispatch(closeSearch)
+    dispatch(closeSidebar)
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBody)

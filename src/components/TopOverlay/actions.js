@@ -32,6 +32,8 @@ export function addFilters (queries) {
     queries = [queries]
   }
 
+  queries = queries.filter(q => q !== "")
+
   return (dispatch, getState) => {
     const {queryTerms} = getState().topOverlay
     const unique = [...new Set(queryTerms.concat(queries))]

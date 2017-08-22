@@ -29,7 +29,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: $line-chart-height;
+    height: $line-chart-height - 12px;
     background-color: $light-grey;
     opacity: 0.3;
     transition: 0.3s;
@@ -38,6 +38,7 @@
   .lineGroup {
     height: $line-chart-height;
     transition: 0.3s;
+    margin-top: -12px;
   }
 
   .closed {

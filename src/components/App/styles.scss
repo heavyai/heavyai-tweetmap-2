@@ -13,7 +13,7 @@ dash {
   height: 100%;
 
   main {
-    flex-grow: 9;
+    flex-grow: 8;
     height: 100%;
     transition: 0.5s;
   }
@@ -88,6 +88,7 @@ map {
     flex: 1;
     box-sizing: border-box;
     font-size: 1em;
+    background: transparent;
   }
 }
 
@@ -100,8 +101,10 @@ a, input, button, .pointer {
 }
 
 @media (min-device-width: $mobile-breakpoint) {
-  .tweetResults {
-    flex-grow: 1;
-    width: $sidebar-min-width;
+  dash {
+    .tweetResults {
+      flex-grow: 1;
+      width: $sidebar-width;
+    }
   }
 }

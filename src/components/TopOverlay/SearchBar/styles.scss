@@ -1,0 +1,71 @@
+@import "../../../variables";
+
+.searchBar {
+  width: 100%;
+  display: inline-block;
+  flex: 1;
+  flex-basis: 0;
+  margin-left: 25px; margin-right: 25px;
+  text-align: center;
+  overflow: hidden;
+
+  .textBar {
+    height: $search-height;
+    position: relative;
+  }
+
+  container {
+    height: $search-height;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .queryPill {
+    display: none;
+  }
+
+  .iconBox {
+    margin-left: 0.8em;
+    margin-right: 0.5em;
+    height: 100%;
+    display: table;
+
+    span {
+      display:table-cell;
+      vertical-align:middle;
+      color: grey;
+    }
+  }
+
+  input {
+    margin-right: $search-height/2;
+    margin-left: 0.6em !important;
+  }
+}
+
+@media (min-device-width: $mobile-breakpoint) {
+  .searchBar {
+    margin-top: 4vh;
+
+    container{
+      position: absolute;
+      top: 0;
+      left: 2.5em;
+      width: 80%;
+    }
+
+    .textBar {
+      max-width: $search-width;
+    }
+
+    .queryPill {
+      display: inline-block;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    input {
+      width: $search-width;
+    }
+  }
+}

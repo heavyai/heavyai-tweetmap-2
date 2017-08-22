@@ -1,4 +1,4 @@
-import {closeNav} from "../actions"
+import {closeNav, closeSearch} from "../actions"
 import {connect} from "react-redux"
 import {geocode} from "../../MapBody/actions"
 import PropTypes from "prop-types"
@@ -36,6 +36,7 @@ class SearchPopover extends React.Component {
     // eslint-disable-next-line react/no-set-state
     this.setState({value: ""})
     this.props.dispatch(closeNav)
+    this.props.dispatch(closeSearch)
   }
 
   render () {

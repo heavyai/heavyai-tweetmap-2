@@ -1,15 +1,16 @@
 import "./styles.scss"
 import "./popover.scss"
-import {closeNav, toggleSearch} from "./actions"
+import {closeNav, closeSearch, toggleSearch} from "./actions"
 import {connect} from "react-redux"
 import NavItem from "./NavItem/NavItem"
 import {openShare} from "../ShareModal/actions"
+import Popover from "react-popover"
 import PropTypes from "prop-types"
 import React from "react"
 import SearchPopover from "./SearchPopover/SearchPopover"
 import {zoomOut} from "../MapBody/actions"
 
-const LeftNav = (props) => {
+const Nav = (props) => {
   const searchPopover = <SearchPopover />
 
   return (
@@ -20,17 +21,22 @@ const LeftNav = (props) => {
       </a>
 
       {/* Search Location */}
-      <NavItem
-        body={props.search ? searchPopover : null}
-        className={props.search ? "searchPopover" : null}
-        clicked={props.toggleSearch}
-        description="Search Location"
-        icon="location"
-      />
+      <Popover
+        body={searchPopover}
+        className={"searchPopover"}
+        isOpen={props.search}
+        place="right"
+      >
+        <NavItem
+          clickListener={props.toggleSearch}
+          description="Search Location"
+          icon="location"
+        />
+      </Popover>
 
       {/* Share */}
       <NavItem
-        clicked={props.zoomOut}
+        clickListener={props.zoomOut}
         description="Zoom Out"
         icon="globe"
       />
@@ -51,7 +57,7 @@ const LeftNav = (props) => {
 
       {/* Share */}
       <NavItem
-        clicked={props.openShare}
+        clickListener={props.openShare}
         description="Share"
         icon="link"
       />
@@ -59,7 +65,7 @@ const LeftNav = (props) => {
   )
 }
 
-LeftNav.propTypes = {
+Nav.propTypes = {
   closeNav: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   openShare: PropTypes.func.isRequired,
@@ -74,7 +80,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  closeNav: () => { dispatch(closeNav) },
+  closeNav: () => {
+    dispatch(closeNav)
+    dispatch(closeSearch)
+  },
   openShare: () => {
     dispatch(openShare)
     dispatch(closeNav)
@@ -82,8 +91,7 @@ const mapDispatchToProps = (dispatch) => ({
   toggleSearch: () => { dispatch(toggleSearch) },
   zoomOut: () => {
     dispatch(zoomOut())
-    dispatch(closeNav)
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftNav)
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

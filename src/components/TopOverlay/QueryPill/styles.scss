@@ -1,0 +1,30 @@
+@import "../../../variables";
+
+.queryPill {
+  height: $pill-height;
+  width: auto;
+  background-color: $light-grey;
+  border-radius: $pill-height/2;
+  margin: 0.25rem;
+  padding-left: 0.6rem; padding-right: 0.6rem;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: $pill-height;
+  white-space: nowrap;
+
+  .delete {
+    font-size: 1em;
+    color: grey;
+  }
+}
+
+.queryPill:hover {
+  background-color: #1DA1F2;
+  color: white;
+
+  .delete {
+    font-size: 1em;
+    color: $light-grey;
+  }
+}

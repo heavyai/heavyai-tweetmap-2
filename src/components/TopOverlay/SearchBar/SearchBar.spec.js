@@ -8,7 +8,14 @@ chai.use(spies)
 describe("<SearchBar />", () => {
   it("should dispatch thunk and clear field on submit", () => {
     const dispatch = chai.spy()
-    const wrapper = mount(<SearchBar dispatch={dispatch} />)
+    const noop = () => {}
+    const wrapper = mount(
+      <SearchBar
+        dispatch={dispatch}
+        queryTerms={["one"]}
+        removeQuery={noop}
+      />
+    )
     wrapper.setState({value: "foo"})
 
     const form = wrapper.find("form")
@@ -20,7 +27,14 @@ describe("<SearchBar />", () => {
 
   it("should not call dispatch when field is empty", () => {
     const dispatch = chai.spy()
-    const wrapper = mount(<SearchBar dispatch={dispatch} />)
+    const noop = () => {}
+    const wrapper = mount(
+      <SearchBar
+        dispatch={dispatch}
+        queryTerms={["one"]}
+        removeQuery={noop}
+      />
+    )
 
     const form = wrapper.find("form")
     form.simulate("submit")

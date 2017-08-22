@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import {LANG_COLORS, LANG_DOMAIN, MONTH, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
+import {LANG_COLORS, LANG_DOMAIN, MAPBOX_TOKEN, MONTH, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
 
@@ -114,6 +114,7 @@ export function createMapChart () {
       .width(w)
       .mapUpdateInterval(750)
       .mapStyle("mapbox://styles/mapbox/dark-v9")
+      .mapboxToken(MAPBOX_TOKEN)
 
     function renderPopupHTML (data) {
       if (arguments.length === 0) { return true }
@@ -252,7 +253,7 @@ export function zoomToUserLocation () {
 }
 
 export function changeDimension (dim) {
-  return (dispatch, getState, {getCf}) => {
+  return (dispatch, getState, {dc, getCf}) => {
     const isLang = getState().legend.mode === "lang"
     const domain = isLang ? LANG_DOMAIN : SOURCE_DOMAIN
     const range = isLang ? LANG_COLORS : SOURCE_COLORS
@@ -283,7 +284,7 @@ export function createLineChart () {
     function getChartSize () {
       /* set width to match parent */
       const w = parent.parentElement.clientWidth
-      const h = 120
+      const h = 100
       return [w, h]
     }
 
@@ -338,26 +339,49 @@ export function createLineChart () {
 
         lineChart.on("postRender", () => {
           // append slider label elements
-          dc.d3.select(".resize.w").append("rect").attr("class", "labelRect")
-          dc.d3.select(".resize.e").append("rect").attr("class", "labelRect")
-          dc.d3.select(".resize.w").append("text").attr("class", "labelDate")
-          dc.d3.select(".resize.e").append("text").attr("class", "labelDate")
+          dc.d3.select(".resize.w").append("rect")
+            .attr("class", "labelRect")
+            .attr("x", -40)
+            .attr("y", -14)
+            .attr("rx", 8)
+            .attr("ry", 8)
+            .attr("width", 80)
+            .attr("height", 16)
+          dc.d3.select(".resize.e").append("rect")
+            .attr("class", "labelRect")
+            .attr("x", -40)
+            .attr("y", -14)
+            .attr("rx", 8)
+            .attr("ry", 8)
+            .attr("width", 80)
+            .attr("height", 16)
+          dc.d3.select(".resize.w").append("text")
+            .attr("class", "labelDate")
+          dc.d3.select(".resize.e").append("text")
+            .attr("class", "labelDate")
         })
 
         lineChart.on("filtered", (_, filter) => {
           if (typeof filter !== "object") { return }
           dispatch(filterTime(filter))
 
-          const dates = filter.map(dc.d3.time.format("%m/%e/%Y"))
+          const dates = filter.map(dc.d3.time.format("%m/%d/%y"))
           dc.d3.select(".resize.w text").text(dates[0])
           dc.d3.select(".resize.e text").text(dates[1])
 
           const rotate = dc.d3.select(".extent").attr("width") < 80 ?
-            "rotate(90deg) translate(45px, 4px)" :
+            "rotate(90deg) translate(40px, 4px)" :
             "rotate(0) translate(0, 0)"
 
           dc.d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
         })
+
+        const setBrushY = lineChart.setBrushY
+        lineChart.setBrushY = (...args) => {
+          const ret = setBrushY.apply(lineChart, args)
+          dc.d3.selectAll(".labelRect").attr("height", 16)
+          return ret
+        }
 
         return Promise.resolve([lineChart, getChartSize])
       })
