@@ -1,3 +1,5 @@
+import {setHeatAggType} from "../MapBody/actions"
+
 export const QUERIES_UPDATE = "QUERIES_UPDATE"
 
 export function updateQueryTerms (queries) {
@@ -46,6 +48,9 @@ export function removeFilter (query) {
     const {queryTerms} = getState().topOverlay
     const queries = queryTerms.filter(queryTerm => queryTerm !== query)
     dispatch(filterSearch(queries))
+    if (getState().mapBody.chartType === "heat") {
+      dispatch(setHeatAggType())
+    }
   }
 }
 

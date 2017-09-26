@@ -16,7 +16,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve("dist"),
+    path: path.resolve(__dirname, "dist"),
     filename: "index_bundle.js"
   },
   module: {
@@ -27,8 +27,12 @@ module.exports = {
         include: [
           path.resolve(__dirname, "src"),
           path.resolve(__dirname, "node_modules/@mapd/mapdc"),
-          path.resolve(__dirname, "node_modules/@mapd/connector"),
           path.resolve(__dirname, "node_modules/@mapd/crossfilter")
+        ],
+        exclude: [
+          path.resolve(__dirname, "node_modules/@mapd/crossfilter/node_modules"),
+          path.resolve(__dirname, "node_modules/@mapd/mapdc/node_modules"),
+          /(node_modules\/[^(@mapd)]+)/
         ]
       },
       {

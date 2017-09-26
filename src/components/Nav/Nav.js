@@ -8,7 +8,7 @@ import Popover from "react-popover"
 import PropTypes from "prop-types"
 import React from "react"
 import SearchPopover from "./SearchPopover/SearchPopover"
-import {zoomOut} from "../MapBody/actions"
+import {zoomOut, toggleMapChartType} from "../MapBody/actions"
 
 const Nav = (props) => {
   const searchPopover = <SearchPopover />
@@ -20,6 +20,11 @@ const Nav = (props) => {
         &times;
       </a>
 
+      <NavItem
+        clickListener={props.toggleMapChartType}
+        description={props.mapType === "points" ? "Heatmap" : "Pointmap"}
+        icon="globe"
+      />
       {/* Search Location */}
       <Popover
         body={searchPopover}
@@ -76,7 +81,8 @@ Nav.propTypes = {
 
 const mapStateToProps = (state) => ({
   open: state.nav.navOpen,
-  search: state.nav.locSearchOpen
+  search: state.nav.locSearchOpen,
+  mapType: state.mapBody.chartType
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -91,6 +97,9 @@ const mapDispatchToProps = (dispatch) => ({
   toggleSearch: () => { dispatch(toggleSearch) },
   zoomOut: () => {
     dispatch(zoomOut())
+  },
+  toggleMapChartType: () => {
+    dispatch(toggleMapChartType())
   }
 })
 

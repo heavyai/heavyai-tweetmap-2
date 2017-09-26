@@ -2,9 +2,9 @@ require("@mapd/connector/dist/browser-connector")
 const Connector = window.MapdCon
 
 const connection = new Connector()
-  .protocol("https")
+  .protocol("http")
   .host("metis.mapd.com")
-  .port("443")
+  .port("9092")
   .dbName("mapd")
   .user("mapd")
   .password("HyperInteractive")

@@ -72,6 +72,18 @@ export const COLORS = [
   "#7c4dff"
 ]
 
+export const QUANT_COLORS = [
+  '#115f9a',
+  '#1984c5',
+  '#22a7f0',
+  '#48b5c4',
+  '#76c68f',
+  '#a6d75b',
+  '#c9e52f',
+  '#d0ee11',
+  '#d0f400'
+]
+
 export const LANG_COLORS = LANG_DOMAIN.map((lang, i) => COLORS[i % COLORS.length])
 export const LANG_COLOR_MAP = LANG_DOMAIN.reduce((acc, lang, i) => ({
   ...acc,
