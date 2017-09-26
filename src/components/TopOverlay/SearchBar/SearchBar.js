@@ -1,5 +1,6 @@
 import "./styles.scss"
 import {addFilters, removeFilter} from "../actions"
+import {setHeatAggType} from "../../MapBody/actions"
 import {connect} from "react-redux"
 import Octicon from "react-octicon"
 import PropTypes from "prop-types"
@@ -53,6 +54,9 @@ export class SearchBar extends React.Component {
 
     const queries = this.state.value.toLowerCase().split(/\s+/)
     this.props.dispatch(addFilters(queries))
+    if (this.props.mapChartType === "heat") {
+      this.props.dispatch(setHeatAggType())
+    }
     // eslint-disable-next-line react/no-set-state
     this.setState({value: ""})
   }
@@ -91,7 +95,10 @@ export class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({queryTerms: state.topOverlay.queryTerms})
+const mapStateToProps = state => ({
+  queryTerms: state.topOverlay.queryTerms,
+  mapChartType: state.mapBody.chartType
+})
 const mapDispatchToProps = dispatch => ({
   removeQuery: (query) => () => dispatch(removeFilter(query)),
   dispatch

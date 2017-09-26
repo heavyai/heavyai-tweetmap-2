@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import {LANG_COLORS, LANG_DOMAIN, MAPBOX_TOKEN, MONTH, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
+import {LANG_COLORS, LANG_DOMAIN, MAPBOX_TOKEN, MONTH, QUANT_COLORS, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
 
@@ -15,6 +15,11 @@ export const CLOSE_LINECHART = "CLOSE_LINECHART"
 export const USER_LOCATION_REQUEST = "USER_LOCATION_REQUEST"
 export const USER_LOCATION_SUCCESS = "USER_LOCATION_SUCCESS"
 export const USER_LOCATION_FAILURE = "USER_LOCATION_FAILURE"
+
+export const SET_MAP_TYPE = "SET_MAP_TYPE"
+
+const POINT_LAYER = "points"
+const HEAT_LAYER = "heat"
 
 export function moveMap (zoom, center) {
   return {
@@ -51,9 +56,17 @@ export function userLocationFailure (error) {
   }
 }
 
+export function setMapType (chartType) {
+  return {
+    type: SET_MAP_TYPE,
+    chartType
+  }
+}
+
 let geocoder = null
-let pointMapChart = null
+let rasterMapChart = null
 let pointLayer = null
+let heatLayer = null
 let lineChart = null
 
 const degrees2meters = (lon, lat) => {
@@ -79,6 +92,42 @@ const initGeocoder = () => new Promise((resolve, reject) => {
   )
 })
 
+function getChartSize (node) {
+  /* set width, height to match parent */
+  const w = node.parentElement.clientWidth
+  const h = node.parentElement.clientHeight
+  return [w, h]
+}
+
+const colorDomainSetter = domain => state => ({
+  ...state,
+  encoding: {
+    ...state.encoding,
+    color: {
+      ...state.encoding.color,
+      scale: {
+        ...state.encoding.color.scale,
+        domain
+      }
+    }
+  }
+})
+
+function polyfillColorsGetter () {
+  let colorScale = null
+  this.colors = scale => {
+    if (scale) {
+      colorScale = scale
+      return this
+    } else {
+      return colorScale
+    }
+  }
+
+  this.colorAccessor = () => a => a
+  return this
+}
+
 /*
   BACKEND RENDERED POINT MAP
 */
@@ -88,14 +137,8 @@ export function createMapChart () {
     const connection = getConnection()
 
     const parent = document.getElementById("mapChart")
-    function getChartSize () {
-      /* set width, height to match parent */
-      const w = parent.parentElement.clientWidth
-      const h = parent.parentElement.clientHeight
-      return [w, h]
-    }
 
-    const [w, h] = getChartSize()
+    const [w, h] = getChartSize(parent)
 
     const pointMapDim = crossfilter
       .dimension(null)
@@ -107,7 +150,7 @@ export function createMapChart () {
     const xDim = crossfilter.dimension("lon")
     const yDim = crossfilter.dimension("lat")
 
-    pointMapChart = dc
+    rasterMapChart = dc
       .rasterChart(parent, true)
       .con(connection)
       .height(h)
@@ -145,46 +188,154 @@ export function createMapChart () {
       .popupColumns(["tweet_text", "sender_name", "tweet_time"])
 
     pointLayer.popupFunction = renderPopupHTML
-
-    return pointMapChart
+    polyfillColorsGetter.apply(rasterMapChart)
+    return rasterMapChart
       .pushLayer("points", pointLayer)
       .attribLocation("bottom-left")
       .init()
       .then(() => {
         /* display pop up on mouse hover */
         const displayPopupWithData = event => {
-          pointMapChart.getClosestResult(
+          rasterMapChart.getClosestResult(
             event.point,
-            pointMapChart.displayPopup
+            rasterMapChart.displayPopup
           )
         }
         const debouncedPopup = debounce(displayPopupWithData, 250)
-        const map = pointMapChart.map()
+        const map = rasterMapChart.map()
 
-        map.on("mousewheel", pointMapChart.hidePopup)
-        map.on("mousemove", pointMapChart.hidePopup)
+        map.on("mousewheel", rasterMapChart.hidePopup)
+        map.on("mousemove", rasterMapChart.hidePopup)
         map.on("mousemove", debouncedPopup)
 
         /* update state at the end of each move, recording where we are */
         map.on("moveend", () => {
           dispatch(moveMap(map.getZoom(), map.getCenter()))
+          console.log(rasterMapChart.colors() && rasterMapChart.colors().domain())
         })
 
         /* set up Google geocoder */
         return initGeocoder()
       })
-      .then(() => [pointMapChart, getChartSize])
+      .then(() => [rasterMapChart, getChartSize])
+  }
+}
+
+
+export function setViewHeatMap () {
+  return () => {}
+}
+
+export function setHeatAggType () {
+  return (dispatch, getState) => {
+    const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
+    const heatLayerSql = heatLayer.genSQL
+    if (getState().topOverlay.queryTerms.length) {
+      heatLayer.genSQL = ({filter, ...args}) => heatLayerSql({...args, filter: filter.replace(/AND \('.*' = ANY tweet_tokens.*\)/, "")})
+      const terms = getState().topOverlay.queryTerms.map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`).join(" AND ")
+      heatLayer.setState(state => ({
+        ...state,
+        encoding: {
+          ...state.encoding,
+          color: {
+            ...state.encoding.color,
+            aggregate: `AVG(CASE WHEN (${terms}) THEN 1 ELSE 0 END)`
+          }
+        }
+      }))
+    } else {
+      heatLayer.genSQL = heatLayerSql
+      heatLayer.setState(state => ({
+        ...state,
+        encoding: {
+          ...state.encoding,
+          color: {
+            ...state.encoding.color,
+            aggregate: "count(*)"
+          }
+        }
+      }))
+    }
+
+    rasterMapChart.renderAsync()
+  }
+}
+
+
+export function toggleMapChartType () {
+  return (dispatch, getState) => {
+    if (getState().mapBody.chartType === "points") {
+      dispatch(launchHeatmp())
+    } else {
+      dispatch(setMapType("points"))
+      rasterMapChart.hidePopup()
+      rasterMapChart.popLayer(HEAT_LAYER)
+      rasterMapChart.pushLayer(POINT_LAYER, pointLayer)
+      rasterMapChart.renderAsync()
+    }
+  }
+}
+
+
+
+export function launchHeatmp () {
+  return (dispatch, getState, {dc, getCf, getConnection}) => {
+
+    dispatch(setMapType("heat"))
+    rasterMapChart.hidePopup()
+    const [width, height] = getChartSize(document.getElementById("mapChart"))
+
+    const layer = dc.rasterLayer("heat")
+    layer.crossfilter(getCf())
+    layer.xDim(pointLayer.xDim())
+    layer.yDim(pointLayer.yDim())
+    layer.setState({
+      mark: "hex",
+      encoding: {
+        x: {
+          type: "quantitative",
+          field: "lon",
+          size: width
+        },
+        y: {
+          type: "quantitative",
+          field: "lat",
+          size: height
+        },
+        color: {
+          type: "quantize",
+          aggregate: "count(*)",
+          scale: {
+            domain: "auto",
+            range: QUANT_COLORS,
+            default: "#0d0887",
+            nullValue: "#0d0887"
+          }
+        },
+        size: {
+          type: "manual",
+          value: 14
+        }
+      }
+    })
+
+    rasterMapChart.colors(d3.scale.linear().range(QUANT_COLORS))
+
+    const poppedLayer = rasterMapChart.popLayer(POINT_LAYER)
+    rasterMapChart.pushLayer(HEAT_LAYER, layer)
+    heatLayer = layer
+    rasterMapChart.renderAsync().then(() => dispatch(setViewHeatMap()))
   }
 }
 
 export function showHighlight (lat, lon, color) {
   const googCoords = degrees2meters(lat, lon)
 
-  pointMapChart.x().range([0, pointMapChart.width() - 1])
-  pointMapChart.y().range([0, pointMapChart.height() - 1])
+  rasterMapChart.x().range([0, rasterMapChart.width() - 1])
+  rasterMapChart.y().range([0, rasterMapChart.height() - 1])
 
-  const x = pointMapChart.x()(googCoords.x) - 14
-  const y = pointMapChart.height() - pointMapChart.y()(googCoords.y) - 14
+  const x = rasterMapChart.x()(googCoords.x) - 14
+  const y = rasterMapChart.height() - rasterMapChart.y()(googCoords.y) - 14
 
   return {
     type: SHOW_HIGHLIGHT,
@@ -206,7 +357,7 @@ export function geocode (placeName) {
       const sw = viewport.getSouthWest()
       const ne = viewport.getNorthEast()
 
-      pointMapChart.map().fitBounds([
+      rasterMapChart.map().fitBounds([
         // api specifies lng/lat pairs
         [sw.lng(), sw.lat()],
         [ne.lng(), ne.lat()]
@@ -217,7 +368,7 @@ export function geocode (placeName) {
 
 export function zoomOut () {
   return () => {
-    pointMapChart.map().flyTo({center: [0, 0], zoom: 1}, 1)
+    rasterMapChart.map().flyTo({center: [0, 0], zoom: 1}, 1)
   }
 }
 
@@ -227,7 +378,7 @@ export function zoomTo (position, zoom) {
   }
 
   return () => {
-    pointMapChart.map().flyTo({
+    rasterMapChart.map().flyTo({
       center: position,
       zoom,
       speed: 2

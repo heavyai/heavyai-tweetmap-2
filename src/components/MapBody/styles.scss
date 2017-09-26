@@ -40,3 +40,7 @@ div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
     bottom: 4px + $line-chart-height;
   }
 }
+
+.mapboxgl-canvas {
+  cursor: default;
+}
