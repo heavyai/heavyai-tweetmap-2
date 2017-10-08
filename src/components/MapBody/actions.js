@@ -2,6 +2,7 @@
 import {LANG_COLORS, LANG_DOMAIN, MAPBOX_TOKEN, MONTH, QUANT_COLORS, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
+import {updateLegendCounts} from "../Legend/actions"
 
 export const MOVE_MAP = "MOVE_MAP"
 export const SHOW_HIGHLIGHT = "SHOW_HIGHLIGHT"
@@ -17,6 +18,7 @@ export const USER_LOCATION_SUCCESS = "USER_LOCATION_SUCCESS"
 export const USER_LOCATION_FAILURE = "USER_LOCATION_FAILURE"
 
 export const SET_MAP_TYPE = "SET_MAP_TYPE"
+export const SET_HEAT_AGG_MODE = "SET_HEAT_AGG_MODE"
 
 const POINT_LAYER = "points"
 const HEAT_LAYER = "heat"
@@ -68,6 +70,9 @@ let rasterMapChart = null
 let pointLayer = null
 let heatLayer = null
 let lineChart = null
+let heatLayerSql = null
+
+const heatLayerSqlIgnoreFilter = ({filter, ...args}) => heatLayerSql({...args, filter: filter.replace(/AND \('.*' = ANY tweet_tokens.*\)/, "")})
 
 const degrees2meters = (lon, lat) => {
   const x = Math.floor(lon * 20037508.34 / 180)
@@ -195,7 +200,10 @@ export function createMapChart () {
       .init()
       .then(() => {
         /* display pop up on mouse hover */
+        let dragging = false
+
         const displayPopupWithData = event => {
+          if (dragging) { return }
           rasterMapChart.getClosestResult(
             event.point,
             rasterMapChart.displayPopup
@@ -204,14 +212,15 @@ export function createMapChart () {
         const debouncedPopup = debounce(displayPopupWithData, 250)
         const map = rasterMapChart.map()
 
-        map.on("mousewheel", rasterMapChart.hidePopup)
-        map.on("mousemove", rasterMapChart.hidePopup)
         map.on("mousemove", debouncedPopup)
+        map.on("mousemove", rasterMapChart.hidePopup)
+        map.on("mousedown", () => dragging = true)
+        map.on("mouseup", () => dragging = false)
+        map.on("movestart", e => e && e.originalEvent && e.originalEvent.type === "wheel" && rasterMapChart.hidePopup())
 
         /* update state at the end of each move, recording where we are */
-        map.on("moveend", () => {
+        map.on("moveend", (e) => {
           dispatch(moveMap(map.getZoom(), map.getCenter()))
-          console.log(rasterMapChart.colors() && rasterMapChart.colors().domain())
         })
 
         /* set up Google geocoder */
@@ -221,17 +230,27 @@ export function createMapChart () {
   }
 }
 
-
 export function setViewHeatMap () {
   return () => {}
 }
 
-export function setHeatAggType () {
+function updateHeatMapLegend () {
   return (dispatch, getState) => {
+    if (getState().mapBody.chartType === "heat") {
+      const legendUpdate = rasterMapChart.legendablesContinuous().map(l => ({item: l.value, color: l.color, count: l.value}))
+      dispatch(updateLegendCounts(legendUpdate))
+    }
+  }
+}
+
+
+export function setHeatAggType () {
+  return (dispatch, getState, {dc}) => {
     const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
-    const heatLayerSql = heatLayer.genSQL
-    if (getState().topOverlay.queryTerms.length) {
-      heatLayer.genSQL = ({filter, ...args}) => heatLayerSql({...args, filter: filter.replace(/AND \('.*' = ANY tweet_tokens.*\)/, "")})
+    if (getState().mapBody.aggMode === "#" && getState().topOverlay.queryTerms.length) {
+      dispatch({type: SET_HEAT_AGG_MODE, aggMode: "%"})
+      rasterMapChart.isTargeting(true)
+      heatLayer.genSQL = heatLayerSqlIgnoreFilter
       const terms = getState().topOverlay.queryTerms.map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`).join(" AND ")
       heatLayer.setState(state => ({
         ...state,
@@ -244,6 +263,8 @@ export function setHeatAggType () {
         }
       }))
     } else {
+      dispatch({type: SET_HEAT_AGG_MODE, aggMode: "#"})
+      rasterMapChart.isTargeting(false)
       heatLayer.genSQL = heatLayerSql
       heatLayer.setState(state => ({
         ...state,
@@ -256,26 +277,43 @@ export function setHeatAggType () {
         }
       }))
     }
+    dc.redrawAllAsync()
+  }
+}
 
-    rasterMapChart.renderAsync()
+export function toggleHeatAggMode (aggMode) {
+  return (dispatch) => {
+    dispatch({type: SET_HEAT_AGG_MODE, aggMode: "#"})
+    rasterMapChart.isTargeting(false)
+    heatLayer.setState(state => ({
+      ...state,
+      encoding: {
+        ...state.encoding,
+        color: {
+          ...state.encoding.color,
+          aggregate: "count(*)"
+        }
+      }
+    }))
   }
 }
 
 
 export function toggleMapChartType () {
-  return (dispatch, getState) => {
+  return (dispatch, getState, {dc}) => {
     if (getState().mapBody.chartType === "points") {
+      dispatch(updateLegendCounts([]))
       dispatch(launchHeatmp())
     } else {
+      dispatch(updateLegendCounts([]))
       dispatch(setMapType("points"))
       rasterMapChart.hidePopup()
       rasterMapChart.popLayer(HEAT_LAYER)
       rasterMapChart.pushLayer(POINT_LAYER, pointLayer)
-      rasterMapChart.renderAsync()
+      dc.redrawAllAsync()
     }
   }
 }
-
 
 
 export function launchHeatmp () {
@@ -320,11 +358,19 @@ export function launchHeatmp () {
     })
 
     rasterMapChart.colors(d3.scale.linear().range(QUANT_COLORS))
-
+    rasterMapChart.colorByExpr("count(*)")
     const poppedLayer = rasterMapChart.popLayer(POINT_LAYER)
     rasterMapChart.pushLayer(HEAT_LAYER, layer)
     heatLayer = layer
-    rasterMapChart.renderAsync().then(() => dispatch(setViewHeatMap()))
+    rasterMapChart.renderAsync().then(() => {
+      dispatch(updateHeatMapLegend())
+      dispatch(setViewHeatMap())
+      rasterMapChart.on("postRedraw", () => {
+        dispatch(updateHeatMapLegend())
+      })
+    })
+    heatLayerSql = layer.genSQL
+    const legendFunc = rasterMapChart.legendablesContinuous
   }
 }
 

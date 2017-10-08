@@ -18,6 +18,10 @@ div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   border: 3px solid white;
 }
 
+.map-point-gfx {
+  pointer-events: none !important;
+}
+
 .labelRect {
   fill: #22A7F0;
 }
