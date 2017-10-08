@@ -2,7 +2,7 @@
 import {LANG_COLORS, LANG_DOMAIN, MAPBOX_TOKEN, MONTH, QUANT_COLORS, SOURCE_COLORS, SOURCE_DOMAIN} from "../../constants"
 import {debounce} from "lodash"
 import fetchJs from "fetch-js"
-import {updateLegendCounts} from "../Legend/actions"
+import {updateLegendCounts, clearLegendFilter} from "../Legend/actions"
 
 export const MOVE_MAP = "MOVE_MAP"
 export const SHOW_HIGHLIGHT = "SHOW_HIGHLIGHT"
@@ -62,6 +62,13 @@ export function setMapType (chartType) {
   return {
     type: SET_MAP_TYPE,
     chartType
+  }
+}
+
+export function setHeatAggMode (aggMode) {
+  return {
+    type: SET_HEAT_AGG_MODE,
+    aggMode
   }
 }
 
@@ -244,14 +251,14 @@ function updateHeatMapLegend () {
 }
 
 
-export function setHeatAggType () {
+export function toggleHeatAggMode () {
   return (dispatch, getState, {dc}) => {
     const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
     if (getState().mapBody.aggMode === "#" && getState().topOverlay.queryTerms.length) {
-      dispatch({type: SET_HEAT_AGG_MODE, aggMode: "%"})
+      dispatch(setHeatAggMode("%"))
       rasterMapChart.isTargeting(true)
       heatLayer.genSQL = heatLayerSqlIgnoreFilter
-      const terms = getState().topOverlay.queryTerms.map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`).join(" AND ")
+      const terms = getState().topOverlay.queryTerms.map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`).join(" AND ") // escape '
       heatLayer.setState(state => ({
         ...state,
         encoding: {
@@ -263,7 +270,7 @@ export function setHeatAggType () {
         }
       }))
     } else {
-      dispatch({type: SET_HEAT_AGG_MODE, aggMode: "#"})
+      dispatch(setHeatAggMode("#"))
       rasterMapChart.isTargeting(false)
       heatLayer.genSQL = heatLayerSql
       heatLayer.setState(state => ({
@@ -281,28 +288,11 @@ export function setHeatAggType () {
   }
 }
 
-export function toggleHeatAggMode (aggMode) {
-  return (dispatch) => {
-    dispatch({type: SET_HEAT_AGG_MODE, aggMode: "#"})
-    rasterMapChart.isTargeting(false)
-    heatLayer.setState(state => ({
-      ...state,
-      encoding: {
-        ...state.encoding,
-        color: {
-          ...state.encoding.color,
-          aggregate: "count(*)"
-        }
-      }
-    }))
-  }
-}
-
-
 export function toggleMapChartType () {
   return (dispatch, getState, {dc}) => {
     if (getState().mapBody.chartType === "points") {
       dispatch(updateLegendCounts([]))
+      dispatch(clearLegendFilter())
       dispatch(launchHeatmp())
     } else {
       dispatch(updateLegendCounts([]))

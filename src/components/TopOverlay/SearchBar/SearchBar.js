@@ -1,6 +1,5 @@
 import "./styles.scss"
 import {addFilters, removeFilter} from "../actions"
-import {setHeatAggType} from "../../MapBody/actions"
 import {connect} from "react-redux"
 import Octicon from "react-octicon"
 import PropTypes from "prop-types"

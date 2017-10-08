@@ -99,6 +99,13 @@ export function selectFilter (item) {
   }
 }
 
+export function clearLegendFilter () {
+  return dispatch => {
+    dimension.filterAll()
+    dispatch(updateSelected([]))
+  }
+}
+
 // setup in case tweetmap is setup with shared filters
 export function initFilters (item) {
   return dispatch => {
