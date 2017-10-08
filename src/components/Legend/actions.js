@@ -52,8 +52,12 @@ export function createLegendChart () {
     dummyChart._doRender = dummyChart._doRedraw = () => {}
 
     dummyChart.setDataAsync((_group, callback) => {
-      const numColors = COLORS.length
+      if (getState().mapBody.chartType === "heat") {
+        callback()
+        return
+      }
 
+      const numColors = COLORS.length
       group.reduceCount("*").topAsync(numColors).then(
         results => {
           // rename keys

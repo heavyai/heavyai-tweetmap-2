@@ -54,9 +54,6 @@ export class SearchBar extends React.Component {
 
     const queries = this.state.value.toLowerCase().split(/\s+/)
     this.props.dispatch(addFilters(queries))
-    if (this.props.mapChartType === "heat") {
-      this.props.dispatch(setHeatAggType())
-    }
     // eslint-disable-next-line react/no-set-state
     this.setState({value: ""})
   }

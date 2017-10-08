@@ -1,44 +1,44 @@
 import "./styles.scss"
 import {changeDimension as changeLegendDim, selectFilter, updateMode} from "./actions"
 import {closeNav, closeSearch} from "../Nav/actions"
-import {LANG_COLOR_MAP, langCodes, SOURCE_COLOR_MAP, QUANT_COLOR_MAP} from "../../constants"
-import {changeDimension as changeMapDim} from "../MapBody/actions"
+import {LANG_COLOR_MAP, langCodes, QUANT_COLOR_MAP, SOURCE_COLOR_MAP} from "../../constants"
+import {changeDimension as changeMapDim, setHeatAggType} from "../MapBody/actions"
 import {closeSidebar} from "../TweetSidebar/actions"
 import {connect} from "react-redux"
 import LegendItem from "./LegendItem/LegendItem"
 import PropTypes from "prop-types"
 import React from "react"
 
-const LegendQuant = ({legend, ...props}) => {
-  const colorMap = QUANT_COLOR_MAP
-
-  // const titleize = legend.mode === "lang" ?
-  //   lang => langCodes[lang].name :
-  //   source => (source === "ios" ? "iOS" : capitalize(source))
-
-  const items = legend.legendCounts.map(({item, count}) =>
+const LegendContinuous = ({legend, ...props}) => {
+  const items = legend.legendCounts.map(({item, count, color}) =>
     <li
-      className="pointer"
+      className=""
       key={item}
     >
       <LegendItem
-        active={true}
-        color={QUANT_COLOR_MAP[item]}
-        sub={String(count)}
+        active
+        color={color}
+        sub={""}
         title={item}
       />
     </li>
   )
 
+  const invAgg = props.aggMode === "#" ? "%" : "#"
+
   return (
-    <div className="legend" onClick={props.closeAll}>
+    <div className="legend-continuous" onClick={props.closeAll}>
       <ul>
         {/* legend title label */}
         <li className="title">
-          <select onChange={props.modeUpdate} value={legend.mode}>
-            <option value="origin">Source</option>
-            <option value="lang">Language</option>
-          </select>
+          {props.isSelectable ?
+            <select onChange={props.aggUpdate} value={`${props.aggMode} Tweets`}>
+              <option value={"% Tweets"}>{"% Tweets"}</option>
+              <option value={"# Tweets"}>{"# Tweets"}</option>
+            </select>
+            :
+            <div className="agg-select"> {`# Tweets`} </div>
+          }
         </li>
 
         {items}
@@ -49,7 +49,7 @@ const LegendQuant = ({legend, ...props}) => {
   )
 }
 
-const Legend = ({legend, ...props}) => {
+const LegendOrdinal = ({legend, ...props}) => {
   const noneSelected = legend.selected.length === 0
   const colorMap = legend.mode === "lang" ?
     LANG_COLOR_MAP :
@@ -61,7 +61,7 @@ const Legend = ({legend, ...props}) => {
     lang => langCodes[lang].name :
     source => (source === "ios" ? "iOS" : capitalize(source))
 
-  const items = legend.legendCounts.map(({item, count}) =>
+  const items = legend.legendCounts.map(({item, count, color}) =>
     <li
       className="pointer"
       key={item}
@@ -95,14 +95,14 @@ const Legend = ({legend, ...props}) => {
   )
 }
 
-const MultiLegend = (props) => (props.mapType === "points" ? <Legend {...props} /> : <div/>)
+const MultiLegend = (props) => (props.mapType === "points" ? <LegendOrdinal {...props} /> : <LegendContinuous {...props} />)
 
 const legendCountType = PropTypes.shape({
   item: PropTypes.string,
   count: PropTypes.number
 })
 
-Legend.propTypes = {
+LegendOrdinal.propTypes = {
   closeAll: PropTypes.func.isRequired,
   legendCounts: PropTypes.arrayOf(legendCountType).isRequired,
   mode: PropTypes.string.isRequired,
@@ -113,7 +113,9 @@ Legend.propTypes = {
 
 const mapStateToProps = state => ({
   legend: state.legend,
-  mapType: state.mapBody.chartType
+  mapType: state.mapBody.chartType,
+  aggMode: state.mapBody.aggMode,
+  isSelectable: state.topOverlay.queryTerms.length
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -127,6 +129,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateMode(value))
     dispatch(changeLegendDim(value))
     dispatch(changeMapDim(value))
+  },
+  aggUpdate: event => {
+    dispatch(setHeatAggType())
   },
   selectFilter: item => () => dispatch(selectFilter(item))
 })

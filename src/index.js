@@ -4,7 +4,7 @@ import {applyMiddleware, createStore} from "redux"
 import {connect, getConnection} from "./services/connector"
 import {createCf, getCf} from "./services/crossfilter"
 import App from "./components/App/App"
-import { createLogger } from 'redux-logger'
+import {createLogger} from "redux-logger"
 import {Provider} from "react-redux"
 import React from "react"
 import ReactDOM from "react-dom"

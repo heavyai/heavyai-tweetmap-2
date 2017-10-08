@@ -8,7 +8,7 @@ import Popover from "react-popover"
 import PropTypes from "prop-types"
 import React from "react"
 import SearchPopover from "./SearchPopover/SearchPopover"
-import {zoomOut, toggleMapChartType} from "../MapBody/actions"
+import {toggleMapChartType, zoomOut} from "../MapBody/actions"
 
 const Nav = (props) => {
   const searchPopover = <SearchPopover />

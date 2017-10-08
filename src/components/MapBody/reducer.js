@@ -3,13 +3,14 @@ import {
   FILTER_TIME,
   HIDE_HIGHLIGHT,
   MOVE_MAP,
+  SET_HEAT_AGG_MODE,
   SET_MAP_TYPE,
   SHOW_HIGHLIGHT,
   TOGGLE_LINECHART,
   TWEET_COUNT_UPDATE,
   USER_LOCATION_FAILURE,
   USER_LOCATION_REQUEST,
-  USER_LOCATION_SUCCESS,
+  USER_LOCATION_SUCCESS
 } from "./actions"
 
 export const initialState = {
@@ -20,7 +21,8 @@ export const initialState = {
   lineChartOpen: true,
   geoLoading: false,
   highlight: null,
-  chartType: "points"
+  chartType: "points",
+  aggMode: "#"
 }
 
 export default function reducer (state = initialState, action) {
@@ -47,6 +49,8 @@ export default function reducer (state = initialState, action) {
       return {...state, highlight: null}
     case SET_MAP_TYPE:
       return {...state, chartType: action.chartType}
+    case SET_HEAT_AGG_MODE:
+      return {...state, aggMode: action.aggMode}
     default:
       return state
   }

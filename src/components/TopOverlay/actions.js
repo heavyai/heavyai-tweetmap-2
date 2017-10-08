@@ -24,7 +24,7 @@ function filterSearch (queries) {
     }
 
     // You must call redrawAll after applying custom filters.
-    dc.redrawAllAsync()
+
     dispatch(updateQueryTerms(queries))
   }
 }
@@ -36,20 +36,27 @@ export function addFilters (queries) {
 
   queries = queries.filter(q => q !== "")
 
-  return (dispatch, getState) => {
+  return (dispatch, getState, {dc}) => {
     const {queryTerms} = getState().topOverlay
     const unique = [...new Set(queryTerms.concat(queries))]
     dispatch(filterSearch(unique))
+    if (getState().mapBody.chartType === "heat") {
+      dispatch(setHeatAggType())
+    } else {
+      dc.redrawAllAsync()
+    }
   }
 }
 
 export function removeFilter (query) {
-  return (dispatch, getState) => {
+  return (dispatch, getState, {dc}) => {
     const {queryTerms} = getState().topOverlay
     const queries = queryTerms.filter(queryTerm => queryTerm !== query)
     dispatch(filterSearch(queries))
     if (getState().mapBody.chartType === "heat") {
       dispatch(setHeatAggType())
+    } else {
+      dc.redrawAllAsync()
     }
   }
 }

@@ -57,8 +57,8 @@ export function setupCharts () {
 
       const debounceTime = 500
       const resizeListener = _.debounce(() => {
-        const [mapW, mapH] = mapSizeFunc()
-        const [lineW, lineH] = lineSizeFunc()
+        const [mapW, mapH] = mapSizeFunc(document.getElementById("mapChart"))
+        const [lineW, lineH] = lineSizeFunc(document.getElementById("mapChart"))
 
         lineChart.width(lineW).height(lineH)
 
