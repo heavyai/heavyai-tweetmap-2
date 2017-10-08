@@ -2,7 +2,7 @@ import "./styles.scss"
 import {changeDimension as changeLegendDim, selectFilter, updateMode} from "./actions"
 import {closeNav, closeSearch} from "../Nav/actions"
 import {LANG_COLOR_MAP, langCodes, QUANT_COLOR_MAP, SOURCE_COLOR_MAP} from "../../constants"
-import {changeDimension as changeMapDim, setHeatAggType} from "../MapBody/actions"
+import {changeDimension as changeMapDim, toggleHeatAggMode} from "../MapBody/actions"
 import {closeSidebar} from "../TweetSidebar/actions"
 import {connect} from "react-redux"
 import LegendItem from "./LegendItem/LegendItem"
@@ -131,7 +131,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeMapDim(value))
   },
   aggUpdate: event => {
-    dispatch(setHeatAggType())
+    dispatch(toggleHeatAggMode())
   },
   selectFilter: item => () => dispatch(selectFilter(item))
 })
