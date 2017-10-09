@@ -14,7 +14,7 @@ const MapBody = (props) => (
     <TopOverlay />
 
     <map onClick={props.closeAll}>
-      <container>
+      <container className={props.chartType}>
         <MapChart />
         <BottomOverlay />
         {props.highlight &&
@@ -45,7 +45,8 @@ MapBody.propTypes = {
 
 const mapStateToProps = (state) => ({
   sidebarOpen: state.tweetSidebar.sidebarOpen,
-  highlight: state.mapBody.highlight
+  highlight: state.mapBody.highlight,
+  chartType: state.mapBody.chartType
 })
 
 const mapDispatchToProps = (dispatch) => ({

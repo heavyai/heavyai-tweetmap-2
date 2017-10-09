@@ -55,7 +55,7 @@ class NavItem extends React.Component {
           place="right"
         >
           <p>
-            <Octicon mega name={this.props.icon} />
+            {typeof this.props.icon === "string" ? <Octicon mega name={this.props.icon} /> : this.props.icon}
             <span className="description">{this.props.description}</span>
           </p>
         </Popover>

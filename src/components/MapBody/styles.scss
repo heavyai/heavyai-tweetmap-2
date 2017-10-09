@@ -45,6 +45,18 @@ div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   }
 }
 
+.heat {
+  @media (min-device-width: $mobile-breakpoint) {
+    a.mapbox-maplogo {
+      bottom: 24px + $line-chart-height - 16px;
+    }
+
+    div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+      bottom: 4px + $line-chart-height - 16px;
+    }
+  }
+}
+
 .mapboxgl-canvas {
   cursor: default;
 }

@@ -62,6 +62,22 @@
       display: none;
     }
   }
+
+  .custom-icon {
+    fill: white;
+    color: white;
+    width: 48px;
+    height: 48px;
+    &:hover {
+      fill: $light-grey;
+      color: $light-grey;
+    }
+
+    &.selected {
+      fill: $light-grey;
+      color: $light-grey;
+    }
+  }
 }
 
 .nav.closed {

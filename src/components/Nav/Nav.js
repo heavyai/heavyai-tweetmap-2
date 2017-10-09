@@ -3,6 +3,7 @@ import "./popover.scss"
 import {closeNav, closeSearch, toggleSearch} from "./actions"
 import {connect} from "react-redux"
 import NavItem from "./NavItem/NavItem"
+import Icon from "../Icon/icon"
 import {openShare} from "../ShareModal/actions"
 import Popover from "react-popover"
 import PropTypes from "prop-types"
@@ -21,10 +22,26 @@ const Nav = (props) => {
       </a>
 
       <NavItem
-        clickListener={props.toggleMapChartType}
-        description={props.mapType === "points" ? "Heatmap" : "Pointmap"}
-        icon="globe"
+        clickListener={props.setMapChartTypePoints(props.mapType)}
+        description={"Pointmap"}
+        icon={
+          <Icon
+              className={`custom-icon ${props.mapType === "points" ? "selected" : ""}`}
+              name={"chart-pointmap"}
+          />
+        }
       />
+      <NavItem
+        clickListener={props.setMapChartTypeHeat(props.mapType)}
+        description={"Heatmap"}
+        icon={
+          <Icon
+              className={`custom-icon ${props.mapType === "heat" ? "selected" : ""}`}
+              name={"chart-geoheat"}
+          />
+        }
+      />
+
       {/* Search Location */}
       <Popover
         body={searchPopover}
@@ -98,8 +115,11 @@ const mapDispatchToProps = (dispatch) => ({
   zoomOut: () => {
     dispatch(zoomOut())
   },
-  toggleMapChartType: () => {
-    dispatch(toggleMapChartType())
+  setMapChartTypePoints: (type) => event => {
+    type !== "points" && dispatch(toggleMapChartType())
+  },
+  setMapChartTypeHeat: (type) => event => {
+    type !== "heat" && dispatch(toggleMapChartType())
   }
 })
 

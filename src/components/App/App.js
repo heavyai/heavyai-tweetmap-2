@@ -9,6 +9,7 @@ import React from "react"
 import {setupCharts} from "./actions"
 import ShareModal from "../ShareModal/ShareModal"
 import TweetSidebar from "../TweetSidebar/TweetSidebar"
+import Icons from "./svg-icons"
 
 let resizeListener = null
 
@@ -52,6 +53,7 @@ class App extends React.Component {
         >
           <ShareModal />
         </Modal>
+        <Icons />
       </dash>
     )
   }
