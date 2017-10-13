@@ -22,7 +22,7 @@ export const initialState = {
   geoLoading: false,
   highlight: null,
   chartType: "points",
-  aggMode: "#"
+  aggMode: "#",
 }
 
 export default function reducer (state = initialState, action) {
