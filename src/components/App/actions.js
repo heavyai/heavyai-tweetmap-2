@@ -3,6 +3,8 @@ import {
   createCount,
   createLineChart,
   createMapChart,
+  toggleMapChartType,
+  toggleHeatAggMode,
   zoomTo as initMap,
   initFilter as initTime
 } from "../MapBody/actions"
@@ -42,11 +44,18 @@ export function setupCharts () {
       if (data !== "") {
         const stateJson = atob(data)
         const state = JSON.parse(stateJson)
+        dispatch(initMap(state.mapCenter, state.mapZoom, state.mapBounds))
 
-        dispatch(initMap(state.mapCenter, state.mapZoom))
         dispatch(initTime(state.timeBounds))
         dispatch(initQueries(state.queryTerms))
-        dispatch(initLangs(state.selectedLangs))
+        if (state.mapType === "heat") {
+          dispatch(toggleMapChartType())
+          if (state.queryTerms.length) {
+            dispatch(toggleHeatAggMode())
+          }
+        } else {
+          dispatch(initLangs(state.selectedLangs))
+        }
       }
 
       return dc.renderAllAsync()

@@ -23,7 +23,7 @@ export const SET_HEAT_AGG_MODE = "SET_HEAT_AGG_MODE"
 const POINT_LAYER = "points"
 const HEAT_LAYER = "heat"
 
-export function moveMap (zoom, center) {
+export function moveMap (zoom, center}) {
   return {
     type: MOVE_MAP,
     zoom,
@@ -227,7 +227,7 @@ export function createMapChart () {
 
         /* update state at the end of each move, recording where we are */
         map.on("moveend", (e) => {
-          dispatch(moveMap(map.getZoom(), map.getCenter()))
+          dispatch(moveMap(map.getZoom(), map.getCenter(), map.getBounds()))
         })
 
         /* set up Google geocoder */
@@ -235,10 +235,6 @@ export function createMapChart () {
       })
       .then(() => [rasterMapChart, getChartSize])
   }
-}
-
-export function setViewHeatMap () {
-  return () => {}
 }
 
 function updateHeatMapLegend () {
@@ -308,7 +304,6 @@ export function toggleMapChartType () {
 
 export function launchHeatmp () {
   return (dispatch, getState, {dc, getCf, getConnection}) => {
-
     dispatch(setMapType("heat"))
     rasterMapChart.hidePopup()
     const [width, height] = getChartSize(document.getElementById("mapChart"))
@@ -354,7 +349,6 @@ export function launchHeatmp () {
     heatLayer = layer
     rasterMapChart.renderAsync().then(() => {
       dispatch(updateHeatMapLegend())
-      dispatch(setViewHeatMap())
       rasterMapChart.on("postRedraw", () => {
         dispatch(updateHeatMapLegend())
       })
@@ -405,15 +399,14 @@ export function geocode (placeName) {
 export function zoomOut () {
   return () => {
     rasterMapChart.map().flyTo({center: [0, 0], zoom: 1}, 1)
+
   }
 }
 
-export function zoomTo (position, zoom) {
-  if (arguments.length < 2) {
-    zoom = 17
-  }
-
+export function zoomTo (position, zoom = 17) {
   return () => {
+    rasterMapChart.zoom(zoom)
+    rasterMapChart.center(position)
     rasterMapChart.map().flyTo({
       center: position,
       zoom,

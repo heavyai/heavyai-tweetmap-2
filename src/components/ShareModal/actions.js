@@ -18,6 +18,7 @@ export function getShareUrl () {
     const state = getState()
     const shareState = {
       mapCenter: state.mapBody.mapCenter,
+      mapType: state.mapBody.chartType,
       mapZoom: state.mapBody.mapZoom,
       timeBounds: state.mapBody.timeBounds,
       queryTerms: state.topOverlay.queryTerms,

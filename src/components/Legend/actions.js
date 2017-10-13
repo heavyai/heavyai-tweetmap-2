@@ -107,7 +107,7 @@ export function clearLegendFilter () {
 }
 
 // setup in case tweetmap is setup with shared filters
-export function initFilters (item) {
+export function initFilters (item = []) {
   return dispatch => {
     if (item.length !== 0) {
       dimension.filterMulti(item)
