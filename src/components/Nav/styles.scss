@@ -74,8 +74,9 @@
     }
 
     &.selected {
-      fill: $light-grey;
-      color: $light-grey;
+
+      fill: $blue-main;
+      color: $blue-main;
     }
   }
 }

@@ -38,7 +38,7 @@ export function addFilters (queries) {
     const {queryTerms} = getState().topOverlay
     const unique = [...new Set(queryTerms.concat(queries))]
     dispatch(filterSearch(unique))
-    if (getState().mapBody.chartType === "heat") {
+    if (getState().mapBody.chartType === "heat" && unique.length > queryTerms.length && getState().mapBody.aggMode !== "%") {
       dispatch(toggleHeatAggMode())
     } else {
       dc.redrawAllAsync() // call redrawAll after applying custom filters.
@@ -51,7 +51,7 @@ export function removeFilter (query) {
     const {queryTerms} = getState().topOverlay
     const queries = queryTerms.filter(queryTerm => queryTerm !== query)
     dispatch(filterSearch(queries))
-    if (getState().mapBody.chartType === "heat") {
+    if (getState().mapBody.chartType === "heat" && queries.length === 0) {
       dispatch(toggleHeatAggMode())
     } else {
       dc.redrawAllAsync() // call redrawAll after applying custom filters.

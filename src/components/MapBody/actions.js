@@ -23,7 +23,7 @@ export const SET_HEAT_AGG_MODE = "SET_HEAT_AGG_MODE"
 const POINT_LAYER = "points"
 const HEAT_LAYER = "heat"
 
-export function moveMap (zoom, center}) {
+export function moveMap (zoom, center) {
   return {
     type: MOVE_MAP,
     zoom,
