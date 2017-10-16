@@ -27,10 +27,12 @@ const api = {
   getConnection
 }
 
+const conditionalMiddleware = process.env.NODE_ENV === "production" ? [] : [applyMiddleware(createLogger({collapsed: true}))]
+
 const store = createStore(
   reducer,
-  applyMiddleware(createLogger({collapsed: true})),
-  applyMiddleware(thunk.withExtraArgument(api))
+  ...conditionalMiddleware,
+  applyMiddleware(thunk.withExtraArgument(api)),
 )
 
 ReactDOM.render(

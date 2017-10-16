@@ -1,12 +1,20 @@
 const webpack = require("webpack");
 const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: "./src/index.html",
+  favicon:  path.resolve(__dirname, "src/favicon.ico"),
+  template:  path.resolve(__dirname, "src/index.html"),
   filename: "index.html",
   inject: "body"
 })
+
+const webpackDefinePlugin = new webpack.DefinePlugin({
+  "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+})
+
+const copyPlugin = new CopyWebpackPlugin([ { from: 'src/assets', to: 'assets' } ])
 
 module.exports = {
   entry: {
@@ -50,9 +58,21 @@ module.exports = {
       {
         test: /\.(png|otf|eot|svg|ttf|woff|woff2).*$/,
         loader: "url-loader?limit=8192"
+      },
+      {
+        test: /\.svg$/,
+        loader: "file-loader"
+      },
+      {
+        test: /\.jpg$/,
+        loader: "file-loader"
+      },
+      {
+        test: /\.json$/,
+        loader: "json-loader"
       }
     ]
   },
   devtool: "eval-source-map",
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig, webpackDefinePlugin, copyPlugin]
 }

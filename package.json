@@ -5,7 +5,7 @@
   "repository": "https://github.com/mapd/new-tweetmap",
   "license": "Apache-2.0",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --content-base src/",
     "build": "NODE_ENV=production webpack",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
@@ -51,6 +51,7 @@
     "babel-register": "^6.26.0",
     "chai": "^3.5.0",
     "chai-spies": "^1.0.0",
+    "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.13.0",
