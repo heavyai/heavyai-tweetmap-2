@@ -1,0 +1,8 @@
+{
+  "user": "mapd",
+  "password": "HyperInteractive",
+  "database": "mapd",
+  "protocol": "http",
+  "host": "metis.mapd.com",
+  "port": "9092"
+}

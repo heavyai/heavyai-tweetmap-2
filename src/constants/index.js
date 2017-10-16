@@ -1,5 +1,6 @@
+const config = require("../servers.conf.json")
 export {langCodes} from "./langCodes"
-export const TABLE_NAME = "tweets_nov_feb"
+export const TABLE_NAME = config.table || "tweets_nov_feb"
 export const HASHTAG_FETCH_SIZE = 60
 export const TWEET_FETCH_SIZE = 25
 export const PERCENTAGE_MAX = 100

@@ -9,10 +9,14 @@ This is MapD's Tweetmap demo. Use it as an example for building custom visualiza
 ### Requirements
 * npm 3.8.6+
 * node v5.12.0+
+
 ```
 npm install
+cp src/servers.conf.example.json src/servers.conf.json
 npm start
 ```
+*Windows users: replace the above `cp` command with `copy`*
+
 # Testing
 ```
 npm run lint
