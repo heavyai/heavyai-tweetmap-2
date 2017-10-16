@@ -11,7 +11,8 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 const webpackDefinePlugin = new webpack.DefinePlugin({
-  "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+  "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development"),
+  "process.env.GOOGLE_API_KEY": JSON.stringify(process.env.GOOGLE_API_KEY ||  null)
 })
 
 const copyPlugin = new CopyWebpackPlugin([ { from: 'src/assets', to: 'assets' } ])
