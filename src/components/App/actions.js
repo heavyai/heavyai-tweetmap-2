@@ -10,7 +10,7 @@ import {
 } from "../MapBody/actions"
 import {createHashtagChart, createTweetChart, setSidebar} from "../TweetSidebar/actions"
 import {createLegendChart, initFilters as initLangs} from "../Legend/actions"
-import _ from "lodash"
+import {debounce} from "lodash"
 import {initFilters as initQueries} from "../TopOverlay/actions"
 
 export function mapdConnect () {
@@ -65,7 +65,7 @@ export function setupCharts () {
       const [[mapChart, mapSizeFunc], [lineChart, lineSizeFunc]] = charts
 
       const debounceTime = 500
-      const resizeListener = _.debounce(() => {
+      const resizeListener = debounce(() => {
         const [mapW, mapH] = mapSizeFunc(document.getElementById("mapChart"))
         const [lineW, lineH] = lineSizeFunc(document.getElementById("mapChart"))
 
