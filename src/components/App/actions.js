@@ -1,5 +1,5 @@
 import {
-  closeLinechart,
+  toggleLinechart,
   createCount,
   createLineChart,
   createMapChart,
@@ -8,7 +8,7 @@ import {
   zoomTo as initMap,
   initFilter as initTime
 } from "../MapBody/actions"
-import {createHashtagChart, createTweetChart} from "../TweetSidebar/actions"
+import {createHashtagChart, createTweetChart, setSidebar} from "../TweetSidebar/actions"
 import {createLegendChart, initFilters as initLangs} from "../Legend/actions"
 import _ from "lodash"
 import {initFilters as initQueries} from "../TopOverlay/actions"
@@ -80,7 +80,8 @@ export function setupCharts () {
 
       const mobileWidth = 992
       if (screen.width < mobileWidth) {
-        dispatch(closeLinechart)
+        dispatch(toggleLinechart(false))
+        dispatch(setSidebar(false))
       }
 
       window.addEventListener("resize", resizeListener)

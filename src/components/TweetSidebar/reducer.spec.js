@@ -10,7 +10,7 @@ describe("Share Modal Reducer", () => {
     expect(reducer(undefined, {})).to.deep.equal(initialState)
   })
   it("should handle TOGGLE_TWEETBAR action type", () => {
-    const open = reducer(initialState, actions.toggleSidebar)
+    const open = reducer(initialState, actions.setSidebar)
     expect(open.sidebarOpen).to.be.true
     const closed = reducer(open, actions.toggleSidebar)
     expect(closed.sidebarOpen).to.be.false

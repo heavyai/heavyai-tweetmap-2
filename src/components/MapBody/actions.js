@@ -45,7 +45,6 @@ export function updateCount (count) {
   }
 }
 
-export const toggleLinechart = {type: TOGGLE_LINECHART}
 export const closeLinechart = {type: CLOSE_LINECHART}
 
 export const userLocationRequest = {type: USER_LOCATION_REQUEST}
@@ -572,6 +571,17 @@ export function initFilter (filter) {
   return () => {
     if (filter !== null) {
       lineChart.filter(filter.map(str => new Date(str)))
+    }
+  }
+}
+
+export function toggleLinechart (val) {
+  return (dispatch) => {
+    dispatch({type: TOGGLE_LINECHART, val})
+    if (val) {
+      lineChart.chartGroup(undefined)
+    } else {
+      lineChart.chartGroup("disabledLine")
     }
   }
 }
