@@ -2,7 +2,7 @@ import {
   CLOSE_TWEETBAR,
   HASHTAGS_SET,
   SET_SIDEBAR_MODE,
-  TOGGLE_TWEETBAR,
+  SET_TWEETBAR,
   TWEETS_APPEND,
   TWEETS_SET
 } from "./actions"
@@ -16,8 +16,8 @@ export const initialState = {
 
 export default function reducer (state = initialState, action) {
   switch (action.type) {
-    case TOGGLE_TWEETBAR:
-      return {...state, sidebarOpen: !state.sidebarOpen}
+    case SET_TWEETBAR:
+      return {...state, sidebarOpen: action.val}
     case CLOSE_TWEETBAR:
       return {...state, sidebarOpen: false}
     case TWEETS_SET:

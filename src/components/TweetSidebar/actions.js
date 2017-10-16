@@ -4,7 +4,7 @@ export const TWEETS_APPEND = "TWEETS_APPEND"
 export const TWEETS_SET = "TWEETS_SET"
 export const HASHTAGS_SET = "HASHTAGS_SET"
 export const SET_SIDEBAR_MODE = "SET_SIDEBAR_MODE"
-export const TOGGLE_TWEETBAR = "TOGGLE_TWEETBAR"
+export const SET_TWEETBAR = "SET_TWEETBAR"
 export const CLOSE_TWEETBAR = "CLOSE_TWEETBAR"
 
 
@@ -36,7 +36,6 @@ export function setSidebarMode (setting) {
   }
 }
 
-export const toggleSidebar = {type: TOGGLE_TWEETBAR}
 export const closeSidebar = {type: CLOSE_TWEETBAR}
 
 let dummyTweetChart = null
@@ -171,5 +170,18 @@ export function createHashtagChart () {
     })
 
     dummyHashtagChart.anchor("#hashDummy")
+  }
+}
+
+export function setSidebar (val) {
+  return (dispatch, getState) => {
+    dispatch({type: SET_TWEETBAR, val})
+    if (val) {
+      dummyTweetChart.chartGroup(undefined)
+      dummyHashtagChart.chartGroup(undefined)
+    } else {
+      dummyTweetChart.chartGroup("disabledTweet")
+      dummyHashtagChart.chartGroup("disabledHastag")
+    }
   }
 }

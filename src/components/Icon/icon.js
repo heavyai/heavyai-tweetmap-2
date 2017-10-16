@@ -16,7 +16,7 @@ Icon.propTypes = {
 
 export default function Icon ({name, className = "icon", viewBox = defaultViewBox}) {
   return (
-    <svg className={className} viewBox={viewBox} dangerouslySetInnerHTML={getHtml(name)} />
+    <svg className={className} viewBox={viewBox} dangerouslySetInnerHTML={getHtml(name)}/>
   )
 }
 

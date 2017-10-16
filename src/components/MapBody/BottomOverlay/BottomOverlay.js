@@ -19,7 +19,7 @@ const BottomOverlay = (props) => {
       </button>
 
       {/* Hide Linechart button only on Mobile */}
-      <button className="linechart" onClick={props.toggleChart}>
+      <button className="linechart" onClick={props.toggleChart(props.chartOpen)}>
         <i aria-hidden="true" className="fa fa-area-chart fa-lg" />
       </button>
 
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => ({
   loading: state.mapBody.geoLoading
 })
 const mapDispatchToProps = (dispatch) => ({
-  toggleChart: () => { dispatch(toggleLinechart) },
+  toggleChart: currVal => () => { dispatch(toggleLinechart(!currVal)) },
   zoomToUserLocation: () => { dispatch(zoomToUserLocation()) }
 })
 
