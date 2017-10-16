@@ -68,10 +68,10 @@ export class ShareModal extends React.Component {
 
         <div className="socialBar">
           <a href={fbShare} target="_blank">
-            <img className="icon" src="src/assets/facebook_icon.svg" />
+            <img className="icon" src="assets/facebook_icon.svg" />
           </a>
           <a href={twitterShare} target="_blank">
-            <img className="icon" src="src/assets/twitter_icon.svg" />
+            <img className="icon" src="assets/twitter_icon.svg" />
           </a>
         </div>
       </div>

@@ -20,7 +20,7 @@ const TopOverlay = props => (
 
       {/* Logo only on Desktop */}
       <a href="https://www.mapd.com" rel="noopener noreferrer" target="_blank">
-        <img className="logo" src="src/assets/logo.svg" />
+        <img className="logo" src="assets/logo.svg" />
       </a>
 
       {/* Button only on Mobile */}
