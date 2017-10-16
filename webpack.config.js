@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin")
-
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   favicon:  path.resolve(__dirname, "src/favicon.ico"),
@@ -16,6 +16,13 @@ const webpackDefinePlugin = new webpack.DefinePlugin({
 })
 
 const copyPlugin = new CopyWebpackPlugin([ { from: 'src/assets', to: 'assets' } ])
+
+const optimizePlugins = [
+  new webpack.optimize.AggressiveMergingPlugin(),
+  new UglifyJSPlugin({
+    sourceMap: process.env.NODE_ENV !== "production"
+  })
+]
 
 module.exports = {
   entry: {
@@ -74,6 +81,6 @@ module.exports = {
       }
     ]
   },
-  devtool: "eval-source-map",
-  plugins: [HtmlWebpackPluginConfig, webpackDefinePlugin, copyPlugin]
+  devtool: process.env.NODE_ENV !== "production" ? "eval-source-map" : "none",
+  plugins: [HtmlWebpackPluginConfig, webpackDefinePlugin, copyPlugin, ...optimizePlugins]
 }
