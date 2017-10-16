@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@mapd/connector": "https://github.com/mapd/mapd-connector.git#v2.0.1",
-    "@mapd/crossfilter": "https://github.com/mapd/mapd-crossfilter.git#b2947b3e03e228c772f361845f9400080614805b",
+    "@mapd/crossfilter": "https://github.com/mapd/mapd-crossfilter.git#v1.2.0",
     "@mapd/mapdc": "https://github.com/mapd/mapd-charting.git#43cf26be2b3d6de34ea22d7791076c74ed3e504b",
     "babel-polyfill": "^6.23.0",
     "fetch-js": "^1.0.3",

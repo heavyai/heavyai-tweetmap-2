@@ -4,5 +4,6 @@
   "database": "mapd",
   "protocol": "http",
   "host": "metis.mapd.com",
-  "port": "9092"
+  "port": "9092",
+  "table": "tweets_2017_may"
 }
