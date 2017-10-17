@@ -1,4 +1,4 @@
-import {toggleHeatAggMode} from "../MapBody/actions"
+import {setHeatTargetFilters, toggleHeatAggMode} from "../MapBody/actions"
 
 export const QUERIES_UPDATE = "QUERIES_UPDATE"
 
@@ -24,6 +24,7 @@ function filterSearch (queries) {
     }
 
     dispatch(updateQueryTerms(queries))
+
   }
 }
 
@@ -40,6 +41,9 @@ export function addFilters (queries) {
     dispatch(filterSearch(unique))
     if (getState().mapBody.chartType === "heat" && unique.length > queryTerms.length && getState().mapBody.aggMode !== "%") {
       dispatch(toggleHeatAggMode())
+    } else if (getState().mapBody.chartType === "heat" && unique.length > queryTerms.length && getState().mapBody.aggMode === "%") {
+      dispatch(setHeatTargetFilters())
+      dc.redrawAllAsync()
     } else {
       dc.redrawAllAsync() // call redrawAll after applying custom filters.
     }
@@ -53,6 +57,9 @@ export function removeFilter (query) {
     dispatch(filterSearch(queries))
     if (getState().mapBody.chartType === "heat" && queries.length === 0) {
       dispatch(toggleHeatAggMode())
+    } else if (getState().mapBody.aggMode === "%") {
+      dispatch(setHeatTargetFilters())
+      dc.redrawAllAsync()
     } else {
       dc.redrawAllAsync() // call redrawAll after applying custom filters.
     }

@@ -283,13 +283,11 @@ function updateHeatMapLegend() {
   }
 }
 
-
-function setHeatmapMode (mode, termList = []) {
-  const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
-  if (mode === "%") {
-    rasterMapChart.isTargeting(true)
-    heatLayer.genSQL = heatLayerSqlIgnoreFilter
-      const terms = termList.map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`)
+export function setHeatTargetFilters() {
+  return (dispatch, getState) => {
+    const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
+    const terms = getState().topOverlay.queryTerms
+      .map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`)
       .join(" AND ") // escape '
     heatLayer.setState(state => ({
       ...state,
@@ -301,19 +299,30 @@ function setHeatmapMode (mode, termList = []) {
         }
       }
     }))
-  } else {
-    rasterMapChart.isTargeting(false)
-    heatLayer.genSQL = heatLayerSql
-    heatLayer.setState(state => ({
-      ...state,
-      encoding: {
-        ...state.encoding,
-        color: {
-          ...state.encoding.color,
-          aggregate: "count(*)"
+  }
+}
+
+function setHeatmapMode(mode) {
+  return dispatch => {
+    const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
+    if (mode === "%") {
+      rasterMapChart.isTargeting(true)
+      heatLayer.genSQL = heatLayerSqlIgnoreFilter
+      dispatch(setHeatTargetFilters())
+    } else {
+      rasterMapChart.isTargeting(false)
+      heatLayer.genSQL = heatLayerSql
+      heatLayer.setState(state => ({
+        ...state,
+        encoding: {
+          ...state.encoding,
+          color: {
+            ...state.encoding.color,
+            aggregate: "count(*)"
+          }
         }
-      }
-    }))
+      }))
+    }
   }
 }
 
@@ -324,10 +333,10 @@ export function toggleHeatAggMode() {
       getState().topOverlay.queryTerms.length
     ) {
       dispatch(setHeatAggMode("%"))
-      setHeatmapMode("%", getState().topOverlay.queryTerms)
+      dispatch(setHeatmapMode("%"))
     } else {
       dispatch(setHeatAggMode("#"))
-      setHeatmapMode("#")
+      dispatch(setHeatmapMode("#"))
     }
     dc.redrawAllAsync()
   }
@@ -340,18 +349,22 @@ export function toggleMapChartType() {
       dispatch(clearLegendFilter())
       dispatch(launchHeatmp())
       if (getState().topOverlay.queryTerms.length) {
-        setHeatmapMode("%", getState().topOverlay.queryTerms)
+        dispatch(setHeatmapMode("%"))
       } else {
-        setHeatmapMode("#")
+        dispatch(setHeatmapMode("#"))
       }
-      dc.redrawAllAsync()
+      dc.renderAllAsync().then(() => {
+        dispatch(updateHeatMapLegend())
+      })
     } else {
       dispatch(updateLegendCounts([]))
       dispatch(setMapType("points"))
       rasterMapChart.hidePopup()
       rasterMapChart.popLayer(HEAT_LAYER)
       rasterMapChart.pushLayer(POINT_LAYER, pointLayer)
-      dc.redrawAllAsync()
+      dc.renderAllAsync().then(() => {
+        dispatch(updateHeatMapLegend())
+      })
     }
   }
 }
@@ -402,12 +415,13 @@ export function launchHeatmp() {
     const poppedLayer = rasterMapChart.popLayer(POINT_LAYER)
     rasterMapChart.pushLayer(HEAT_LAYER, layer)
     heatLayer = layer
-    rasterMapChart.renderAsync().then(() => {
+    rasterMapChart.on("postRedraw", () => {
       dispatch(updateHeatMapLegend())
-      rasterMapChart.on("postRedraw", () => {
-        dispatch(updateHeatMapLegend())
-      })
     })
+    // rasterMapChart.renderAsync().then(() => {
+    //   dispatch(updateHeatMapLegend())
+
+    // })
     heatLayerSql = layer.genSQL
     const legendFunc = rasterMapChart.legendablesContinuous
   }
