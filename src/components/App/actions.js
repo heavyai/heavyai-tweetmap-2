@@ -10,6 +10,7 @@ import {
 } from "../MapBody/actions"
 import {createHashtagChart, createTweetChart, setSidebar} from "../TweetSidebar/actions"
 import {createLegendChart, initFilters as initLangs} from "../Legend/actions"
+import {closeNav} from "../Nav/actions"
 import {debounce} from "lodash"
 import {initFilters as initQueries} from "../TopOverlay/actions"
 
@@ -80,6 +81,7 @@ export function setupCharts () {
 
       const mobileWidth = 992
       if (screen.width < mobileWidth) {
+        dispatch(closeNav)
         dispatch(toggleLinechart(false))
         dispatch(setSidebar(false))
       }
