@@ -283,43 +283,51 @@ function updateHeatMapLegend() {
   }
 }
 
+
+function setHeatmapMode (mode, termList = []) {
+  const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
+  if (mode === "%") {
+    rasterMapChart.isTargeting(true)
+    heatLayer.genSQL = heatLayerSqlIgnoreFilter
+      const terms = termList.map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`)
+      .join(" AND ") // escape '
+    heatLayer.setState(state => ({
+      ...state,
+      encoding: {
+        ...state.encoding,
+        color: {
+          ...state.encoding.color,
+          aggregate: `AVG(CASE WHEN (${terms}) THEN 1 ELSE 0 END)`
+        }
+      }
+    }))
+  } else {
+    rasterMapChart.isTargeting(false)
+    heatLayer.genSQL = heatLayerSql
+    heatLayer.setState(state => ({
+      ...state,
+      encoding: {
+        ...state.encoding,
+        color: {
+          ...state.encoding.color,
+          aggregate: "count(*)"
+        }
+      }
+    }))
+  }
+}
+
 export function toggleHeatAggMode() {
   return (dispatch, getState, { dc }) => {
-    const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
     if (
       getState().mapBody.aggMode === "#" &&
       getState().topOverlay.queryTerms.length
     ) {
       dispatch(setHeatAggMode("%"))
-      rasterMapChart.isTargeting(true)
-      heatLayer.genSQL = heatLayerSqlIgnoreFilter
-      const terms = getState().topOverlay.queryTerms
-        .map(t => `'${t.replace("'", "''")}' = ANY tweet_tokens`)
-        .join(" AND ") // escape '
-      heatLayer.setState(state => ({
-        ...state,
-        encoding: {
-          ...state.encoding,
-          color: {
-            ...state.encoding.color,
-            aggregate: `AVG(CASE WHEN (${terms}) THEN 1 ELSE 0 END)`
-          }
-        }
-      }))
+      setHeatmapMode("%", getState().topOverlay.queryTerms)
     } else {
       dispatch(setHeatAggMode("#"))
-      rasterMapChart.isTargeting(false)
-      heatLayer.genSQL = heatLayerSql
-      heatLayer.setState(state => ({
-        ...state,
-        encoding: {
-          ...state.encoding,
-          color: {
-            ...state.encoding.color,
-            aggregate: "count(*)"
-          }
-        }
-      }))
+      setHeatmapMode("#")
     }
     dc.redrawAllAsync()
   }
@@ -331,6 +339,12 @@ export function toggleMapChartType() {
       dispatch(updateLegendCounts([]))
       dispatch(clearLegendFilter())
       dispatch(launchHeatmp())
+      if (getState().topOverlay.queryTerms.length) {
+        setHeatmapMode("%", getState().topOverlay.queryTerms)
+      } else {
+        setHeatmapMode("#")
+      }
+      dc.redrawAllAsync()
     } else {
       dispatch(updateLegendCounts([]))
       dispatch(setMapType("points"))
@@ -352,6 +366,7 @@ export function launchHeatmp() {
     layer.crossfilter(getCf())
     layer.xDim(pointLayer.xDim())
     layer.yDim(pointLayer.yDim())
+    layer.opacity(0.1)
     layer.setState({
       mark: "hex",
       encoding: {
@@ -371,13 +386,13 @@ export function launchHeatmp() {
           scale: {
             domain: "auto",
             range: QUANT_COLORS,
-            default: "#0d0887",
-            nullValue: "#0d0887"
+            default: "rgba(13,8,135,0.5)",
+            nullValue: "rgba(13,8,135,0.5)"
           }
         },
         size: {
           type: "manual",
-          value: 14
+          value: 12
         }
       }
     })

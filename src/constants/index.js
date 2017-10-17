@@ -74,15 +74,15 @@ export const COLORS = [
 ]
 
 export const QUANT_COLORS = [
-  "#115f9a",
-  "#1984c5",
-  "#22a7f0",
-  "#48b5c4",
-  "#76c68f",
-  "#a6d75b",
-  "#c9e52f",
-  "#d0ee11",
-  "#d0f400"
+  "rgba(17,95,154,0.3)",
+  "rgba(25,132,197,0.4)",
+  "rgba(34,167,240,0.4)",
+  "rgba(72,181,196,0.5)",
+  "rgba(118,198,143,0.5)",
+  "rgba(166,215,91,0.6)",
+  "rgba(201,229,47,0.7)",
+  "rgba(208,238,17,0.7)",
+  "rgba(208,244,0,0.7)"
 ]
 
 export const LANG_COLORS = LANG_DOMAIN.map((lang, i) => COLORS[i % COLORS.length])

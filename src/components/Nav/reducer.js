@@ -6,7 +6,7 @@ import {
 } from "./actions"
 
 export const initialState = {
-  navOpen: false,
+  navOpen: true,
   locSearchOpen: false
 }
 
