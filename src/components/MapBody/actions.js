@@ -349,8 +349,10 @@ export function toggleMapChartType() {
       dispatch(clearLegendFilter())
       dispatch(launchHeatmp())
       if (getState().topOverlay.queryTerms.length) {
+        dispatch(setHeatAggMode("%"))
         dispatch(setHeatmapMode("%"))
       } else {
+        dispatch(setHeatAggMode("#"))
         dispatch(setHeatmapMode("#"))
       }
       dc.renderAllAsync().then(() => {
