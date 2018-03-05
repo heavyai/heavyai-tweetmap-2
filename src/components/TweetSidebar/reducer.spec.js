@@ -9,12 +9,6 @@ describe("Share Modal Reducer", () => {
     // eslint-disable-next-line no-undefined
     expect(reducer(undefined, {})).to.deep.equal(initialState)
   })
-  it("should handle TOGGLE_TWEETBAR action type", () => {
-    const open = reducer(initialState, actions.setSidebar)
-    expect(open.sidebarOpen).to.be.true
-    const closed = reducer(open, actions.toggleSidebar)
-    expect(closed.sidebarOpen).to.be.false
-  })
   it("should handle CLOSE_TWEETBAR action type", () => {
     const closed = reducer(initialState, actions.closeSidebar)
     expect(closed.sidebarOpen).to.be.false

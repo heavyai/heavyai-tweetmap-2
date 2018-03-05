@@ -26,12 +26,6 @@ describe("Map Body Reducer", () => {
     const newState = reducer(initialState, actions.updateCount(count))
     expect(newState.tweetCount).to.equal(count)
   })
-  it("should handle TOGGLE_LINECHART action type", () => {
-    const closed = reducer(initialState, actions.toggleLinechart)
-    expect(closed.lineChartOpen).to.be.false
-    const open = reducer(closed, actions.toggleLinechart)
-    expect(open.lineChartOpen).to.be.true
-  })
   it("should handle CLOSE_LINECHART action type", () => {
     const closed = reducer({lineChartOpen: true}, actions.closeLinechart)
     expect(closed.lineChartOpen).to.be.false

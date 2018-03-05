@@ -1,4 +1,13 @@
-const config = require("../servers.conf.json")
+let config
+try {
+    config = require("../servers.conf.json")
+} catch (e) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
+        throw e;
+    }
+    config = {}
+}
+
 export {langCodes} from "./langCodes"
 export const TABLE_NAME = config.table || "tweets_nov_feb"
 export const HASHTAG_FETCH_SIZE = 60
