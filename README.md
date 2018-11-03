@@ -1,4 +1,9 @@
 # MapD Tweetmap
+
+
+**Note** that the above script will install several libraries as `git submodules` in `./lib`. This requires that you have configured an [SSH connection with Github](https://help.github.com/articles/testing-your-ssh-connection/), so that `git clone` may use `ssh` and not `https`.
+
+
 This is MapD's Tweetmap demo. Use it as an example for building custom visualizations with our open source libraries:
 * [MapD Charting](https://github.com/mapd/mapd-charting)
 * [MapD CrossFilter](https://github.com/mapd/mapd-crossfilter)
