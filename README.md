@@ -12,9 +12,11 @@ This is MapD's Tweetmap demo. Use it as an example for building custom visualiza
 ![Tweetmap](https://user-images.githubusercontent.com/4845281/28989306-42d34c62-7929-11e7-8bf4-e342687d73fe.png)
 # Quickstart
 ### Requirements
+* nvm
 * npm 3.8.6+
 * node v5.12.0+
 ```
+nvm use
 npm install
 npm start
 ```
