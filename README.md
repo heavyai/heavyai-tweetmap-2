@@ -1,4 +1,4 @@
-# MapD Tweetmap
+# OmniSci Tweetmap v2
 
 
 **Note** that the above script will install several libraries as `git submodules` in `./lib`. This requires that you have configured an [SSH connection with Github](https://help.github.com/articles/testing-your-ssh-connection/), so that `git clone` may use `ssh` and not `https`.
