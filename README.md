@@ -14,7 +14,7 @@ This is MapD's Tweetmap demo. Use it as an example for building custom visualiza
 ### Requirements
 * nvm
 * npm 3.8.6+
-* node v5.12.0+
+* node v8.0.0+
 ```
 nvm use
 npm install
