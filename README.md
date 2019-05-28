@@ -1,10 +1,10 @@
-# MapD Tweetmap
+# OmniSci Tweetmap V2
 
 
 **Note** that the above script will install several libraries as `git submodules` in `./lib`. This requires that you have configured an [SSH connection with Github](https://help.github.com/articles/testing-your-ssh-connection/), so that `git clone` may use `ssh` and not `https`.
 
 
-This is MapD's Tweetmap demo. Use it as an example for building custom visualizations with our open source libraries:
+This is OmniSci's Tweetmap demo. Use it as an example for building custom visualizations with our open source libraries:
 * [MapD Charting](https://github.com/mapd/mapd-charting)
 * [MapD CrossFilter](https://github.com/mapd/mapd-crossfilter)
 * [MapD Connector](https://github.com/mapd/mapd-connector)
@@ -14,7 +14,7 @@ This is MapD's Tweetmap demo. Use it as an example for building custom visualiza
 ### Requirements
 * nvm
 * npm 3.8.6+
-* node v5.12.0+
+* node v8.0.0+
 ```
 nvm use
 npm install
