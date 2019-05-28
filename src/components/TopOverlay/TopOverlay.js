@@ -19,7 +19,7 @@ const TopOverlay = props => (
       <SearchBar />
 
       {/* Logo only on Desktop */}
-      <a href="https://www.mapd.com" rel="noopener noreferrer" target="_blank">
+      <a href="https://www.omnisci.com" rel="noopener noreferrer" target="_blank">
         <img className="logo" src="src/assets/logo.svg" />
       </a>
 
