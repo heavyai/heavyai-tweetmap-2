@@ -18,7 +18,7 @@ const webpackDefinePlugin = new webpack.DefinePlugin({
   )
 })
 
-const copyPlugin = new CopyWebpackPlugin([{ from: "src/assets", to: "assets" }])
+const copyPlugin = new CopyWebpackPlugin([{from: "src/assets", to: "assets"}])
 
 const optimizePlugins = [
   new webpack.optimize.AggressiveMergingPlugin(),
@@ -57,9 +57,9 @@ module.exports = {
       {
         test: /\.(scss|sass)$/,
         use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" },
-          { loader: "sass-loader" }
+          {loader: "style-loader"},
+          {loader: "css-loader"},
+          {loader: "sass-loader"}
         ]
       },
       {

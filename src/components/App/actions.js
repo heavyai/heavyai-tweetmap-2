@@ -1,12 +1,12 @@
 import {
-  toggleLinechart,
   createCount,
   createLineChart,
   createMapChart,
-  toggleMapChartType,
-  toggleHeatAggMode,
   zoomTo as initMap,
-  initFilter as initTime
+  initFilter as initTime,
+  toggleHeatAggMode,
+  toggleLinechart,
+  toggleMapChartType
 } from "../MapBody/actions"
 import {createHashtagChart, createTweetChart, setSidebar} from "../TweetSidebar/actions"
 import {createLegendChart, initFilters as initLangs} from "../Legend/actions"

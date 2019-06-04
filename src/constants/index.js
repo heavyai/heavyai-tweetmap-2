@@ -1,11 +1,11 @@
 let config
 try {
-    config = require("../servers.conf.json")
+  config = require("../servers.conf.json")
 } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-        throw e;
-    }
-    config = {}
+  if (e.code !== "MODULE_NOT_FOUND") {
+    throw e
+  }
+  config = {}
 }
 
 export {langCodes} from "./langCodes"

@@ -26,8 +26,8 @@ const Nav = (props) => {
         description={"Pointmap"}
         icon={
           <Icon
-              className={`custom-icon ${props.mapType === "points" ? "selected" : ""}`}
-              name={"chart-pointmap"}
+            className={`custom-icon ${props.mapType === "points" ? "selected" : ""}`}
+            name={"chart-pointmap"}
           />
         }
       />
@@ -36,8 +36,8 @@ const Nav = (props) => {
         description={"Heatmap"}
         icon={
           <Icon
-              className={`custom-icon ${props.mapType === "heat" ? "selected" : ""}`}
-              name={"chart-geoheat"}
+            className={`custom-icon ${props.mapType === "heat" ? "selected" : ""}`}
+            name={"chart-geoheat"}
           />
         }
       />

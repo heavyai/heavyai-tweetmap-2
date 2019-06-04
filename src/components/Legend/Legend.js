@@ -35,9 +35,8 @@ const LegendContinuous = ({legend, ...props}) => {
             <select onChange={props.aggUpdate} value={`${props.aggMode} Tweets`}>
               <option value={"% Tweets"}>{"% Tweets"}</option>
               <option value={"# Tweets"}>{"# Tweets"}</option>
-            </select>
-            :
-            <div className="agg-select"> {`# Tweets`} </div>
+            </select> :
+            <div className="agg-select"> {"# Tweets"} </div>
           }
         </li>
 

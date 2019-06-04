@@ -8,9 +8,9 @@ import {
   SOURCE_COLORS,
   SOURCE_DOMAIN
 } from "../../constants"
-import { debounce } from "lodash"
+import {debounce} from "lodash"
 import fetchJs from "fetch-js"
-import { updateLegendCounts, clearLegendFilter } from "../Legend/actions"
+import {clearLegendFilter, updateLegendCounts} from "../Legend/actions"
 
 export const MOVE_MAP = "MOVE_MAP"
 export const SHOW_HIGHLIGHT = "SHOW_HIGHLIGHT"
@@ -31,7 +31,7 @@ export const SET_HEAT_AGG_MODE = "SET_HEAT_AGG_MODE"
 const POINT_LAYER = "points"
 const HEAT_LAYER = "heat"
 
-export function moveMap(zoom, center) {
+export function moveMap (zoom, center) {
   return {
     type: MOVE_MAP,
     zoom,
@@ -39,40 +39,40 @@ export function moveMap(zoom, center) {
   }
 }
 
-export function filterTime(times) {
+export function filterTime (times) {
   return {
     type: FILTER_TIME,
     times
   }
 }
 
-export function updateCount(count) {
+export function updateCount (count) {
   return {
     type: TWEET_COUNT_UPDATE,
     count
   }
 }
 
-export const closeLinechart = { type: CLOSE_LINECHART }
+export const closeLinechart = {type: CLOSE_LINECHART}
 
-export const userLocationRequest = { type: USER_LOCATION_REQUEST }
-export const userLocationSuccess = { type: USER_LOCATION_SUCCESS }
+export const userLocationRequest = {type: USER_LOCATION_REQUEST}
+export const userLocationSuccess = {type: USER_LOCATION_SUCCESS}
 
-export function userLocationFailure(error) {
+export function userLocationFailure (error) {
   return {
     type: USER_LOCATION_FAILURE,
     error
   }
 }
 
-export function setMapType(chartType) {
+export function setMapType (chartType) {
   return {
     type: SET_MAP_TYPE,
     chartType
   }
 }
 
-export function setHeatAggMode(aggMode) {
+export function setHeatAggMode (aggMode) {
   return {
     type: SET_HEAT_AGG_MODE,
     aggMode
@@ -86,7 +86,7 @@ let heatLayer = null
 let lineChart = null
 let heatLayerSql = null
 
-const heatLayerSqlIgnoreFilter = ({ filter, ...args }) =>
+const heatLayerSqlIgnoreFilter = ({filter, ...args}) =>
   heatLayerSql({
     ...args,
     filter: filter.replace(/AND \('.*' = ANY tweet_tokens.*\)/, "")
@@ -100,7 +100,7 @@ const degrees2meters = (lon, lat) => {
       20037508.34 /
       180
   )
-  return { x, y }
+  return {x, y}
 }
 
 window.mapApiLoaded = () => {
@@ -111,9 +111,9 @@ const initGeocoder = () =>
   new Promise((resolve, reject) => {
     fetchJs(
       `https://maps.google.com/maps/api/js?sensor=false&async=2&callback=mapApiLoaded${process
-        .env.GOOGLE_API_KEY
-        ? `&key=${process.env.GOOGLE_API_KEY}`
-        : ""}`,
+        .env.GOOGLE_API_KEY ?
+        `&key=${process.env.GOOGLE_API_KEY}` :
+        ""}`,
       err => {
         if (err) {
           reject(err)
@@ -124,7 +124,7 @@ const initGeocoder = () =>
     )
   })
 
-function getChartSize(node) {
+function getChartSize (node) {
   /* set width, height to match parent */
   const w = node.parentElement.clientWidth
   const h = node.parentElement.clientHeight
@@ -145,7 +145,7 @@ const colorDomainSetter = domain => state => ({
   }
 })
 
-function polyfillColorsGetter() {
+function polyfillColorsGetter () {
   let colorScale = null
   this.colors = scale => {
     if (scale) {
@@ -163,8 +163,8 @@ function polyfillColorsGetter() {
 /*
   BACKEND RENDERED POINT MAP
 */
-export function createMapChart() {
-  return (dispatch, getState, { dc, getCf, getConnection }) => {
+export function createMapChart () {
+  return (dispatch, getState, {dc, getCf, getConnection}) => {
     const crossfilter = getCf()
     const connection = getConnection()
 
@@ -191,12 +191,12 @@ export function createMapChart() {
       .mapStyle("mapbox://styles/mapbox/dark-v9")
       .mapboxToken(MAPBOX_TOKEN)
 
-    function renderPopupHTML(data) {
+    function renderPopupHTML (data) {
       if (arguments.length === 0) {
         return true
       }
 
-      const { sender_name, tweet_text, tweet_time } = data
+      const {sender_name, tweet_text, tweet_time} = data
       const imgSrc = `https://avatars.io/twitter/${sender_name}`
       const date = `${MONTH[tweet_time.getMonth()]} ${String(
         tweet_time.getDate()
@@ -272,18 +272,18 @@ export function createMapChart() {
   }
 }
 
-function updateHeatMapLegend() {
+function updateHeatMapLegend () {
   return (dispatch, getState) => {
     if (getState().mapBody.chartType === "heat") {
       const legendUpdate = rasterMapChart
         .legendablesContinuous()
-        .map(l => ({ item: l.value, color: l.color, count: l.value }))
+        .map(l => ({item: l.value, color: l.color, count: l.value}))
       dispatch(updateLegendCounts(legendUpdate))
     }
   }
 }
 
-export function setHeatTargetFilters() {
+export function setHeatTargetFilters () {
   return (dispatch, getState) => {
     const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
     const terms = getState().topOverlay.queryTerms
@@ -302,7 +302,7 @@ export function setHeatTargetFilters() {
   }
 }
 
-function setHeatmapMode(mode) {
+function setHeatmapMode (mode) {
   return dispatch => {
     const heatLayer = rasterMapChart.getLayer(HEAT_LAYER)
     if (mode === "%") {
@@ -326,8 +326,8 @@ function setHeatmapMode(mode) {
   }
 }
 
-export function toggleHeatAggMode() {
-  return (dispatch, getState, { dc }) => {
+export function toggleHeatAggMode () {
+  return (dispatch, getState, {dc}) => {
     if (
       getState().mapBody.aggMode === "#" &&
       getState().topOverlay.queryTerms.length
@@ -342,8 +342,8 @@ export function toggleHeatAggMode() {
   }
 }
 
-export function toggleMapChartType() {
-  return (dispatch, getState, { dc }) => {
+export function toggleMapChartType () {
+  return (dispatch, getState, {dc}) => {
     if (getState().mapBody.chartType === "points") {
       dispatch(updateLegendCounts([]))
       dispatch(clearLegendFilter())
@@ -371,8 +371,8 @@ export function toggleMapChartType() {
   }
 }
 
-export function launchHeatmp() {
-  return (dispatch, getState, { dc, getCf, getConnection }) => {
+export function launchHeatmp () {
+  return (dispatch, getState, {dc, getCf, getConnection}) => {
     dispatch(setMapType("heat"))
     rasterMapChart.hidePopup()
     const [width, height] = getChartSize(document.getElementById("mapChart"))
@@ -429,7 +429,7 @@ export function launchHeatmp() {
   }
 }
 
-export function showHighlight(lat, lon, color) {
+export function showHighlight (lat, lon, color) {
   const googCoords = degrees2meters(lat, lon)
 
   rasterMapChart.x().range([0, rasterMapChart.width() - 1])
@@ -446,11 +446,11 @@ export function showHighlight(lat, lon, color) {
   }
 }
 
-export const hideHighlight = { type: HIDE_HIGHLIGHT }
+export const hideHighlight = {type: HIDE_HIGHLIGHT}
 
-export function geocode(placeName) {
+export function geocode (placeName) {
   return () => {
-    geocoder.geocode({ address: placeName }, (data, status) => {
+    geocoder.geocode({address: placeName}, (data, status) => {
       if (status !== window.google.maps.GeocoderStatus.OK) {
         return
       }
@@ -462,18 +462,18 @@ export function geocode(placeName) {
         // api specifies lng/lat pairs
         [sw.lng(), sw.lat()],
         [ne.lng(), ne.lat()]
-      ], { animate: false }) // set animate to true if you want to pan-and-zoom to the location
+      ], {animate: false}) // set animate to true if you want to pan-and-zoom to the location
     })
   }
 }
 
-export function zoomOut() {
+export function zoomOut () {
   return () => {
-    rasterMapChart.map().flyTo({ center: [0, 0], zoom: 1 }, 1)
+    rasterMapChart.map().flyTo({center: [0, 0], zoom: 1}, 1)
   }
 }
 
-export function zoomTo(position, zoom = 17) {
+export function zoomTo (position, zoom = 17) {
   return () => {
     rasterMapChart.zoom(zoom)
     rasterMapChart.center(position)
@@ -485,7 +485,7 @@ export function zoomTo(position, zoom = 17) {
   }
 }
 
-export function zoomToUserLocation() {
+export function zoomToUserLocation () {
   return dispatch => {
     dispatch(userLocationRequest)
 
@@ -505,8 +505,8 @@ export function zoomToUserLocation() {
   }
 }
 
-export function changeDimension(dim) {
-  return (dispatch, getState, { dc, getCf }) => {
+export function changeDimension (dim) {
+  return (dispatch, getState, {dc, getCf}) => {
     const isLang = getState().legend.mode === "lang"
     const domain = isLang ? LANG_DOMAIN : SOURCE_DOMAIN
     const range = isLang ? LANG_COLORS : SOURCE_COLORS
@@ -529,12 +529,12 @@ export function changeDimension(dim) {
 /*
   LINE CHART
 */
-export function createLineChart() {
-  return (dispatch, getState, { dc, getCf }) => {
+export function createLineChart () {
+  return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
     const parent = document.getElementById("mapChart")
 
-    function getChartSize() {
+    function getChartSize () {
       /* set width to match parent */
       const w = parent.parentElement.clientWidth
       const h = 100
@@ -568,7 +568,7 @@ export function createLineChart() {
           .lineChart("#lineChart")
           .width(w)
           .height(h)
-          .margins({ top: 16, right: 48, bottom: 0, left: 64 })
+          .margins({top: 16, right: 48, bottom: 0, left: 64})
           .elasticY(true)
           .brushOn(true)
           .renderArea(true)
@@ -627,9 +627,9 @@ export function createLineChart() {
           dc.d3.select(".resize.e text").text(dates[1])
 
           const rotate =
-            dc.d3.select(".extent").attr("width") < 80
-              ? "rotate(90deg) translate(40px, 4px)"
-              : "rotate(0) translate(0, 0)"
+            dc.d3.select(".extent").attr("width") < 80 ?
+              "rotate(90deg) translate(40px, 4px)" :
+              "rotate(0) translate(0, 0)"
 
           dc.d3.selectAll(".labelRect, .labelDate").style("transform", rotate)
         })
@@ -646,7 +646,7 @@ export function createLineChart() {
   }
 }
 
-export function initFilter(filter) {
+export function initFilter (filter) {
   return () => {
     if (filter !== null) {
       lineChart.filter(filter.map(str => new Date(str)))
@@ -654,9 +654,9 @@ export function initFilter(filter) {
   }
 }
 
-export function toggleLinechart(val) {
+export function toggleLinechart (val) {
   return dispatch => {
-    dispatch({ type: TOGGLE_LINECHART, val })
+    dispatch({type: TOGGLE_LINECHART, val})
     if (val) {
       lineChart.chartGroup(undefined)
     } else {
@@ -668,8 +668,8 @@ export function toggleLinechart(val) {
 /*
   DC COUNT
 */
-export function createCount() {
-  return (dispatch, getState, { dc, getCf }) => {
+export function createCount () {
+  return (dispatch, getState, {dc, getCf}) => {
     const crossfilter = getCf()
 
     const countGroup = crossfilter.groupAll()
