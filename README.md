@@ -18,8 +18,11 @@ This is OmniSci's Tweetmap demo. Use it as an example for building custom visual
 ```
 nvm use
 npm install
+cp src/servers.conf.example.json src/servers.conf.json
 npm start
 ```
+*Windows users: replace the above `cp` command with `copy`*
+
 # Testing
 ```
 npm run lint
