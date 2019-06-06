@@ -3,12 +3,13 @@ import "./popover.scss"
 import {closeNav, closeSearch, toggleSearch} from "./actions"
 import {connect} from "react-redux"
 import NavItem from "./NavItem/NavItem"
+import Icon from "../Icon/icon"
 import {openShare} from "../ShareModal/actions"
 import Popover from "react-popover"
 import PropTypes from "prop-types"
 import React from "react"
 import SearchPopover from "./SearchPopover/SearchPopover"
-import {zoomOut} from "../MapBody/actions"
+import {toggleMapChartType, zoomOut} from "../MapBody/actions"
 
 const Nav = (props) => {
   const searchPopover = <SearchPopover />
@@ -19,6 +20,27 @@ const Nav = (props) => {
       <a className="close" onClick={props.closeNav}>
         &times;
       </a>
+
+      <NavItem
+        clickListener={props.setMapChartTypePoints(props.mapType)}
+        description={"Pointmap"}
+        icon={
+          <Icon
+            className={`custom-icon ${props.mapType === "points" ? "selected" : ""}`}
+            name={"chart-pointmap"}
+          />
+        }
+      />
+      <NavItem
+        clickListener={props.setMapChartTypeHeat(props.mapType)}
+        description={"Heatmap"}
+        icon={
+          <Icon
+            className={`custom-icon ${props.mapType === "heat" ? "selected" : ""}`}
+            name={"chart-geoheat"}
+          />
+        }
+      />
 
       {/* Search Location */}
       <Popover
@@ -76,7 +98,8 @@ Nav.propTypes = {
 
 const mapStateToProps = (state) => ({
   open: state.nav.navOpen,
-  search: state.nav.locSearchOpen
+  search: state.nav.locSearchOpen,
+  mapType: state.mapBody.chartType
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -91,6 +114,12 @@ const mapDispatchToProps = (dispatch) => ({
   toggleSearch: () => { dispatch(toggleSearch) },
   zoomOut: () => {
     dispatch(zoomOut())
+  },
+  setMapChartTypePoints: (type) => event => {
+    type !== "points" && dispatch(toggleMapChartType())
+  },
+  setMapChartTypeHeat: (type) => event => {
+    type !== "heat" && dispatch(toggleMapChartType())
   }
 })
 

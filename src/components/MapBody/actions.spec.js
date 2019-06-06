@@ -33,7 +33,7 @@ describe("Map Body Actions", () => {
   })
   describe("Toggle Line Chart", () => {
     it("should be a toggle line chart action", () => {
-      expect(actions.toggleLinechart.type).to.equal("TOGGLE_LINECHART")
+      expect(actions.toggleLinechart).to.be.a("function")
     })
   })
   describe("Close Line Chart", () => {

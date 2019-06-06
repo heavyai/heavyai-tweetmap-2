@@ -9,12 +9,6 @@ describe("Nav Reducer", () => {
     // eslint-disable-next-line no-undefined
     expect(reducer(undefined, {})).to.deep.equal(initialState)
   })
-  it("should handle TOGGLE_NAV action type", () => {
-    const open = reducer(initialState, actions.toggleNav)
-    expect(open.navOpen).to.be.true
-    const closed = reducer(open, actions.toggleNav)
-    expect(closed.navOpen).to.be.false
-  })
   it("should handle CLOSE_NAV action type", () => {
     const closed = reducer(initialState, actions.closeNav)
     expect(closed.navOpen).to.be.false

@@ -18,6 +18,10 @@ div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   border: 3px solid white;
 }
 
+.map-point-gfx {
+  pointer-events: none !important;
+}
+
 .labelRect {
   fill: #22A7F0;
 }
@@ -39,4 +43,20 @@ div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
   div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
     bottom: 4px + $line-chart-height;
   }
+}
+
+.heat {
+  @media (min-device-width: $mobile-breakpoint) {
+    a.mapbox-maplogo {
+      bottom: 24px + $line-chart-height - 16px;
+    }
+
+    div.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+      bottom: 4px + $line-chart-height - 16px;
+    }
+  }
+}
+
+.mapboxgl-canvas {
+  cursor: default;
 }

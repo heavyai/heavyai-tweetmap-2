@@ -52,8 +52,12 @@ export function createLegendChart () {
     dummyChart._doRender = dummyChart._doRedraw = () => {}
 
     dummyChart.setDataAsync((_group, callback) => {
-      const numColors = COLORS.length
+      if (getState().mapBody.chartType === "heat") {
+        callback()
+        return
+      }
 
+      const numColors = COLORS.length
       group.reduceCount("*").topAsync(numColors).then(
         results => {
           // rename keys
@@ -95,8 +99,15 @@ export function selectFilter (item) {
   }
 }
 
+export function clearLegendFilter () {
+  return dispatch => {
+    dimension.filterAll()
+    dispatch(updateSelected([]))
+  }
+}
+
 // setup in case tweetmap is setup with shared filters
-export function initFilters (item) {
+export function initFilters (item = []) {
   return dispatch => {
     if (item.length !== 0) {
       dimension.filterMulti(item)

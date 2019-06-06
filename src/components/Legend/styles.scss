@@ -106,3 +106,99 @@
     }
   }
 }
+
+.legend-continuous {
+  background-color: white;
+  position: relative;
+
+  ul {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+
+  li {
+    height: calc(#{$bottom-bar-height} - 1em)
+  }
+
+  .legendItem {
+    height: calc(#{$bottom-bar-height} - 1em);
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    cursor: default;
+  }
+
+  .legendLabel {
+    width: 10px;
+    height: 10px;
+    margin-top: 7px;
+    border-radius: 5px;
+  }
+
+  .legendBlock {
+    flex: 1;
+    height: 100%;
+  }
+
+  div.whitedOut {
+    background-color: white;
+    opacity: 0.7;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+  p {
+    margin: 5px;
+  }
+
+  .title {
+    margin-right: 0.2em;
+  }
+
+  .agg-select {
+    font-size: 1em;
+    height: 100%;
+    width: 100%;
+    padding-left: 0.8em;
+    padding-right: 1em;
+    padding-top: 1em;
+  }
+
+  select {
+    -webkit-appearance:none;
+    -moz-appearance: none;
+    border: none;
+    outline: none;
+    background-color: white;
+    font-size: 1em;
+    width: 7.2em;
+    height: 100%;
+    background: url(../../assets/br_down.png) no-repeat;
+    background-position: 95% 16px;
+    padding-left: 0.8em;
+    padding-right: 1em;
+    border-radius: 0;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  i {
+    margin-top: 4px;
+  }
+}

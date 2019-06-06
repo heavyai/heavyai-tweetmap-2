@@ -42,6 +42,11 @@ main {
     width: 100%;
     height: $bottom-bar-height;
   }
+
+  .legend-continuous {
+    width: 100%;
+    height: calc(#{$bottom-bar-height} - 1em);
+  }
 }
 
 map {

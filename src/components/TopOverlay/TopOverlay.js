@@ -6,7 +6,7 @@ import PropTypes from "prop-types"
 import QueryDisplay from "./QueryDisplay/QueryDisplay.js"
 import React from "react"
 import SearchBar from "./SearchBar/SearchBar"
-import {toggleSidebar} from "../TweetSidebar/actions"
+import {setSidebar} from "../TweetSidebar/actions"
 
 const TopOverlay = props => (
   <div className="overlay">
@@ -20,12 +20,12 @@ const TopOverlay = props => (
 
       {/* Logo only on Desktop */}
       <a href="https://www.omnisci.com" rel="noopener noreferrer" target="_blank">
-        <img className="logo" src="src/assets/logo.svg" />
+        <img className="logo" src="/assets/logo.svg" />
       </a>
 
       {/* Button only on Mobile */}
       <a className="tweetBar icon">
-        <Octicon mega name="list-unordered" onClick={props.toggleSidebar} />
+        <Octicon mega name="list-unordered" onClick={props.toggleSidebar(props.sideBarOpen)} />
       </a>
     </div>
 
@@ -38,16 +38,20 @@ TopOverlay.propTypes = {
   toggleSidebar: PropTypes.func.isRequired
 }
 
+const mapStateToProps = state => ({
+  sideBarOpen: state.tweetSidebar.sidebarOpen
+})
+
 const mapDispatchToProps = (dispatch) => ({
   toggleNav: () => {
     dispatch(closeSearch)
     dispatch(toggleNav)
   },
-  toggleSidebar: () => {
-    dispatch(toggleSidebar)
+  toggleSidebar: currVal => () => {
+    dispatch(setSidebar(!currVal))
     dispatch(closeSearch)
     dispatch(closeNav)
   }
 })
 
-export default connect(null, mapDispatchToProps)(TopOverlay)
+export default connect(mapStateToProps, mapDispatchToProps)(TopOverlay)

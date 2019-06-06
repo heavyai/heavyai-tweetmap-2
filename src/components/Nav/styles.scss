@@ -31,6 +31,12 @@
     margin-left: 1em; margin-right: 0.5em;
   }
 
+  .custom-icon {
+    margin-left: 1em; margin-right: 0.5em;
+    width: 49px;
+    height: 30px;
+  }
+
   a.close {
     font-size: 2em;
     text-align: right;
@@ -54,12 +60,34 @@
       margin-left: 0; margin-right: 0;
     }
 
+    .custom-icon {
+      margin-left: 0; margin-right: 0;
+      width: 48px;
+      height: 48px;
+    }
+
     a:hover .mega-octicon {
       color: $light-grey;
     }
 
     a.close {
       display: none;
+    }
+  }
+
+  .custom-icon {
+    fill: white;
+    color: white;
+
+    &:hover {
+      fill: $light-grey;
+      color: $light-grey;
+    }
+
+    &.selected {
+
+      fill: $blue-main;
+      color: $blue-main;
     }
   }
 }

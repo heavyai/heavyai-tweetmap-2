@@ -1,5 +1,15 @@
+let config
+try {
+  config = require("../servers.conf.json")
+} catch (e) {
+  if (e.code !== "MODULE_NOT_FOUND") {
+    throw e
+  }
+  config = {}
+}
+
 export {langCodes} from "./langCodes"
-export const TABLE_NAME = "tweets_nov_feb"
+export const TABLE_NAME = config.table || "tweets_nov_feb"
 export const HASHTAG_FETCH_SIZE = 60
 export const TWEET_FETCH_SIZE = 25
 export const PERCENTAGE_MAX = 100
@@ -70,6 +80,18 @@ export const COLORS = [
   "#4db6ac",
   "#edbf33",
   "#7c4dff"
+]
+
+export const QUANT_COLORS = [
+  "rgba(17,95,154,0.3)",
+  "rgba(25,132,197,0.4)",
+  "rgba(34,167,240,0.4)",
+  "rgba(72,181,196,0.5)",
+  "rgba(118,198,143,0.5)",
+  "rgba(166,215,91,0.6)",
+  "rgba(201,229,47,0.7)",
+  "rgba(208,238,17,0.7)",
+  "rgba(208,244,0,0.7)"
 ]
 
 export const LANG_COLORS = LANG_DOMAIN.map((lang, i) => COLORS[i % COLORS.length])

@@ -72,7 +72,7 @@
 
     .bar {
       height: 6px;
-      background-color: #27aeef;
+      background-color: $blue-main;
       border-radius: 100px;
       margin-top: 0.5em; margin-bottom: 0.5em;
       pointer-events: none;
@@ -80,7 +80,7 @@
 
     .bold {
       font-weight: bold;
-      color: #27aeef;
+      color: $blue-main;
       margin-right: 0.3em;
     }
   }

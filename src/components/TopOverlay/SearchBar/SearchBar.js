@@ -91,7 +91,10 @@ export class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({queryTerms: state.topOverlay.queryTerms})
+const mapStateToProps = state => ({
+  queryTerms: state.topOverlay.queryTerms,
+  mapChartType: state.mapBody.chartType
+})
 const mapDispatchToProps = dispatch => ({
   removeQuery: (query) => () => dispatch(removeFilter(query)),
   dispatch
