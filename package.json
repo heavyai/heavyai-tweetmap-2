@@ -12,8 +12,8 @@
     "test": "mocha --require ./testHelper.js src/**/*.spec.js"
   },
   "dependencies": {
-    "@mapd/connector": "4.2.0",
-    "@mapd/crossfilter": "https://github.com/mapd/mapd-crossfilter.git#v1.2.0",
+    "@mapd/connector": "https://github.com/omnisci/mapd-connector.git#ef35e35",
+    "@mapd/crossfilter": "https://github.com/omnisci/mapd-crossfilter.git#2e5677d",
     "@mapd/mapdc": "https://github.com/mapd/mapd-charting.git#tweetmap",
     "babel-polyfill": "^6.23.0",
     "fetch-js": "^1.0.3",
