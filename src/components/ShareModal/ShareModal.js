@@ -39,7 +39,7 @@ export class ShareModal extends React.Component {
     const url = this.props.applyFilters ? this.props.viewUrl : baseUrl
 
     const fbShare = `https://www.facebook.com/share.php?u=${url}`
-    const twitterShare = `https://twitter.com/intent/tweet?text=Explore%20millions%20of%20tweets%20with%20MapD%27s%20GPU-powered%20interactive%20Tweetmap%20${
+    const twitterShare = `https://twitter.com/intent/tweet?text=Explore%20millions%20of%20tweets%20with%20OmniSci%27s%20GPU-powered%20interactive%20Tweetmap%20${
       url}%20@mapd`
 
     return (

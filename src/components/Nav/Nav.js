@@ -67,14 +67,14 @@ const Nav = (props) => {
       <NavItem
         description="See Repo"
         icon="mark-github"
-        url="https://github.com/mapd/mapd-tweetmap-2"
+        url="https://github.com/omnisci/omnisci-tweetmap-2"
       />
 
       {/* About */}
       <NavItem
         description="About"
         icon="info"
-        url="https://www.mapd.com"
+        url="https://www.omnisci.com"
       />
 
       {/* Share */}
