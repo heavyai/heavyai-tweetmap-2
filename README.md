@@ -9,7 +9,7 @@ This is OmniSci's Tweetmap demo. Use it as an example for building custom visual
 * [MapD CrossFilter](https://github.com/mapd/mapd-crossfilter)
 * [MapD Connector](https://github.com/mapd/mapd-connector)
 
-![Tweetmap](https://user-images.githubusercontent.com/14284310/59373385-8ebc9a80-8d17-11e9-9e27-e06b1019e19e.png)
+![Tweetmap](https://user-images.githubusercontent.com/14284310/59374439-d9d7ad00-8d19-11e9-8240-dea1ab418fda.png)
 # Quickstart
 ### Requirements
 * nvm
