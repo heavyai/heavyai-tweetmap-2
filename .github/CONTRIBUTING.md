@@ -1,11 +1,11 @@
-# Contributing to MapD Tweetmap
+# Contributing to OmniSci Tweetmap
 👍🎉 Thanks for taking the time to contribute! 🎉👍
 
 Our team welcomes and appreciates your contributions to this codebase. Every contribution helps, and our team will make sure you're given proper credit for your efforts.
 
 ### Contributor License Agreement
 
-In order to clarify the intellectual property license granted with Contributions from any person or entity, MapD must have a Contributor License Agreement (“CLA”) on file that has been signed by each Contributor, indicating agreement to the [Contributor License Agreement](CONTRIBUTOR_LICENSE_AGREEMENT.md). If you have not already done so, please complete and sign, then scan and email a pdf file of this Agreement to contributors@mapd.com. Please read the agreement carefully before signing and keep a copy for your records.
+In order to clarify the intellectual property license granted with Contributions from any person or entity, OmniSci must have a Contributor License Agreement (“CLA”) on file that has been signed by each Contributor, indicating agreement to the [Contributor License Agreement](CONTRIBUTOR_LICENSE_AGREEMENT.md). If you have not already done so, please complete and sign, then scan and email a pdf file of this Agreement to contributors@omnisci.com. Please read the agreement carefully before signing and keep a copy for your records.
 
 You can contribute in many ways:
 

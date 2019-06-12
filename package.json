@@ -1,8 +1,8 @@
 {
   "name": "tweetmap",
   "version": "1.0.0",
-  "description": "MapD Tweetmap Demo",
-  "repository": "https://github.com/mapd/new-tweetmap",
+  "description": "OmniSci Tweetmap Demo",
+  "repository": "https://github.com/omnisci/omnisci-tweetmap-2",
   "license": "Apache-2.0",
   "scripts": {
     "start": "webpack-dev-server --content-base src/",
