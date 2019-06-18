@@ -22,17 +22,17 @@ class NavItem extends React.Component {
     this.openPopover = this.openPopover.bind(this)
     this.closePopover = this.closePopover.bind(this)
   }
-  
+
   openPopover () {
     // eslint-disable-next-line react/no-set-state
     this.setState({popover: true})
   }
-  
+
   closePopover () {
     // eslint-disable-next-line react/no-set-state
     this.setState({popover: false})
   }
-  
+
   render () {
     const handleClick = () => {
       // eslint-disable-next-line react/no-set-state
@@ -44,7 +44,7 @@ class NavItem extends React.Component {
 
     return (
       <a
-      href={this.props.url}
+        href={this.props.url}
         onClick={handleClick}
         onMouseEnter={this.openPopover}
         onMouseLeave={this.closePopover}
