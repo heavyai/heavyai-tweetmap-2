@@ -103,10 +103,12 @@ const legendCountType = PropTypes.shape({
 
 LegendOrdinal.propTypes = {
   closeAll: PropTypes.func.isRequired,
-  legendCounts: PropTypes.arrayOf(legendCountType).isRequired,
-  mode: PropTypes.string.isRequired,
+  legend: PropTypes.shape({
+    legendCounts: PropTypes.arrayOf(legendCountType).isRequired,
+    mode: PropTypes.string.isRequired,
+    selected: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired,
   modeUpdate: PropTypes.func.isRequired,
-  selected: PropTypes.arrayOf(PropTypes.string).isRequired,
   selectFilter: PropTypes.func.isRequired
 }
 

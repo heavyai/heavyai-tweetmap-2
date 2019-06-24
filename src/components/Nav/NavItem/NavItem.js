@@ -7,7 +7,10 @@ class NavItem extends React.Component {
   static propTypes = {
     clickListener: PropTypes.func,
     description: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]).isRequired,
     url: PropTypes.string
   }
 
@@ -16,7 +19,6 @@ class NavItem extends React.Component {
     this.state = {
       popover: false
     }
-
     this.openPopover = this.openPopover.bind(this)
     this.closePopover = this.closePopover.bind(this)
   }
