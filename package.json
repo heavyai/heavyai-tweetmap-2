@@ -17,7 +17,7 @@
     "@mapd/mapdc": "https://github.com/mapd/mapd-charting.git#tweetmap",
     "babel-polyfill": "^6.23.0",
     "fetch-js": "^1.0.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "mapbox-gl": "https://github.com/mapd/mapbox-gl-js/tarball/9c04de6949fe498c8c79f5c0627dfd6d6321f307",
     "rc-switch": "^1.5.2",
     "react": "^15.5.4",
